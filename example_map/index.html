@@ -10,7 +10,6 @@
     <!--[if lt IE 9]>
     <script src="https://raw.github.com/aFarkas/html5shiv/master/dist/html5shiv.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="example.js"></script>
     <style>
         html, body {
             height: 100%;
@@ -23,26 +22,32 @@
             margin-bottom: 10px;
         }
 
-        #map-canvas {
-            height: 400px;
-            width: 600px;
-            border: solid 2px;
-            display: inline-block;
-        }
-
         #map-log {
             height: 400px;
             width: 300px;
-            border: solid 2px;
-            display: inline-block;
+            border: solid 1px;
+            float: left;
+            margin-right: 10px;
+            overflow-y: scroll;
+        }
+
+        #map-canvas {
+            height: 400px;
+            width: 600px;
+            border: solid 1px;
         }
     </style>
 </head>
     <div id="area">
         <div id="map-log"></div>
         <div id="map-canvas"></div>
+        <div style="clear: both;"></div>
     </div>
-    <button id="add-point">addPoint</button>
+    <button id="add-marker">addMarker</button>
+    <button id="delete-marker">deleteMarker</button>
     <button id="add-area">addArea</button>
+    <button id="delete-area">deleteArea</button>
+
+    <script type="text/javascript" src="example.js"></script>
 </body>
 </html>
