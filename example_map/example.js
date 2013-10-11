@@ -10,8 +10,6 @@ var switchVisibleMarkers = document.getElementById('switch-visible-markes');
 var switchVisiblePolygons = document.getElementById('switch-visible-polygons');
 var switchVisibleCircles = document.getElementById('switch-visible-circles');
 
-var logPolygon = document.getElementById('map-log');
-
 var selectedElement = null;
 
 var markersArray = ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png',
@@ -22,13 +20,6 @@ var markersArray = ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/red.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/pink.png'
 ];
-
-function addLog(text) {
-    'use strict';
-    var p = document.createElement('p');
-    p.innerHTML = text;
-    logPolygon.appendChild(p);
-}
 
 function initialize() {
     'use strict';
