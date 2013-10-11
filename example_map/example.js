@@ -2,9 +2,14 @@
 /*global google, document, window*/
 
 var addMarkerBtn = document.getElementById('add-marker');
-var addAreaBtn = document.getElementById('add-area');
+var addAreaBtn = document.getElementById('add-poligon');
 var deleteMarkerBtn = document.getElementById('delete-marker');
-var deleteAreaBtn = document.getElementById('delete-area');
+var deleteAreaBtn = document.getElementById('delete-poligon');
+
+var switchVisibleMarkers = document.getElementById('switch-visible-markes');
+var switchVisiblePoligons = document.getElementById('switch-visible-poligons');
+var switchVisibleCircles = document.getElementById('switch-visible-circles');
+
 var logArea = document.getElementById('map-log');
 var markersArray = ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/lightblue.png',
@@ -12,7 +17,8 @@ var markersArray = ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/yellow.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/purple.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/red.png',
-    'https://maps.gstatic.com/mapfiles/ms2/micons/pink.png'];
+    'https://maps.gstatic.com/mapfiles/ms2/micons/pink.png'
+];
 
 function addLog(text) {
     'use strict';
@@ -34,19 +40,53 @@ function initialize() {
     };
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     var centerMap = map.getCenter();
-    var markers = [],
-        polygons = [];
-    var marker;
+
+    var data = {
+        visible: {
+            markers: 1,
+            polygons: 1,
+            circles: 1
+        },
+        markers: [],
+        polygons: [],
+        circles: []
+    };
+
+    function setStatusItems(items, type) {
+        var i;
+        for (i in items) {
+            if (items.hasOwnProperty(i)) {
+                items[i].setVisible(type);
+            }
+        }
+    }
+
+    function switchVisibleLayers(layer) {
+        switch (layer) {
+        case 'marker':
+            data.visible.markers = !data.visible.markers;
+            setStatusItems(data.markers, data.visible.markers);
+            break;
+        case 'polygon':
+            data.visible.polygons = !data.visible.polygons;
+            setStatusItems(data.polygons, data.visible.polygons);
+            break;
+        case 'circle':
+            data.visible.circles = !data.visible.circles;
+            setStatusItems(data.circles, !data.visible.circles);
+            break;
+        }
+    }
 
     function addMarker(location, type) {
-        marker = new google.maps.Marker({
+        var marker = new google.maps.Marker({
             position: location,
             icon: markersArray[type],
             map: map,
             draggable: true
         });
         addLog('add marker type:' + type);
-        markers.push(marker);
+        data.markers.push(marker);
     }
 
     function addArea(location, type) {
@@ -69,7 +109,7 @@ function initialize() {
         });
         polygon.setMap(map);
         addLog('add rectangle type:' + type);
-        polygons.push(polygon);
+        data.polygons.push(polygon);
     }
 
     function deleteSelected() {
@@ -77,7 +117,7 @@ function initialize() {
     }
 
     addMarkerBtn.onclick = function () {
-        addMarker(centerMap, '');
+        addMarker(centerMap, 0);
     };
 
     addAreaBtn.onclick = function () {
@@ -90,6 +130,18 @@ function initialize() {
 
     deleteAreaBtn.onclick = function () {
 
+    };
+
+    switchVisibleMarkers.onclick = function () {
+        switchVisibleLayers('marker');
+    };
+
+    switchVisiblePoligons.onclick = function () {
+        switchVisibleLayers('poligon');
+    };
+
+    switchVisibleCircles.onclick = function () {
+        switchVisibleLayers('circle');
     };
 
 }
