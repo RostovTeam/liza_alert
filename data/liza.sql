@@ -47,9 +47,12 @@ CREATE TABLE IF NOT EXISTS `authitemchild` (
 DROP TABLE IF EXISTS `area`;
 CREATE TABLE `area` (
   `tittle` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `points` text
+  `points` text,
+  `lost_id` int(11) NOT NULL,
+ `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -88,6 +91,66 @@ CREATE TABLE `radius` (
 
 -- --------------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS `coordinator` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `phone_index` (`phone`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS `lost` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `status` int(10) DEFAULT NULL,
+  `city_id` int(11) NOT NULL,
+  `coordinator_id` int(11) NOT NULL,
+`date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `status_index` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `city` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `volunteer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+`date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `crew` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `active` int(1) DEFAULT NULL,
+  `lost_id` int(11) NOT NULL,
+  `coordinator_id` int(11) NOT NULL,
+`date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `user` (
+ `user_id` int(10) NOT NULL AUTO_INCREMENT,
+ `login` varchar(50) NOT NULL,
+ `password` varchar(100) NOT NULL,
+ `salt` varchar(100) NOT NULL,
+ PRIMARY KEY (`user_id`),
+ UNIQUE KEY `login` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+
 --
 -- Constraints for table `authassignment`
 --
@@ -101,3 +164,19 @@ ALTER TABLE `authitemchild`
   ADD CONSTRAINT `authitemchild_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `authitemchild_ibfk_2` FOREIGN KEY (`child`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+ALTER TABLE `lost`
+  ADD CONSTRAINT `lost_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lost_ibfk_2` FOREIGN KEY (`coordinator_id`) REFERENCES `coordinator` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `crew`
+  ADD CONSTRAINT `crew_ibfk_1` FOREIGN KEY (`lost_id`) REFERENCES `lost` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `crew_ibfk_2` FOREIGN KEY (`coordinator_id`) REFERENCES `coordinator` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `area`
+  ADD CONSTRAINT `area_ibfk_1` FOREIGN KEY (`lost_id`) REFERENCES `lost` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `radius`
+  ADD CONSTRAINT `radius_ibfk_1` FOREIGN KEY (`lost_id`) REFERENCES `lost` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `balloon`
+  ADD CONSTRAINT `ballon_ibfk_1` FOREIGN KEY (`lost_id`) REFERENCES `lost` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
