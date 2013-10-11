@@ -883,3 +883,31 @@ Stack trace:
 REQUEST_URI=/index.php/gii/crud/index
 HTTP_REFERER=http://game.loc/index.php/gii/crud/index
 ---
+2013/10/11 23:55:12 [error] [php] include(News.php): failed to open stream: No such file or directory (C:\xampp\htdocs\framework\YiiBase.php:427)
+Stack trace:
+#0 C:\xampp\htdocs\liza\protected\controllers\SiteController.php(86): spl_autoload_call()
+#1 unknown(0): SiteController->actionNews()
+#2 C:\xampp\htdocs\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#3 C:\xampp\htdocs\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#4 C:\xampp\htdocs\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\xampp\htdocs\framework\web\CController.php(286): SiteController->runAction()
+#6 C:\xampp\htdocs\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#7 C:\xampp\htdocs\framework\web\CWebApplication.php(282): SiteController->run()
+#8 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\liza\index.php(10): CWebApplication->run()
+REQUEST_URI=/index.php
+2013/10/11 23:55:28 [error] [php] include(News.php): failed to open stream: No such file or directory (C:\xampp\htdocs\framework\YiiBase.php:427)
+Stack trace:
+#0 C:\xampp\htdocs\liza\protected\controllers\SiteController.php(86): spl_autoload_call()
+#1 unknown(0): SiteController->actionNews()
+#2 C:\xampp\htdocs\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#3 C:\xampp\htdocs\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#4 C:\xampp\htdocs\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\xampp\htdocs\framework\web\CController.php(286): SiteController->runAction()
+#6 C:\xampp\htdocs\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#7 C:\xampp\htdocs\framework\web\CWebApplication.php(282): SiteController->run()
+#8 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 C:\xampp\htdocs\liza\index.php(10): CWebApplication->run()
+REQUEST_URI=/index.php
