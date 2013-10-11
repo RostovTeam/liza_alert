@@ -39,6 +39,53 @@ CREATE TABLE IF NOT EXISTS `authitemchild` (
   KEY `child` (`child`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
+-- ----------------------------
+--  Table structure for `area`
+-- ----------------------------
+DROP TABLE IF EXISTS `area`;
+CREATE TABLE `area` (
+  `tittle` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `points` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `balloon`
+-- ----------------------------
+DROP TABLE IF EXISTS `balloon`;
+CREATE TABLE `balloon` (
+  `title` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `description` text CHARACTER SET utf8,
+  `lat` varchar(255) DEFAULT NULL,
+  `long` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `lost_id` int(11) DEFAULT NULL,
+  `user` int(1) unsigned DEFAULT NULL,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- ----------------------------
+--  Table structure for `radius`
+-- ----------------------------
+DROP TABLE IF EXISTS `radius`;
+CREATE TABLE `radius` (
+  `title` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `description` text CHARACTER SET utf8,
+  `lat` varchar(255) DEFAULT NULL,
+  `long` varchar(255) DEFAULT NULL,
+  `lost_id` int(11) DEFAULT NULL,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `radius` int(11) DEFAULT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --
