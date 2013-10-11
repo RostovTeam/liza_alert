@@ -48,7 +48,6 @@ function initialize() {
     };
 
     function setSelectElement(element) {
-        'use strict';
         var i, el;
         for (i in data.markers) {
             el = data.markers[i];
@@ -70,7 +69,7 @@ function initialize() {
         }
 
         // set select element
-        if(element.hasOwnProperty('fillColor')) { // polygon or circle
+        if (element.hasOwnProperty('fillColor')) { // polygon or circle
             element.setOptions({
                 fillColor: '#ff0000'
             });
@@ -92,7 +91,7 @@ function initialize() {
     }
 
     function infoWindow(event, contentString) {
-        if(contentString === '') {
+        if (contentString === '') {
             return false;
         }
         infowindow = new google.maps.InfoWindow();
