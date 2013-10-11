@@ -1,7 +1,6 @@
-<<<<<<< Updated upstream
+
 .idea/*
 protected/config/main.php
-=======
 nbproject
 ._*
 .~lock.*
@@ -12,4 +11,5 @@ nbproject
 .settings
 composer.lock
 vendor/bin
->>>>>>> Stashed changes
+assets/*
+protected/runtime/*

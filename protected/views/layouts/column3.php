@@ -6,7 +6,7 @@
     <div class="navbar navbar-static-top">
         <div class="navbar-inner ">
             <div class="container">
-                <a href="" class="brand ">ЪGames</a>
+                <a href="" class="brand ">Лиза алерт</a>
 
                 <!-- Start: Primary navigation -->
                 <div class="nav-collapse collapse">        
@@ -27,7 +27,7 @@
 </header>
 <div class="content">
     <div class="container">
-        <div class="span3" style="margin-left: 0px">
+        <div class="span2" style="margin-left: 0px">
             <div class="well" style="padding: 8px 0px">
                 <?php
                 $this->beginWidget('zii.widgets.CPortlet', array(

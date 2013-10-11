@@ -911,3 +911,25 @@ Stack trace:
 #9 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
 #10 C:\xampp\htdocs\liza\index.php(10): CWebApplication->run()
 REQUEST_URI=/index.php
+2013/10/12 00:06:08 [error] [exception.CException] exception 'CException' with message 'Alias "application.widgets.FeedWIdget" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /Users/kostyukdg/Sites/zf.local/zf/framework/YiiBase.php:322
+Stack trace:
+#0 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CWidgetFactory.php(146): YiiBase::import('application.wid...', true)
+#1 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CBaseController.php(146): CWidgetFactory->createWidget(Object(LoginController), 'application.wid...', Array)
+#2 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CBaseController.php(172): CBaseController->createWidget('application.wid...', Array)
+#3 /Users/kostyukdg/Sites/zf.local/zf/public/protected/views/layouts/column2.php(10): CBaseController->widget('application.wid...')
+#4 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CBaseController.php(126): require('/Users/kostyukd...')
+#5 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Users/kostyukd...', Array, true)
+#6 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CController.php(784): CBaseController->renderFile('/Users/kostyukd...', Array, true)
+#7 /Users/kostyukdg/Sites/zf.local/zf/public/protected/modules/user/controllers/LoginController.php(28): CController->render('/user/login', Array)
+#8 /Users/kostyukdg/Sites/zf.local/zf/framework/web/actions/CInlineAction.php(49): LoginController->actionLogin()
+#9 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#10 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#11 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CWebApplication.php(282): CController->run('')
+#13 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CWebApplication.php(141): CWebApplication->runController('user/login')
+#14 /Users/kostyukdg/Sites/zf.local/zf/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#15 /Users/kostyukdg/Sites/zf.local/zf/public/index.php(10): CApplication->run()
+#16 {main}
+REQUEST_URI=/index.php/user/login
+HTTP_REFERER=http://zf.local/index.php/coordinator/index
+---
