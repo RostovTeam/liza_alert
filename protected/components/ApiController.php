@@ -40,6 +40,7 @@ abstract class ApiController extends Controller
 
     public function actionList()
     {
+        
         $modelname = $this->model;
 
         $models = $modelname::model()->findAll();

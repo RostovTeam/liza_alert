@@ -46,10 +46,10 @@
      </div>
 </div>
  <div class="control-group">
-		<?php echo $form->labelEx($model,'date_created',array('class'=>'control-label')); ?>
+		<?php echo $form->labelEx($model,'age',array('class'=>'control-label')); ?>
      <div class="controls">
-		<?php echo $form->textField($model,'date_created'); ?>
-		<?php echo $form->error($model,'date_created'); ?>
+		<?php echo $form->textField($model,'age'); ?>
+		<?php echo $form->error($model,'age'); ?>
      </div>
 </div>
  <div class="control-group">

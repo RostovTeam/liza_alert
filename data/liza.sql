@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS `authassignment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
 -- --------------------------------------------------------
 
 --
@@ -90,7 +89,7 @@ CREATE TABLE `radar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
-
+DROP TABLE IF EXISTS `coordinator`;
 CREATE TABLE IF NOT EXISTS `coordinator` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
@@ -102,20 +101,25 @@ CREATE TABLE IF NOT EXISTS `coordinator` (
 
 -- --------------------------------------------------------
 
-
+DROP TABLE IF EXISTS `lost`;
 CREATE TABLE IF NOT EXISTS `lost` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `status` int(10) DEFAULT NULL,
   `city_id` int(11) NOT NULL,
   `coordinator_id` int(11) NOT NULL,
-`date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `photo` text DEFAULT NULL,
+  `age` int(5) DEFAULT NULL,
+  `flyer` varchar(200) DEFAULT NULL,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `status_index` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
+
+DROP TABLE IF EXISTS `city`;
 CREATE TABLE IF NOT EXISTS `city` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
@@ -123,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `city` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+DROP TABLE IF EXISTS `volunteer`;
 CREATE TABLE IF NOT EXISTS `volunteer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
@@ -132,6 +136,7 @@ CREATE TABLE IF NOT EXISTS `volunteer` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `crew`;
 CREATE TABLE IF NOT EXISTS `crew` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
@@ -142,6 +147,15 @@ CREATE TABLE IF NOT EXISTS `crew` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `volunteer_crew`;
+CREATE TABLE IF NOT EXISTS `volunteer_crew`(
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `volunteer_id` int(11) NOT NULL,
+    `crew_id` int(11) NOT NULL,
+    PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
  `user_id` int(10) NOT NULL AUTO_INCREMENT,
  `login` varchar(50) NOT NULL,
@@ -171,6 +185,11 @@ ALTER TABLE `lost`
 ALTER TABLE `crew`
   ADD CONSTRAINT `crew_ibfk_1` FOREIGN KEY (`lost_id`) REFERENCES `lost` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `crew_ibfk_2` FOREIGN KEY (`coordinator_id`) REFERENCES `coordinator` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `volunteer_crew`
+  ADD CONSTRAINT `vc_ibfk_1` FOREIGN KEY (`volunteer_id`) REFERENCES `volunteer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vc_ibfk_2` FOREIGN KEY (`crew_id`) REFERENCES `crew` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 ALTER TABLE `area`
   ADD CONSTRAINT `area_ibfk_1` FOREIGN KEY (`lost_id`) REFERENCES `lost` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
