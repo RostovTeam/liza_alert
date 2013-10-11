@@ -7,7 +7,7 @@
 </div><!-- #container-->
 
 <aside id="sideRight"  style="overflow-y: scroll">
-    <?php $this->widget('application.widgets.FeedWIdget'); ?>
+
 </aside><!-- #sideRight -->
 <!-- End: MAIN CONTENT -->
 <?php $this->endContent(); ?>
