@@ -6,6 +6,13 @@ var addAreaBtn = document.getElementById('add-area');
 var deleteMarkerBtn = document.getElementById('delete-marker');
 var deleteAreaBtn = document.getElementById('delete-area');
 var logArea = document.getElementById('map-log');
+var markersArray = ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png',
+    'https://maps.gstatic.com/mapfiles/ms2/micons/lightblue.png',
+    'https://maps.gstatic.com/mapfiles/ms2/micons/blue.png',
+    'https://maps.gstatic.com/mapfiles/ms2/micons/yellow.png',
+    'https://maps.gstatic.com/mapfiles/ms2/micons/purple.png',
+    'https://maps.gstatic.com/mapfiles/ms2/micons/red.png',
+    'https://maps.gstatic.com/mapfiles/ms2/micons/pink.png'];
 
 function addLog(text) {
     'use strict';
@@ -34,6 +41,7 @@ function initialize() {
     function addMarker(location, type) {
         marker = new google.maps.Marker({
             position: location,
+            icon: markersArray[type],
             map: map,
             draggable: true
         });
@@ -42,11 +50,12 @@ function initialize() {
     }
 
     function addArea(location, type) {
-        var x = location.lat(), y = location.lng();
+        var x = location.lat(),
+            y = location.lng();
         var bounds = [
-            new google.maps.LatLng(x-0.01, y),
-            new google.maps.LatLng(x-0.01, y-0.01),
-            new google.maps.LatLng(x, y-0.01)
+            new google.maps.LatLng(x - 0.01, y),
+            new google.maps.LatLng(x - 0.01, y - 0.01),
+            new google.maps.LatLng(x, y - 0.01)
         ];
 
         var polygon = new google.maps.Polygon({
