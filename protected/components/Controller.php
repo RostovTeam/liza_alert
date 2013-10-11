@@ -7,7 +7,7 @@
 class Controller extends CController
 {
 
-    public $layout = '//layouts/column2';
+    public $layout = '//layouts/main';
     public $menu = array();
     public $breadcrumbs = array();
 
