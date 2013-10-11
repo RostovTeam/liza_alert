@@ -74,10 +74,10 @@ CREATE TABLE `balloon` (
 
 
 -- ----------------------------
---  Table structure for `radius`
+--  Table structure for `radar`
 -- ----------------------------
-DROP TABLE IF EXISTS `radius`;
-CREATE TABLE `radius` (
+DROP TABLE IF EXISTS `radar`;
+CREATE TABLE `radar` (
   `title` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `description` text CHARACTER SET utf8,
   `lat` varchar(255) DEFAULT NULL,
