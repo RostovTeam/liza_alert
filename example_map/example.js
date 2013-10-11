@@ -94,7 +94,7 @@ function initialize() {
         var i;
         for (i in items) {
             if (items.hasOwnProperty(i)) {
-                items[i].setVisible(type);
+                items[i].element.setVisible(type);
             }
         }
     }
