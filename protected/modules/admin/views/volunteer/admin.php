@@ -1,14 +1,14 @@
 <?php
-/* @var $this CoordinatorController */
-/* @var $model Coordinator */
+/* @var $this VolunteerController */
+/* @var $model Volunteer */
 
 $this->breadcrumbs=array(
-	'Coordinators'=>array('index'),
+	'Volunteers'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'Create Coordinator', 'url'=>array('create')),
+	array('label'=>'Создать волонтера', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -17,7 +17,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#coordinator-grid').yiiGridView('update', {
+	$('#volunteer-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -25,7 +25,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h2>Управление координатами</h2>
+<h2>Manage Volunteers</h2>
 
 
 
@@ -37,7 +37,7 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'coordinator-grid',
+	'id'=>'volunteer-grid',
 	'dataProvider'=>$model->search(),
 	'itemsCssClass' => 'table table-striped table-bordered',
         'summaryText'=>'',

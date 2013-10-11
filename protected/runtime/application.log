@@ -933,6 +933,7 @@ Stack trace:
 REQUEST_URI=/index.php/user/login
 HTTP_REFERER=http://zf.local/index.php/coordinator/index
 ---
+<<<<<<< Updated upstream
 2013/10/12 00:33:25 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in C:\xampp\htdocs\framework\db\CDbConnection.php:382
 Stack trace:
 #0 C:\xampp\htdocs\framework\db\CDbConnection.php(330): CDbConnection->open()
@@ -1173,3 +1174,226 @@ Stack trace:
 #12 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
 #13 C:\xampp\htdocs\liza\index.php(10): CWebApplication->run()
 REQUEST_URI=/index.php/api/baloon/
+=======
+2013/10/12 00:35:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "coordinator/index".' in /Users/kostyukdg/Sites/zf.local/zf/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CWebApplication.php(141): CWebApplication->runController('coordinator/ind...')
+#1 /Users/kostyukdg/Sites/zf.local/zf/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/kostyukdg/Sites/zf.local/zf/public/index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/coordinator/index
+HTTP_REFERER=http://zf.local/index.php/coordinator/view/1
+---
+2013/10/12 00:46:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/city/index".' in /Users/kostyukdg/Sites/zf.local/zf/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/city/inde...')
+#1 /Users/kostyukdg/Sites/zf.local/zf/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/kostyukdg/Sites/zf.local/zf/public/index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/admin/city/index
+---
+2013/10/12 00:47:46 [error] [exception.CException] exception 'CException' with message 'CityController cannot find the requested view "admin".' in /Users/kostyukdg/Sites/zf.local/zf/framework/web/CController.php:878
+Stack trace:
+#0 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CController.php(782): CController->renderPartial('admin', Array, true)
+#1 /Users/kostyukdg/Sites/zf.local/zf/public/protected/controllers/CityController.php(137): CController->render('admin', Array)
+#2 /Users/kostyukdg/Sites/zf.local/zf/framework/web/actions/CInlineAction.php(49): CityController->actionIndex()
+#3 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /Users/kostyukdg/Sites/zf.local/zf/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /Users/kostyukdg/Sites/zf.local/zf/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#6 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 /Users/kostyukdg/Sites/zf.local/zf/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 /Users/kostyukdg/Sites/zf.local/zf/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CController.php(291): CFilterChain->run()
+#10 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CWebApplication.php(282): CController->run('index')
+#12 /Users/kostyukdg/Sites/zf.local/zf/framework/web/CWebApplication.php(141): CWebApplication->runController('city/index')
+#13 /Users/kostyukdg/Sites/zf.local/zf/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#14 /Users/kostyukdg/Sites/zf.local/zf/public/index.php(10): CApplication->run()
+#15 {main}
+REQUEST_URI=/index.php/city/index
+---
+>>>>>>> Stashed changes
+2013/10/12 02:29:39 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'liza.volunteer_crew' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `volunteer_crew`.
+2013/10/12 03:01:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "baloonapi/list".' in C:\xampp\htdocs\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('baloonapi/list')
+#1 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/api/baloon/
+---
+2013/10/12 03:01:22 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\xampp\htdocs\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\xampp\htdocs\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\xampp\htdocs\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\xampp\htdocs\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\xampp\htdocs\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\xampp\htdocs\framework\web\CWebApplication.php(282): CController->run('list')
+#9 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('balloonapi/list')
+#10 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/api/balloon/
+---
+2013/10/12 03:01:26 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\xampp\htdocs\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\xampp\htdocs\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\xampp\htdocs\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\xampp\htdocs\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\xampp\htdocs\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\xampp\htdocs\framework\web\CWebApplication.php(282): CController->run('list')
+#9 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('balloonapi/list')
+#10 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/api/balloon
+---
+2013/10/12 03:01:36 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\xampp\htdocs\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\xampp\htdocs\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\xampp\htdocs\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\xampp\htdocs\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\xampp\htdocs\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\xampp\htdocs\framework\web\CWebApplication.php(282): CController->run('list')
+#9 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('radarapi/list')
+#10 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/api/radar
+---
+2013/10/12 03:01:39 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\xampp\htdocs\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\xampp\htdocs\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\xampp\htdocs\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\xampp\htdocs\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\xampp\htdocs\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\xampp\htdocs\framework\web\CWebApplication.php(282): CController->run('list')
+#9 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('radarapi/list')
+#10 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/api/radar
+---
+2013/10/12 03:02:25 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\xampp\htdocs\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\xampp\htdocs\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\xampp\htdocs\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\xampp\htdocs\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\xampp\htdocs\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\xampp\htdocs\framework\web\CWebApplication.php(282): CController->run('list')
+#9 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('radarapi/list')
+#10 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#12 {main}
+REQUEST_URI=/index.php/api/radar
+---
+2013/10/12 03:04:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/login".' in C:\xampp\htdocs\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('user/login')
+#1 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/user/login
+HTTP_REFERER=http://liza.loc/index.php/admin/lost
+---
+2013/10/12 03:05:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "user/login".' in C:\xampp\htdocs\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('user/login')
+#1 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/user/login
+HTTP_REFERER=http://liza.loc/index.php/admin/lost
+---
+2013/10/12 03:06:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/baloon/view/id/1".' in C:\xampp\htdocs\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('admin/baloon/vi...')
+#1 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/admin/baloon/view/id/1
+---
+2013/10/12 03:06:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/balloon/view/id/1".' in C:\xampp\htdocs\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('admin/balloon/v...')
+#1 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/admin/balloon/view/id/1
+---
+2013/10/12 03:06:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/balloon".' in C:\xampp\htdocs\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('admin/balloon')
+#1 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/admin/balloon/
+---
+2013/10/12 03:09:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/balloon/create".' in C:\xampp\htdocs\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('admin/balloon/c...')
+#1 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/admin/balloon/create
+---
+2013/10/12 03:09:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/balloon/create".' in C:\xampp\htdocs\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('admin/balloon/c...')
+#1 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/admin/balloon/create
+---
+2013/10/12 03:10:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/balloon/create".' in C:\xampp\htdocs\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('admin/balloon/c...')
+#1 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/admin/balloon/create
+---
+2013/10/12 03:10:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/balloon".' in C:\xampp\htdocs\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('admin/balloon')
+#1 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/admin/balloon/
+---
+2013/10/12 03:10:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/balloon".' in C:\xampp\htdocs\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('admin/balloon')
+#1 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/admin/balloon/
+---
+2013/10/12 03:10:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "admin/balloon".' in C:\xampp\htdocs\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('admin/balloon')
+#1 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/admin/balloon
+---

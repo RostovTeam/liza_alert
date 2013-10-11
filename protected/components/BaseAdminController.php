@@ -14,12 +14,11 @@ class BaseAdminController extends CController
      */
     public $layout = '//layouts/column3';
     public $main_menu = array(
-        array('label' => '<i class="icon-briefcase"></i>News', 'url' => array('/admin/news/index')),
-        array('label' => '<i class="icon-briefcase"></i>Statistics', 'url' => array('/admin/stats/index')),
-        array('label' => '<i class="icon-user"></i>Games', 'url' => array('/admin/game/index')),
-        array('label' => '<i class="icon-user"></i>Genres', 'url' => array('/admin/genre/index')),
-        array('label' => '<i class="icon-user"></i>Developers', 'url' => array('/admin/developer/index')),
-        array('label' => '<i class="icon-user"></i>Users', 'url' => array('/user/admin')),
+        array('label' => 'Города', 'url' => array('/admin/city/index')),
+        array('label' => 'Координаторы', 'url' => array('/admin/coordinator/index')),
+        array('label' => 'Экипажи', 'url' => array('/admin/crew/index')),
+        array('label' => 'Потеряшки', 'url' => array('/admin/lost/index')),
+        array('label' => 'Волонтеры', 'url' => array('/admin/volunteer/index')),
     );
     public $menu = array();
     public $breadcrumbs = array();
@@ -44,7 +43,7 @@ class BaseAdminController extends CController
     {
         return array(
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'roles' => array('admin'),
+                'users' => array('*'),
             ),
             array('deny', // deny all users
                 'users' => array('*'),

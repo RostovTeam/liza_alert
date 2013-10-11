@@ -1,6 +1,6 @@
 <?php
 
-class CoordinatorController extends BaseAdminController
+class CityController extends BaseAdminController
 {
 
 	/**
@@ -20,14 +20,14 @@ class CoordinatorController extends BaseAdminController
 	 */
 	public function actionCreate()
 	{
-		$model=new Coordinator;
+		$model=new City;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Coordinator']))
+		if(isset($_POST['City']))
 		{
-			$model->attributes=$_POST['Coordinator'];
+			$model->attributes=$_POST['City'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -49,9 +49,9 @@ class CoordinatorController extends BaseAdminController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Coordinator']))
+		if(isset($_POST['City']))
 		{
-			$model->attributes=$_POST['Coordinator'];
+			$model->attributes=$_POST['City'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -81,10 +81,10 @@ class CoordinatorController extends BaseAdminController
 	 */
 	public function actionIndex()
 	{
-		$model=new Coordinator('search');
+		$model=new City('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Coordinator']))
-			$model->attributes=$_GET['Coordinator'];
+		if(isset($_GET['City']))
+			$model->attributes=$_GET['City'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -95,12 +95,12 @@ class CoordinatorController extends BaseAdminController
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Coordinator the loaded model
+	 * @return City the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Coordinator::model()->findByPk($id);
+		$model=City::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -108,11 +108,11 @@ class CoordinatorController extends BaseAdminController
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Coordinator $model the model to be validated
+	 * @param City $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='coordinator-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='city-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

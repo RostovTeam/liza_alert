@@ -10,9 +10,8 @@ var switchVisibleMarkers = document.getElementById('switch-visible-markes');
 var switchVisiblePolygons = document.getElementById('switch-visible-polygons');
 var switchVisibleCircles = document.getElementById('switch-visible-circles');
 
-var logPolygon = document.getElementById('map-log');
-
 var selectedElement = null;
+var infowindow = null;
 
 var markersArray = ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/lightblue.png',
@@ -22,13 +21,6 @@ var markersArray = ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/red.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/pink.png'
 ];
-
-function addLog(text) {
-    'use strict';
-    var p = document.createElement('p');
-    p.innerHTML = text;
-    logPolygon.appendChild(p);
-}
 
 function initialize() {
     'use strict';
@@ -56,7 +48,6 @@ function initialize() {
     };
 
     function setSelectElement(element) {
-        'use strict';
         var i, el;
         for (i in data.markers) {
             el = data.markers[i];
@@ -78,7 +69,7 @@ function initialize() {
         }
 
         // set select element
-        if(element.hasOwnProperty('fillColor')) { // polygon or circle
+        if (element.hasOwnProperty('fillColor')) { // polygon or circle
             element.setOptions({
                 fillColor: '#ff0000'
             });
@@ -94,9 +85,19 @@ function initialize() {
         var i;
         for (i in items) {
             if (items.hasOwnProperty(i)) {
-                items[i].setVisible(type);
+                items[i].element.setVisible(type);
             }
         }
+    }
+
+    function infoWindow(event, contentString) {
+        if (contentString === '') {
+            return false;
+        }
+        infowindow = new google.maps.InfoWindow();
+        infowindow.setContent(contentString);
+        infowindow.setPosition(event.latLng);
+        infowindow.open(map);
     }
 
     function switchVisibleLayers(layer) {
@@ -116,25 +117,27 @@ function initialize() {
         }
     }
 
-    function addMarker(bounds, type) {
+    function addMarker(bounds, type, info) {
         bounds = bounds || centerMap;
+        info = info || '';
         var marker = new google.maps.Marker({
             position: bounds,
             icon: markersArray[type],
             map: map,
             draggable: true
         });
-        google.maps.event.addListener(marker, 'click', function (point) {
+        google.maps.event.addListener(marker, 'click', function (e) {
             setSelectElement(this);
+            infoWindow(e, info);
         });
-        addLog('add marker type:' + type);
         data.markers.push({
             element: marker,
             defaultValue: markersArray[type]
         });
     }
 
-    function addPolygon(bounds, color) {
+    function addPolygon(bounds, color, info) {
+        info = info || '';
         var x = centerMap.lat(),
             y = centerMap.lng();
         bounds = bounds || [
@@ -161,18 +164,19 @@ function initialize() {
             draggable: true
         });
         polygon.setMap(map);
-        addLog('add rectangle type:' + color);
         data.polygons.push({
             element: polygon,
             defaultValue: color
         });
 
-        google.maps.event.addListener(polygon, 'click', function (point) {
+        google.maps.event.addListener(polygon, 'click', function (e) {
             setSelectElement(this);
+            infoWindow(e, info);
         });
     }
 
-    function addCircle(coords, color, radius) {
+    function addCircle(coords, color, radius, info) {
+        info = info || '';
         coords = coords || centerMap;
 
         var circle = new google.maps.Circle({
@@ -187,14 +191,14 @@ function initialize() {
             radius: radius
         });
         circle.setMap(map);
-        addLog('add circle type:' + color);
         data.circles.push({
             element: circle,
             defaultValue: color
         });
 
-        google.maps.event.addListener(circle, 'click', function (point) {
+        google.maps.event.addListener(circle, 'click', function (e) {
             setSelectElement(this);
+            infoWindow(e, info);
         });
     }
 
@@ -206,7 +210,7 @@ function initialize() {
     }
 
     addMarkerBtn.onclick = function () {
-        addMarker(null, 0);
+        addMarker(null, 0, '<b>test</b></br>dsfasfsdaf');
     };
 
     addPolygonBtn.onclick = function () {

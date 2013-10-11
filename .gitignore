@@ -13,3 +13,4 @@ composer.lock
 vendor/bin
 assets/*
 protected/runtime/*
+protected/runtime/application.log
