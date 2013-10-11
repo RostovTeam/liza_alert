@@ -46,7 +46,7 @@ abstract class ApiController extends Controller
 
         if (is_null($models))
         {
-            $this->_sendResponse(200,array('error'=>0,'list'=>array()));
+            $this->_sendResponse(200,array('error'=>0,'content'=>array()));
         } 
         else
         {
@@ -54,7 +54,7 @@ abstract class ApiController extends Controller
             foreach ($models as $model)
                 $rows[] = $model->attributes;
 
-            $this->_sendResponse(200, array('error'=>0,'list'=>$rows));
+            $this->_sendResponse(200, array('error'=>0,'content'=>$rows));
         }
     }
 
@@ -76,7 +76,7 @@ abstract class ApiController extends Controller
             $this->_sendResponse(404, array('error'=>"Couldn't find model."));
         } else
         {
-            $this->_sendResponse(200, array('error'=>0,'model'=>$model->attributes));
+            $this->_sendResponse(200, array('error'=>0,'content'=>$model->attributes));
         }
     }
 
@@ -98,7 +98,7 @@ abstract class ApiController extends Controller
             
             if ($model->save())
             {
-                $this->_sendResponse(200, array('error'=>0,'model'=>$model->attributes));
+                $this->_sendResponse(200, array('error'=>0,'content'=>$model->attributes));
             } else
             {
                 $this->_sendResponse(500, array('error'=>'validation_errors','errors_list'=> $model->errors));
@@ -132,7 +132,7 @@ abstract class ApiController extends Controller
             $model->attributes = $params;
             if ($model->save())
             {
-                $this->_sendResponse(200, array('error'=>0,'model'=>$model->attributes));
+                $this->_sendResponse(200, array('error'=>0,'content'=>$model->attributes));
             } 
             else
             {

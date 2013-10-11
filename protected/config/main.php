@@ -95,6 +95,12 @@ return array(
         'urlManager' => array(
             'urlFormat' => 'path',
             'rules' => array(
+                 array('<model>api/list', 'pattern' => 'api/<model:\w+>', 'verb' => 'GET'),
+                array('<model>api/view', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'GET'),
+                array('<model>api/update', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'PUT'),
+                array('<model>api/delete', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'DELETE'),
+                array('<model>api/create', 'pattern' => 'api/<model:\w+>', 'verb' => 'POST'),
+                array('<model>api/<action>', 'pattern' => 'api/<model:\w+>/<action:\w+>'),
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
@@ -104,10 +110,10 @@ return array(
         ),
         'db' => array(
             'class' => 'system.db.CDbConnection',
-            'connectionString' => 'mysql:host=localhost;port=3306;dbname=zfproj',
+            'connectionString' => 'mysql:host=localhost;port=3306;dbname=liza',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => 'root',
+            'password' => '',
             'charset' => 'utf8',
             // 'enableProfiling' => true,
             'schemaCachingDuration' => 300,
@@ -124,9 +130,9 @@ return array(
                     'class' => 'CFileLogRoute',
                     'levels' => 'error, warning',
                 ),
-                array(
-                    'class' => 'CWebLogRoute',
-                ),
+//                array(
+//                    'class' => 'CWebLogRoute',
+//                ),
                 
             ),
         ),
