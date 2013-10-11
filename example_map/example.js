@@ -2,15 +2,18 @@
 /*global google, document, window*/
 
 var addMarkerBtn = document.getElementById('add-marker');
+var addCircleBtn = document.getElementById('add-circle');
 var addPolygonBtn = document.getElementById('add-polygon');
-var deleteMarkerBtn = document.getElementById('delete-marker');
-var deletePolygonBtn = document.getElementById('delete-polygon');
+var deleteSelectBtn = document.getElementById('delete-select');
 
 var switchVisibleMarkers = document.getElementById('switch-visible-markes');
 var switchVisiblePolygons = document.getElementById('switch-visible-polygons');
 var switchVisibleCircles = document.getElementById('switch-visible-circles');
 
 var logPolygon = document.getElementById('map-log');
+
+var selectedElement = null;
+
 var markersArray = ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/lightblue.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/blue.png',
@@ -52,6 +55,41 @@ function initialize() {
         circles: []
     };
 
+    function setSelectElement(element) {
+        'use strict';
+        var i, el;
+        for (i in data.markers) {
+            el = data.markers[i];
+            el.element.setOptions({
+                icon: el.defaultValue
+            });
+        }
+        for (i in data.polygons) {
+            el = data.polygons[i];
+            el.element.setOptions({
+                fillColor: el.defaultValue
+            });
+        }
+        for (i in data.circles) {
+            el = data.circles[i];
+            el.element.setOptions({
+                fillColor: el.defaultValue
+            });
+        }
+
+        // set select element
+        if(element.hasOwnProperty('fillColor')) { // polygon or circle
+            element.setOptions({
+                fillColor: '#ff0000'
+            });
+        } else { // marker
+            element.setOptions({
+                icon: element.icon.replace(/\.png$/, '-dot.png')
+            });
+        }
+        selectedElement = element;
+    }
+
     function setStatusItems(items, type) {
         var i;
         for (i in items) {
@@ -86,8 +124,14 @@ function initialize() {
             map: map,
             draggable: true
         });
+        google.maps.event.addListener(marker, 'click', function (point) {
+            setSelectElement(this);
+        });
         addLog('add marker type:' + type);
-        data.markers.push(marker);
+        data.markers.push({
+            element: marker,
+            defaultValue: markersArray[type]
+        });
     }
 
     function addPolygon(bounds, color) {
@@ -113,15 +157,52 @@ function initialize() {
             strokeWeight: 1,
             fillColor: color,
             fillOpacity: 0.2,
-            editable: true
+            editable: true,
+            draggable: true
         });
         polygon.setMap(map);
         addLog('add rectangle type:' + color);
-        data.polygons.push(polygon);
+        data.polygons.push({
+            element: polygon,
+            defaultValue: color
+        });
+
+        google.maps.event.addListener(polygon, 'click', function (point) {
+            setSelectElement(this);
+        });
+    }
+
+    function addCircle(coords, color, radius) {
+        coords = coords || centerMap;
+
+        var circle = new google.maps.Circle({
+            strokeColor: color,
+            strokeOpacity: 0.2,
+            strokeWeight: 1,
+            fillColor: color,
+            fillOpacity: 0.2,
+            editable: true,
+            draggable: true,
+            center: coords,
+            radius: radius
+        });
+        circle.setMap(map);
+        addLog('add circle type:' + color);
+        data.circles.push({
+            element: circle,
+            defaultValue: color
+        });
+
+        google.maps.event.addListener(circle, 'click', function (point) {
+            setSelectElement(this);
+        });
     }
 
     function deleteSelected() {
-
+        if (selectedElement === null) {
+            return false;
+        }
+        selectedElement.setMap(null);
     }
 
     addMarkerBtn.onclick = function () {
@@ -129,15 +210,15 @@ function initialize() {
     };
 
     addPolygonBtn.onclick = function () {
-        addPolygon(null, '');
+        addPolygon(null, '#000000');
     };
 
-    deleteMarkerBtn.onclick = function () {
-
+    addCircleBtn.onclick = function () {
+        addCircle(null, '#000000', 1000);
     };
 
-    deletePolygonBtn.onclick = function () {
-
+    deleteSelectBtn.onclick = function () {
+        deleteSelected();
     };
 
     switchVisibleMarkers.onclick = function () {
