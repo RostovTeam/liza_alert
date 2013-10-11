@@ -45,13 +45,7 @@
 		<?php echo $form->error($model,'coordinator_id'); ?>
      </div>
 </div>
- <div class="control-group">
-		<?php echo $form->labelEx($model,'date_created',array('class'=>'control-label')); ?>
-     <div class="controls">
-		<?php echo $form->textField($model,'date_created'); ?>
-		<?php echo $form->error($model,'date_created'); ?>
-     </div>
-</div>
+
  <div class="control-group">
 	<div class="controls">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить',array('class'=>'btn')); ?>
