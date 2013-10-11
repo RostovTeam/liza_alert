@@ -2,15 +2,15 @@
 /*global google, document, window*/
 
 var addMarkerBtn = document.getElementById('add-marker');
-var addAreaBtn = document.getElementById('add-poligon');
+var addPolygonBtn = document.getElementById('add-polygon');
 var deleteMarkerBtn = document.getElementById('delete-marker');
-var deleteAreaBtn = document.getElementById('delete-poligon');
+var deletePolygonBtn = document.getElementById('delete-polygon');
 
 var switchVisibleMarkers = document.getElementById('switch-visible-markes');
-var switchVisiblePoligons = document.getElementById('switch-visible-poligons');
+var switchVisiblePolygons = document.getElementById('switch-visible-polygons');
 var switchVisibleCircles = document.getElementById('switch-visible-circles');
 
-var logArea = document.getElementById('map-log');
+var logPolygon = document.getElementById('map-log');
 var markersArray = ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/lightblue.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/blue.png',
@@ -24,7 +24,7 @@ function addLog(text) {
     'use strict';
     var p = document.createElement('p');
     p.innerHTML = text;
-    logArea.appendChild(p);
+    logPolygon.appendChild(p);
 }
 
 function initialize() {
@@ -78,9 +78,10 @@ function initialize() {
         }
     }
 
-    function addMarker(location, type) {
+    function addMarker(bounds, type) {
+        bounds = bounds || centerMap;
         var marker = new google.maps.Marker({
-            position: location,
+            position: bounds,
             icon: markersArray[type],
             map: map,
             draggable: true
@@ -89,26 +90,33 @@ function initialize() {
         data.markers.push(marker);
     }
 
-    function addArea(location, type) {
-        var x = location.lat(),
-            y = location.lng();
-        var bounds = [
-            new google.maps.LatLng(x - 0.01, y),
-            new google.maps.LatLng(x - 0.01, y - 0.01),
-            new google.maps.LatLng(x, y - 0.01)
+    function addPolygon(bounds, color) {
+        var x = centerMap.lat(),
+            y = centerMap.lng();
+        bounds = bounds || [
+            [x - 0.01, y],
+            [x - 0.01, y - 0.01],
+            [x, y - 0.01]
         ];
 
+        var i, coords = [];
+        for (i in bounds) {
+            if (bounds.hasOwnProperty(i)) {
+                coords.push(new google.maps.LatLng(bounds[i][0], bounds[i][1]));
+            }
+        }
+
         var polygon = new google.maps.Polygon({
-            paths: bounds,
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
+            paths: coords,
+            strokeColor: color,
+            strokeOpacity: 0.2,
+            strokeWeight: 1,
+            fillColor: color,
+            fillOpacity: 0.2,
             editable: true
         });
         polygon.setMap(map);
-        addLog('add rectangle type:' + type);
+        addLog('add rectangle type:' + color);
         data.polygons.push(polygon);
     }
 
@@ -117,18 +125,18 @@ function initialize() {
     }
 
     addMarkerBtn.onclick = function () {
-        addMarker(centerMap, 0);
+        addMarker(null, 0);
     };
 
-    addAreaBtn.onclick = function () {
-        addArea(centerMap, '');
+    addPolygonBtn.onclick = function () {
+        addPolygon(null, '');
     };
 
     deleteMarkerBtn.onclick = function () {
 
     };
 
-    deleteAreaBtn.onclick = function () {
+    deletePolygonBtn.onclick = function () {
 
     };
 
@@ -136,8 +144,8 @@ function initialize() {
         switchVisibleLayers('marker');
     };
 
-    switchVisiblePoligons.onclick = function () {
-        switchVisibleLayers('poligon');
+    switchVisiblePolygons.onclick = function () {
+        switchVisibleLayers('polygon');
     };
 
     switchVisibleCircles.onclick = function () {
