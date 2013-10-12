@@ -74,6 +74,6 @@ return array(
             ),
         ),
     ),
-    'params' => array('photosDir' => 'static/photos/'),
+    'params' => require(dirname(__FILE__) . '/params.php'),
 
 );
