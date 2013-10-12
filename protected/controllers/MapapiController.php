@@ -7,7 +7,7 @@ class MapapiController extends ApiController
     {
         return array_merge(
                 array(array('allow',
-                'actions' => array('view','create'),
+                'actions' => array('view', 'create'),
                 'users' => array('*'),
             )
                 ), parent::accessRules()
@@ -44,8 +44,8 @@ class MapapiController extends ApiController
                     {
                         return $v->attributes;
                     }, $areas),
-            'lost' => $lost->attributes + array('city' => $lost->city->attributes) + 
-                            array('coordinator' => $lost->coordinator->attributes)
+            'lost' => $lost->attributes + array('city' => $lost->city->attributes) +
+            array('coordinator' => $lost->coordinator->attributes)
         );
 
         $this->_sendResponse(200, array('error' => 0, 'content' => $data));
@@ -54,29 +54,29 @@ class MapapiController extends ApiController
     public function actionCreate()
     {
 
-        if (!isset($_POST['Balloon']) && !isset($_POST['Radar']) && !isset($_POST['Area']))
+        if (!isset($_REQUEST['Balloon']) && !isset($_REQUEST['Radar']) && !isset($_REQUEST['Area']))
         {
             $this->_sendResponse(400, array('error' => 'Nothing to save'));
         }
 
-        $modelnames = array('Balloon', 'Radar', 'Area');
+        $modelnames = array('Balloon' => 'Balloon', 'Radar' => 'Radius', 'Area' => 'Area');
 
         $content = array();
-        
-        foreach ($modelnames as $modelname)
+
+        foreach ($modelnames as $postindex => $modelname)
         {
-            if (isset($_POST[$modelname]) && is_array($_POST[$modelname])
-                    && intval($_POST[$modelname][0]['lost_id']))
+            if (isset($_REQUEST[$postindex]) && is_array($_REQUEST[$postindex]) 
+                    && intval($_REQUEST[$postindex][0]['lost_id']))
             {
-                $modelname::model()->deleteAllByAttributes(array('lost_id'=>$_POST[$modelname][0]['lost_id']));
-                foreach ($_POST[$modelname] as $key => $data)
+                $modelname::model()->deleteAllByAttributes(array('lost_id' => $_REQUEST[$postindex][0]['lost_id']));
+                foreach ($_REQUEST[$postindex] as $key => $data)
                 {
                     $model = new $modelname;
                     $model->attributes = $data;
 
                     if (!$model->save())
                     {
-                        $content['validation_erros'][$modelname][$key] = $model->errors;
+                        $content['validation_erros'][$postindex][$key] = $model->errors;
                     }
                 }
             }
@@ -84,11 +84,10 @@ class MapapiController extends ApiController
 
         if (isset($content['validation_erros']))
         {
-            $this->_sendResponse(500, array('error' => 'validation_errors',array('content'=>$content)));
-        }
-        else
+            $this->_sendResponse(500, array('error' => 'validation_errors', array('content' => $content)));
+        } else
         {
-            $this->_sendResponse(200, array('error' => 0,array('content'=>$content)));
+            $this->_sendResponse(200, array('error' => 0, array('content' => $content)));
         }
     }
 

@@ -52,14 +52,15 @@
     <button id="delete-select">deleteSelect</button>
 
 
-    <button id="save-map">Save Map</button>
+    <button id="save-map">Сохранить карту</button>
 
-    <div class="elements">
-        <select name="element_type">
+    <div class="element">
+        <select name="type">
             <option value="balloon">Метка</option>
             <option value="radius">Окружность</option>
             <option value="area">Произвольная область</option>
         </select>
+        <br>
         <select name="color">
             <option value="green">Зеленый</option>
             <option value="lightblue">Светло-голубой</option>
@@ -68,8 +69,13 @@
             <option value="purple">Фиолетовый</option>
             <option value="pink">Розовый</option>
         </select>
-        <input name="element_title" type="text" value="" /><br />
-        <textarea id="element_description" cols="30" rows="10"></textarea>
+        <br>
+        <input name="element_id" type="hidden" value="" />
+        <input name="title" type="text" value="" />
+        <br>
+        <textarea name="description" cols="10" rows="2"></textarea>
+        <br>
+        <button id="save-element">Сохранить</button>
     </div>
 
     <script type="text/javascript" src="http://yandex.st/jquery/1.10.2/jquery.min.js"></script>
