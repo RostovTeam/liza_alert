@@ -70,6 +70,13 @@ $form = $this->beginWidget('CActiveForm', array(
     <?php echo CHtml::activeFileField($model, 'photo'); ?>
         </div>
 </div>
+
+<div class="control-group">
+    <div class="controls">
+        <?php echo CHtml::activeFileField($model, 'flyer'); ?>
+    </div>
+</div>
+
 <div class="control-group">
     <div class="controls">
 <?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', array('class' => 'btn')); ?>

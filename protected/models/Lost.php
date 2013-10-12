@@ -21,8 +21,9 @@
  */
 class Lost extends CActiveRecord
 {
-
     private $oldPhoto = null;
+
+    private $oldFlyer = null;
 
     /**
      * Returns the static model of the specified AR class.
@@ -55,6 +56,7 @@ class Lost extends CActiveRecord
             array('id, name, status, city_id, coordinator_id, photo, flyer, date_created', 'safe', 'on' => 'search'),
 
             array('photo', 'file', 'types'=>'jpg, gif, png, bmp', 'allowEmpty'=>true),
+            array('flyer', 'file', 'types'=>'jpg, gif, png, bmp', 'allowEmpty'=>true),
         );
     }
 
@@ -109,8 +111,19 @@ class Lost extends CActiveRecord
         ));
     }
 
+
+    public function beforeValidate()
+    {
+        parent::beforeValidate();
+        $this->photo=CUploadedFile::getInstance($this,'photo');
+        $this->flyer=CUploadedFile::getInstance($this,'flyer');
+
+        return true;
+    }
+
     public function afterFind() {
         parent::afterFind();
+        $this->oldFlyer = $this->flyer;
         $this->oldPhoto = $this->photo;
     }
 
@@ -118,16 +131,30 @@ class Lost extends CActiveRecord
     public function beforeSave() {
         $photosDir = Yii::app()->params['photosDir'];
         if(is_object($this->photo)) {
-            $photoName = time().'.'.$this->photo->getExtensionName();
-            $this->photo->saveAs($photosDir.time().$photoName);
+            $photoName = time();
+            $this->photo->saveAs($photosDir.$photoName.'.'.$this->photo->getExtensionName(), false);
             $this->photo = $photoName;
 
             if(!empty($this->oldPhoto)) {
-                $delete = $photosDir.$this->oldPhoto;
+                $delete = $photosDir.$this->oldPhoto.'.'.$this->oldPhoto->getExtensionName();
                 if(file_exists($delete)) unlink($delete);
             }
         }
         if(empty($this->photo) && !empty($this->oldPhoto)) $this->photo = $this->oldPhoto;
+
+        $flyerDir = Yii::app()->params['flyerDir'];
+        if(is_object($this->flyer)) {
+            $flyerName = time() + 1;
+            $this->flyer->saveAs($flyerDir.$flyerName.'.'.$this->flyer->getExtensionName(), false);
+            $this->flyer = $flyerName;
+
+            if(!empty($this->oldPhoto)) {
+                $delete = $flyerDir.$this->oldFlyer.'.'.$this->oldFlyer->getExtensionName();
+                if(file_exists($delete)) unlink($delete);
+            }
+        }
+        if(empty($this->flyer) && !empty($this->oldFlyer)) $this->flyer = $this->oldFlyer;
+
         return parent::beforeSave();
     }
 
@@ -138,7 +165,7 @@ class Lost extends CActiveRecord
     }
 
     public function deleteFiles() {
-        return unlink(Yii::app()->params['photosDir'].$this->photo);
+        return unlink(Yii::app()->params['photosDir'].$this->photo.'.'.$this->photo->getExtensionName());
     }
 
 }
