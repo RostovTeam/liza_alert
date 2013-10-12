@@ -54,12 +54,12 @@ class MapapiController extends ApiController
     public function actionCreate()
     {
 
-        if (!isset($_POST['Balloons']) && !isset($_POST['Radars']) && !isset($_POST['Areas']))
+        if (!isset($_POST['Balloon']) && !isset($_POST['Radar']) && !isset($_POST['Area']))
         {
             $this->_sendResponse(400, array('error' => 'Nothing to save'));
         }
 
-        $modelnames = array('Balloons', 'Radars', 'Areas');
+        $modelnames = array('Balloon', 'Radar', 'Area');
 
         $content = array();
         
