@@ -50,7 +50,8 @@ CREATE TABLE `area` (
   `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `points` text,
   `lost_id` int(11) NOT NULL,
- `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `color` varchar(200) DEFAULT NULL, 
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -66,6 +67,7 @@ CREATE TABLE `balloon` (
   `url` varchar(255) DEFAULT NULL,
   `lost_id` int(11) DEFAULT NULL,
   `user` int(1) unsigned DEFAULT NULL,
+    `color` varchar(200) DEFAULT NULL, 
   `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
@@ -80,10 +82,11 @@ CREATE TABLE `radar` (
   `title` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `description` text CHARACTER SET utf8,
   `lat` varchar(255) DEFAULT NULL,
-  `long` varchar(255) DEFAULT NULL,
+  `lng` varchar(255) DEFAULT NULL,
   `lost_id` int(11) DEFAULT NULL,
   `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `radius` int(11) DEFAULT NULL,
+  `color` varchar(200) DEFAULT NULL, 
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -113,7 +113,9 @@ return array(
             'connectionString' => 'mysql:host=localhost;port=3306;dbname=liza',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => 'j8Kdmqdo94jLd',
+
+            'password' => '',
+
             'charset' => 'utf8',
             // 'enableProfiling' => true,
             'schemaCachingDuration' => 300,

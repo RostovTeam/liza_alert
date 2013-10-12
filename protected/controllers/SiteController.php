@@ -19,6 +19,19 @@ class SiteController extends Controller
             $this->render('index', array('id' => null));
     }
 
+    function actionTest()
+    {
+        $models = array('Area', 'Balloon', 'City', 'Lost', 'Radius', 'Volunteer');
+        
+        foreach ($models as $mn)
+        {
+            $m=new $mn;
+            echo $mn.'<BR>';
+            echo json_encode(array('error'=>0,'content'=>$m->attributes));
+            echo '<br />';
+        }
+    }
+
     function actionInstall()
     {
         //exit();
