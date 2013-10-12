@@ -30,7 +30,8 @@ $form = $this->beginWidget('CActiveForm', array(
         <?php echo $form->labelEx($model, 'status', array('class' => 'control-label')); ?>
     <div class="controls">
         <?=
-        $form->dropDownList($model, 'status', array(0 => 'не требуется ничего',
+        $form->dropDownList($model, 'status', array(
+            '0' => 'не требуется ничего',
             '1' => 'требуется информационная поддржка(шаринг)',
             '2' => 'выезд на местность'));
         ?>

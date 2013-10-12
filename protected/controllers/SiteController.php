@@ -10,10 +10,13 @@ class SiteController extends Controller
 
     function actionIndex($id)
     {
-        if(Lost::model()->findByPk($id))
-            $this->render('index',array('id'=>$id));
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: POST, GET");
+        header("Access-Control-Allow-Headers: x-requested-with");
+        if (Lost::model()->findByPk($id))
+            $this->render('index', array('id' => $id));
         else
-            $this->render('index',array('id'=>null));
+            $this->render('index', array('id' => null));
     }
 
     function actionInstall()
