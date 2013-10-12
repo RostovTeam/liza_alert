@@ -63,11 +63,11 @@ class MapapiController extends ApiController
         $content = array();
         foreach ($modelnames as $modelname)
         {
-            if (isset($_POST[$modelnames]) && is_array($_POST[$modelnames])
-                    && intval($_POST[$modelnames][0]['lost_id']))
+            if (isset($_POST[$modelname]) && is_array($_POST[$modelname])
+                    && intval($_POST[$modelname][0]['lost_id']))
             {
-                $modelname::model()->deleteAllByAttributes(array('lost_id'=>$_POST[$modelnames][0]['lost_id']));
-                foreach ($_POST[$modelnames] as $key => $data)
+                $modelname::model()->deleteAllByAttributes(array('lost_id'=>$_POST[$modelname][0]['lost_id']));
+                foreach ($_POST[$modelname] as $key => $data)
                 {
                     $model = new $modelname;
                     $model->attributes = $data;
