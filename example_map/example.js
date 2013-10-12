@@ -6,6 +6,7 @@ var addMarkerBtn = document.getElementById('add-marker');
 var addCircleBtn = document.getElementById('add-circle');
 var addPolygonBtn = document.getElementById('add-polygon');
 var deleteSelectBtn = document.getElementById('delete-select');
+var saveMapBtn = document.getElementById('save-map');
 
 var selectedElement = null;
 var infowindow = null;
@@ -92,6 +93,73 @@ function initialize() {
         selectedElement = element;
     }
 
+    function postBalloon(balloon) {
+        $.post('/api/balloon',
+                {title: balloon.title,
+                lost_id: lost_id,
+                lat: balloon.lat,
+                lng: balloon.lng});
+    }
+
+    function postRadar(radar) {
+        $.post('/api/radar',
+                {title: radar.title,
+                lost_id: lost_id,
+                lat: radar.lat,
+                lng: radar.lng,
+                radius: radar.radius});
+    }
+
+    function postArea(area) {
+        $.post('/api/area', 
+            {title: area.title,
+            lost_id: lost_id,
+            points: []});
+    }
+
+    function saveMap(lost_id) {
+        var balloons = [],
+            b = {};
+        data.markers.forEach(function(balloon){
+            b.title = balloon.title;
+            b.lost_id = lost_id;
+            b.lat = balloon.lat;
+            b.lng = balloon.lng;
+            balloons.push(b);
+        });
+
+        var radars = [],
+            r = {};
+        data.circles.forEach(function(radar) {
+            r.title = radar.title;
+            r.lost_id = lost_id;
+            r.lat = radar.lat;
+            r.lng = radar.lng;
+            r.radius = radar.radius;
+            radars.push(r);
+        });
+
+        var areas = [],
+            a = {};
+        data.areas.forEach(function(area) {
+            a.title = area.title;
+            a.lost_id = lost_id;
+            a.points = []// ??
+            areas.push(a);
+        });
+
+        $.ajax({
+            url: '/api/balloon',
+            data: { Balloons: balloons, 
+                    Radars: radars, 
+                    Areas: areas},
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+            }
+        });
+    }
+
     /*set status visible elements*/
 
     function setStatusElements(elements, type) {
@@ -136,6 +204,17 @@ function initialize() {
         }
     }
 
+    function editElementInForm(element, color, title, description) {
+        $('[name=element_type]').val(element).attr('disabled', true);
+        $('[name=color]').val(color);
+        $('[name=element_title]').val(title);
+        $('[name=element_description').val(description);
+    }
+
+    function saveElementsInForm(element) {
+        
+    }
+
     function addMarker(bounds, color, info) {
         color = markersArray[color][0];
         bounds = bounds || centerMap;
@@ -149,9 +228,17 @@ function initialize() {
         google.maps.event.addListener(marker, 'click', function (e) {
             setSelectElement(this);
             infoWindow(e, info);
+
+            editElementInForm('balloon',
+            color,
+            info.title,
+            info.description);
+
+
         });
         data.markers.push({
             element: marker,
+            title: info,
             defaultValue: color
         });
     }
@@ -187,6 +274,7 @@ function initialize() {
         polygon.setMap(map);
         data.polygons.push({
             element: polygon,
+            title: info,
             defaultValue: color
         });
 
@@ -215,6 +303,7 @@ function initialize() {
         circle.setMap(map);
         data.circles.push({
             element: circle,
+            title: info,
             defaultValue: color
         });
 
@@ -248,6 +337,10 @@ function initialize() {
 
     deleteSelectBtn.onclick = function () {
         deleteSelected();
+    };
+
+    saveMapBtn.onclick = function () {
+        saveMap($('body').data('lost-id'));
     };
 
     var control = document.createElement('div');
