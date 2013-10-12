@@ -1,7 +1,8 @@
+
 <?php
 
 return array(
-    'name' => 'ЪGames',
+    'name' => 'Лиза алерт',
     'defaultController' => 'site',
     'preload' => array('log'),
     // autoloading model and component classes
