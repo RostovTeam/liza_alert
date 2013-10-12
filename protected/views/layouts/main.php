@@ -8,7 +8,7 @@
         <title>Управление</title>
         <!-- Bootstrap -->
         <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-
+        
 
     </head>
     <body>

@@ -1,26 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Widget test</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-<script src="https://raw.github.com/aFarkas/html5shiv/master/dist/html5shiv.js"></script>
-<![endif]-->
-</head>
-<div id="map-area" data-editable="0"></div>
-<div id="name"></div>
-<div id="city"></div>
-<div id="age"></div>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize"></script>
-<script type="text/javascript" src="http://yandex.st/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript" src="../static/js/widget.js"></script>
-<script type="text/javascript" src="../static/js/widgetviewmodel.js"></script>
-<script type="text/javascript">
-	$('#map-area').laWidget({route: '/api/map/1', test: 1});
-</script>
-</body>
+    <title>Using closures in event listeners</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script type="text/javascript" src="http://yandex.st/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+		function initialize() {
+			$.ajax({
+				url: 'http://146.185.145.71/api/map/1',
+				//url: 'http://webant.ru/json.php?test1=1',
+				//url: 'http://webant.ru/json.php?test1=1',
+				type: 'GET',
+				dataType: 'json',
+				success: function(json) {
+					//var data = json;
+					var data = json.content;
+					var mapOptions = {
+						zoom: 12,
+						//center: new google.maps.LatLng(-25.363882, 131.044922),
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+
+					var map = new google.maps.Map(document.getElementById('map-canvas'),
+					mapOptions);
+
+					var	geocoder = new google.maps.Geocoder();
+					geocoder.geocode({address: data.lost.city.name}, function(results, status) {
+						if (status == google.maps.GeocoderStatus.OK) {
+							map.setCenter(results[0].geometry.location);
+						}
+					});
+
+					// add markers
+					data.ballons.forEach(function(ballon){
+						var pos = new google.maps.LatLng(ballon.lat, ballon.lng);
+						var marker = new google.maps.Marker({
+							position: pos,
+							map: map,
+							title: ballon.title
+						});
+					});
+
+					// add radar
+					data.radars.forEach(function(radar){
+						var pos = new google.maps.LatLng(radar.lat, radar.lng);
+						var circle = new google.maps.Circle({
+							position: pos,
+							map: map,
+							radius: radar.radius
+						});
+					});
+				}
+			});
+			$('#name').text(data.lost.name);
+			$('#city').text(data.lost.city.name);
+			$('#age').text(data.lost.age);
+		};
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </body>
 </html>

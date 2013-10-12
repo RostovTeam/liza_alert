@@ -41,8 +41,6 @@ class Crew extends CActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('name, lost_id, coordinator_id', 'required'),
             array('active, lost_id, coordinator_id', 'numerical', 'integerOnly' => true),
@@ -74,7 +72,7 @@ class Crew extends CActiveRecord
         return array(
             'id' => 'Номер',
             'name' => 'Имя',
-            'active' => 'Активность',
+            'active' => 'Активен',
             'lost_id' => 'Номер потерявшки',
             'coordinator_id' => 'Номер координатора',
             'date_created' => 'Дата создания',
@@ -87,8 +85,6 @@ class Crew extends CActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
 
         $criteria = new CDbCriteria;
 

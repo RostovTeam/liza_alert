@@ -53,9 +53,9 @@ class Volunteer extends CActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
+        
         return array(
+            'crew' => array(self::MANY_MANY, 'Crew', 'volunteer_crew(volunteer_id,crew_id)'),
         );
     }
 
@@ -97,12 +97,12 @@ class Volunteer extends CActiveRecord
 
         $model->attributes = $data;
 
-        if (!$model->validate)
+        if (!$model->validate())
         {
             return $model;
         }
 
-        $ex_model = Volunteer::model()->findByAttibutes(array('phone' => $data['phone']));
+        $ex_model = Volunteer::model()->findByAttributes(array('phone' => $data['phone']));
 
         if (!empty($ex_model))
         {
