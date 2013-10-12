@@ -44,7 +44,8 @@ class MapapiController extends ApiController
                     {
                         return $v->attributes;
                     },$areas),
-            'lost' => $lost->attributes
+            'lost' => $lost->attributes+array('city'=>$lost->city->attributes)
+                            +array('coordinator'=>$lost->coordinator->attributes)
         );
 
         $this->_sendResponse(200, array('error' => 0, 'content' => $data));

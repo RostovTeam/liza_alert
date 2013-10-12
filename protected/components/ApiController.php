@@ -30,7 +30,7 @@ abstract class ApiController extends Controller
 
     public function apiAccessDenied($rule)
     {
-        $this->_sendResponse(403, (array('error'=> 'access_denied')));
+        $this->_sendResponse(403, (array('error' => 'access_denied')));
     }
 
     public function actionIndex()
@@ -40,22 +40,21 @@ abstract class ApiController extends Controller
 
     public function actionList()
     {
-        
+
         $modelname = $this->model;
 
         $models = $modelname::model()->findAll();
 
         if (is_null($models))
         {
-            $this->_sendResponse(200,array('error'=>0,'content'=>array()));
-        } 
-        else
+            $this->_sendResponse(200, array('error' => 0, 'content' => array()));
+        } else
         {
             $rows = array();
             foreach ($models as $model)
                 $rows[] = $model->attributes;
 
-            $this->_sendResponse(200, array('error'=>0,'content'=>$rows));
+            $this->_sendResponse(200, array('error' => 0, 'content' => $rows));
         }
     }
 
@@ -74,10 +73,10 @@ abstract class ApiController extends Controller
 
         if (!$model)
         {
-            $this->_sendResponse(404, array('error'=>"Couldn't find model."));
+            $this->_sendResponse(404, array('error' => "Couldn't find model."));
         } else
         {
-            $this->_sendResponse(200, array('error'=>0,'content'=>$model->attributes));
+            $this->_sendResponse(200, array('error' => 0, 'content' => $model->attributes));
         }
     }
 
@@ -95,18 +94,22 @@ abstract class ApiController extends Controller
 
         if (isset($_POST[$modelname]))
         {
-            $model->attributes = $_POST[$modelname];
-            
-            if ($model->save())
+            $model = Volunteer::create($_POST['Volunteer']);
+
+            if ($model->errors)
             {
-                $this->_sendResponse(200, array('error'=>0,'content'=>$model->attributes));
-            } else
-            {
-                $this->_sendResponse(500, array('error'=>'validation_errors','errors_list'=> $model->errors));
+
+                $this->_sendResponse(500, array('error' => 'validation_errors', 'errors_list' => $model->errors));
             }
-        } else
+
+            if ($model->id)
+            {
+                $this->_sendResponse(200, array('error' => 0, 'content' => $model->attributes));
+            }
+        }
+        else
         {
-            $this->_sendResponse(400, array('error'=> 'POST array should contain model name as key'));
+            $this->_sendResponse(400, array('error' => 'POST array should contain model name as key'));
         }
     }
 
@@ -124,25 +127,23 @@ abstract class ApiController extends Controller
 
 
         if (!$model)
-            $this->_sendResponse(400, array('error'=>"Couldn't find model."));
+            $this->_sendResponse(400, array('error' => "Couldn't find model."));
 
         $params = Yii::app()->request->getPut($modelname);
-        
+
         if ($params)
         {
             $model->attributes = $params;
             if ($model->save())
             {
-                $this->_sendResponse(200, array('error'=>0,'content'=>$model->attributes));
-            } 
-            else
+                $this->_sendResponse(200, array('error' => 0, 'content' => $model->attributes));
+            } else
             {
-                $this->_sendResponse(500,array('error'=>'validation_errors','errors_list'=> $model->errors));
+                $this->_sendResponse(500, array('error' => 'validation_errors', 'errors_list' => $model->errors));
             }
-        } 
-        else
+        } else
         {
-            $this->_sendResponse(400, array('error'=> 'PUT array should contain model name as key'));
+            $this->_sendResponse(400, array('error' => 'PUT array should contain model name as key'));
         }
     }
 
@@ -157,18 +158,18 @@ abstract class ApiController extends Controller
         $modelname = $this->model;
 
         $model = $modelname::model()->findByPk($id);
-             
+
         if (!$model)
         {
             // No, raise an error
-            $this->_sendResponse(400, array('error'=>"Couldn't find model."));
+            $this->_sendResponse(400, array('error' => "Couldn't find model."));
         }
 
         $num = $model->delete();
         if ($num > 0)
-            $this->_sendResponse(200, array('error'=>0));
+            $this->_sendResponse(200, array('error' => 0));
         else
-            $this->_sendResponse(500, array('error'=>"Couldn't delete model."));
+            $this->_sendResponse(500, array('error' => "Couldn't delete model."));
     }
 
     /**

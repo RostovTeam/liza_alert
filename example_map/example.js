@@ -1,6 +1,7 @@
 /*jslint vars: true*/
-/*global google, document, window*/
+/*global google, document, window, $*/
 
+var mapCanvas = document.getElementById('map-canvas');
 var addMarkerBtn = document.getElementById('add-marker');
 var addCircleBtn = document.getElementById('add-circle');
 var addPolygonBtn = document.getElementById('add-polygon');
@@ -8,15 +9,16 @@ var deleteSelectBtn = document.getElementById('delete-select');
 
 var selectedElement = null;
 var infowindow = null;
+var editable = false;
 
-var markersArray = ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png',
-    'https://maps.gstatic.com/mapfiles/ms2/micons/lightblue.png',
-    'https://maps.gstatic.com/mapfiles/ms2/micons/blue.png',
-    'https://maps.gstatic.com/mapfiles/ms2/micons/yellow.png',
-    'https://maps.gstatic.com/mapfiles/ms2/micons/purple.png',
-    'https://maps.gstatic.com/mapfiles/ms2/micons/red.png',
-    'https://maps.gstatic.com/mapfiles/ms2/micons/pink.png'
-];
+var markersArray = {
+    green: ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png', '#00ff00'],
+    lightblue: ['https://maps.gstatic.com/mapfiles/ms2/micons/lightblue.png', '#79a0c1'],
+    blue: ['https://maps.gstatic.com/mapfiles/ms2/micons/blue.png', '#42aaff'],
+    yellow: ['https://maps.gstatic.com/mapfiles/ms2/micons/yellow.png', '#ffff00'],
+    purple: ['https://maps.gstatic.com/mapfiles/ms2/micons/purple.png', '#8b00ff'],
+    pink: ['https://maps.gstatic.com/mapfiles/ms2/micons/pink.png', '#ffc0cb']
+};
 
 function addCustomControl(control, text, callback) {
     'use strict';
@@ -41,7 +43,8 @@ function initialize() {
         center: new google.maps.LatLng(47.216653, 39.703646),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    var map = new google.maps.Map(mapCanvas, mapOptions);
+    editable = Boolean(mapCanvas.getAttribute('data-editable'));
     var centerMap = map.getCenter();
 
     var data = {
@@ -123,7 +126,7 @@ function initialize() {
             break;
         case 'circle':
             status = data.visible.circles = !data.visible.circles;
-            setStatusElements(data.circles, !data.visible.circles);
+            setStatusElements(data.circles, data.visible.circles);
             break;
         }
         if (status) {
@@ -133,14 +136,15 @@ function initialize() {
         }
     }
 
-    function addMarker(bounds, type, info) {
+    function addMarker(bounds, color, info) {
+        color = markersArray[color][0];
         bounds = bounds || centerMap;
         info = info || '';
         var marker = new google.maps.Marker({
             position: bounds,
-            icon: markersArray[type],
+            icon: color,
             map: map,
-            draggable: true
+            draggable: editable
         });
         google.maps.event.addListener(marker, 'click', function (e) {
             setSelectElement(this);
@@ -148,11 +152,12 @@ function initialize() {
         });
         data.markers.push({
             element: marker,
-            defaultValue: markersArray[type]
+            defaultValue: color
         });
     }
 
     function addPolygon(bounds, color, info) {
+        color = markersArray[color][1];
         info = info || '';
         var x = centerMap.lat(),
             y = centerMap.lng();
@@ -176,8 +181,8 @@ function initialize() {
             strokeWeight: 1,
             fillColor: color,
             fillOpacity: 0.2,
-            editable: true,
-            draggable: true
+            editable: editable,
+            draggable: editable
         });
         polygon.setMap(map);
         data.polygons.push({
@@ -192,6 +197,7 @@ function initialize() {
     }
 
     function addCircle(coords, color, radius, info) {
+        color = markersArray[color][1];
         info = info || '';
         coords = coords || centerMap;
 
@@ -201,8 +207,8 @@ function initialize() {
             strokeWeight: 1,
             fillColor: color,
             fillOpacity: 0.2,
-            editable: true,
-            draggable: true,
+            editable: editable,
+            draggable: editable,
             center: coords,
             radius: radius
         });
@@ -226,15 +232,18 @@ function initialize() {
     }
 
     addMarkerBtn.onclick = function () {
-        addMarker(null, 0, '<b>test</b></br>dsfasfsdaf');
+        var color = $('select[name="color"] option:selected').val();
+        addMarker(null, color, '<b>test</b></br>dsfasfsdaf');
     };
 
     addPolygonBtn.onclick = function () {
-        addPolygon(null, '#000000');
+        var color = $('select[name="color"] option:selected').val();
+        addPolygon(null, color);
     };
 
     addCircleBtn.onclick = function () {
-        addCircle(null, '#000000', 1000);
+        var color = $('select[name="color"] option:selected').val();
+        addCircle(null, color, 1000);
     };
 
     deleteSelectBtn.onclick = function () {
@@ -247,10 +256,10 @@ function initialize() {
         switchVisibleLayers('marker', item);
     });
     addCustomControl(control, 'Скрыть круги', function (item) {
-        switchVisibleLayers('polygon', item);
+        switchVisibleLayers('circle', item);
     });
     addCustomControl(control, 'Скрыть области', function (item) {
-        switchVisibleLayers('circle', item);
+        switchVisibleLayers('polygon', item);
     });
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
 
