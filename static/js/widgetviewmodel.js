@@ -18,7 +18,7 @@ var la = la || {};
 	la.WidgetViewModel.prototype = {
 		init: function() {
 			wa = this,
-				lost = wa.data.content.lost;
+				lost = wa.data.lost;
 			$(wa.options.name).text(lost.name);
 			$(wa.options.city).text(lost.city.name);
 			$(wa.options.age).text(lost.age);
