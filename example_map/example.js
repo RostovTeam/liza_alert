@@ -232,15 +232,18 @@ function initialize() {
     }
 
     addMarkerBtn.onclick = function () {
-        addMarker(null, 'green', '<b>test</b></br>dsfasfsdaf');
+        var color = $('select[name="color"] option:selected').val();
+        addMarker(null, color, '<b>test</b></br>dsfasfsdaf');
     };
 
     addPolygonBtn.onclick = function () {
-        addPolygon(null, 'green');
+        var color = $('select[name="color"] option:selected').val();
+        addPolygon(null, color);
     };
 
     addCircleBtn.onclick = function () {
-        addCircle(null, 'green', 1000);
+        var color = $('select[name="color"] option:selected').val();
+        addCircle(null, color, 1000);
     };
 
     deleteSelectBtn.onclick = function () {
