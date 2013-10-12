@@ -54,7 +54,6 @@ class Lost extends CActiveRecord
             array('name, flyer', 'length', 'max' => 200),
             array('photo, age', 'safe'),
             array('id, name, status, city_id, coordinator_id, photo, flyer, date_created', 'safe', 'on' => 'search'),
-
             array('photo', 'file', 'types'=>'jpg, gif, png, bmp', 'allowEmpty'=>true),
             array('flyer', 'file', 'types'=>'jpg, gif, png, bmp', 'allowEmpty'=>true),
         );
@@ -127,13 +126,14 @@ class Lost extends CActiveRecord
         $this->oldPhoto = $this->photo;
     }
 
-
-    public function beforeSave() {
+    public function beforeSave()
+    {
         $photosDir = Yii::app()->params['photosDir'];
         if(is_object($this->photo)) {
             $photoName = time();
             $this->photo->saveAs($photosDir.$photoName.'.'.$this->photo->getExtensionName(), false);
-            $this->photo = $photoName;
+            $this->saveCroppedImage($this->photo, $photoName, $photosDir);
+            $this->photo = $photoName.'.'.$this->photo->getExtensionName();
 
             if(!empty($this->oldPhoto)) {
                 $delete = $photosDir.$this->oldPhoto.'.'.$this->oldPhoto->getExtensionName();
@@ -146,9 +146,10 @@ class Lost extends CActiveRecord
         if(is_object($this->flyer)) {
             $flyerName = time() + 1;
             $this->flyer->saveAs($flyerDir.$flyerName.'.'.$this->flyer->getExtensionName(), false);
-            $this->flyer = $flyerName;
+            $this->saveCroppedImage($this->flyer, $flyerName, $flyerDir);
+            $this->flyer = $flyerName.'.'.$this->flyer->getExtensionName();
 
-            if(!empty($this->oldPhoto)) {
+            if(!empty($this->oldFlyer)) {
                 $delete = $flyerDir.$this->oldFlyer.'.'.$this->oldFlyer->getExtensionName();
                 if(file_exists($delete)) unlink($delete);
             }
@@ -158,14 +159,34 @@ class Lost extends CActiveRecord
         return parent::beforeSave();
     }
 
+    public function saveCroppedImage($file, $newName, $path)
+    {
+        $im = new ImageHandler;
+        $photo_sizes = Yii::app()->params['photo_sizes'];
+        foreach ($photo_sizes as $size)
+        {
+            $fullPath = $path.$newName.'_'.$size[0].'x'.$size[1].'.'.$file->getExtensionName();
+            $file->saveAs($fullPath,false);
+            $im->load($fullPath);
+            $im->adaptiveThumb($size[0], $size[1]);
+            $im->save(false, false, 100);
+        }
+    }
 
-    public function afterDelete() {
+    public function afterDelete()
+    {
         $this->deleteFiles();
         return parent::afterDelete();
     }
 
     public function deleteFiles() {
-        return unlink(Yii::app()->params['photosDir'].$this->photo.'.'.$this->photo->getExtensionName());
+        if(is_object($this->photo))
+            unlink(Yii::app()->params['photosDir'].$this->photo);
+
+        if(is_object($this->flyer))
+            unlink(Yii::app()->params['flyerDir'].$this->flyer);
+
+        return true;
     }
 
 }

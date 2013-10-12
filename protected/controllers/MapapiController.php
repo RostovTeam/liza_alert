@@ -44,7 +44,8 @@ class MapapiController extends ApiController
                     {
                         return $v->attributes;
                     }, $areas),
-            'lost' => $lost->attributes + array('city' => $lost->city->attributes) + array('coordinator' => $lost->coordinator->attributes)
+            'lost' => $lost->attributes + array('city' => $lost->city->attributes) + 
+                            array('coordinator' => $lost->coordinator->attributes)
         );
 
         $this->_sendResponse(200, array('error' => 0, 'content' => $data));
@@ -53,21 +54,22 @@ class MapapiController extends ApiController
     public function actionCreate()
     {
 
-        if (!isset($_POST['Balloons']) && isset($_POST['Radars']) && isset($_POST['Areas']))
+        if (!isset($_POST['Balloon']) && !isset($_POST['Radar']) && !isset($_POST['Area']))
         {
             $this->_sendResponse(400, array('error' => 'Nothing to save'));
         }
 
-        $modelnames = array('Balloons', 'Radars', 'Areas');
+        $modelnames = array('Balloon', 'Radar', 'Area');
 
         $content = array();
+        
         foreach ($modelnames as $modelname)
         {
-            if (isset($_POST[$modelnames]) && is_array($_POST[$modelnames])
-                    && intval($_POST[$modelnames][0]['lost_id']))
+            if (isset($_POST[$modelname]) && is_array($_POST[$modelname])
+                    && intval($_POST[$modelname][0]['lost_id']))
             {
-                $modelname::model()->deleteAllByAttributes(array('lost_id'=>$_POST[$modelnames][0]['lost_id']));
-                foreach ($_POST[$modelnames] as $key => $data)
+                $modelname::model()->deleteAllByAttributes(array('lost_id'=>$_POST[$modelname][0]['lost_id']));
+                foreach ($_POST[$modelname] as $key => $data)
                 {
                     $model = new $modelname;
                     $model->attributes = $data;
@@ -80,7 +82,7 @@ class MapapiController extends ApiController
             }
         }
 
-        if ($content['validation_erros'])
+        if (isset($content['validation_erros']))
         {
             $this->_sendResponse(500, array('error' => 'validation_errors',array('content'=>$content)));
         }

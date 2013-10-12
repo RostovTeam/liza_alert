@@ -34,7 +34,7 @@ class LostapiController extends ApiController
             $content = array_map(function($v)
                     {
                         return
-                                array('photo' => Yii::app()->params['url'] . Yii::app()->params['photosRelative'] . $model->photo) +
+                                array('photo' => Yii::app()->params['url'] . Yii::app()->params['photosRelative'] . $v->photo) +
                                 $v->attributes +
                                 array('city' => $v->city->attributes) +
                                 array('coordinator' => $v->coordinator->attributes);
@@ -60,7 +60,7 @@ class LostapiController extends ApiController
                 array('photo' => Yii::app()->params['url'] . Yii::app()->params['photosRelative'] . $model->photo) +
                 $model->attributes +
                 array('city' => $model->city->attributes) +
-                array('coordinator' => $model->coordinator > attributes)));
+                array('coordinator' => $model->coordinator->attributes)));
         }
     }
 
