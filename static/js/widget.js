@@ -1,3 +1,6 @@
+/*jslint vars: true*/
+/*global google, document, window, $, jQuery*/
+
 var la = la || {};
 
 (function ($) {
@@ -21,9 +24,7 @@ var la = la || {};
 
     la.Widget.prototype = {
         init: function () {
-            var w = this,
-                data,
-                widget;
+            var w = this;
 
             w.$node.bind('refresh.la', function () {
                 w.updateView();
