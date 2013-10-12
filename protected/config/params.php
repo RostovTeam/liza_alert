@@ -10,6 +10,8 @@
 return array(
     'photosDir' => dirname(__FILE__) . '/../../static/photos/',
     'photosRelative' => '/static/photos/',
+    'flyerDir' => dirname(__FILE__).'/../../static/flyer/',
+    'flyerRelative' => '/static/photos/',
     'url' => 'http://146.185.145.71',
     'photo_sizes' => array(
         array(75, 75),

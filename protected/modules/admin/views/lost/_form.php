@@ -64,9 +64,27 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <div class="control-group">
     <div class="controls">
-        <?php echo CHtml::activeFileField($model, 'photo'); ?>
+    <?php if(!empty($model->photo)): ?>
+        <div>
+            <img src="<?= Yii::app()->params['photosRelative'].$model->photo ?>">
+        </div>
+    <?php endif; ?>
+    <?php echo CHtml::activeFileField($model, 'photo'); ?>
+        </div>
+</div>
+
+
+<div class="control-group">
+    <div class="controls">
+        <?php if(!empty($model->flyer)): ?>
+            <div>
+                <img src="<?= Yii::app()->params['flyerRelative'].$model->flyer ?>">
+            </div>
+        <?php endif; ?>
+        <?php echo CHtml::activeFileField($model, 'flyer'); ?>
     </div>
 </div>
+
 <div class="control-group">
     <div class="controls">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', array('class' => 'btn')); ?>

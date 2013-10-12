@@ -26,7 +26,7 @@
     <!-- End: Navigation wrapper -->   
 </header>
 <div class="content">
-    <div class="container">
+    <div class="container" style="margin-top: 20px">
         <div class="span2" style="margin-left: 0px">
             <div class="well" style="padding: 8px 0px">
                 <?php
