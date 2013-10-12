@@ -53,8 +53,7 @@ class Lost extends CActiveRecord
             array('name, flyer', 'length', 'max' => 200),
             array('photo, age', 'safe'),
             array('id, name, status, city_id, coordinator_id, photo, flyer, date_created', 'safe', 'on' => 'search'),
-
-            array('photo', 'file', 'types'=>'jpg, gif, png, bmp', 'allowEmpty'=>true),
+            array('photo', 'file', 'types' => 'jpg, gif, png, bmp', 'allowEmpty' => true),
         );
     }
 
@@ -109,36 +108,55 @@ class Lost extends CActiveRecord
         ));
     }
 
-    public function afterFind() {
+    public function afterFind()
+    {
         parent::afterFind();
         $this->oldPhoto = $this->photo;
     }
 
-
-    public function beforeSave() {
+    public function beforeSave()
+    {
         $photosDir = Yii::app()->params['photosDir'];
-        if(is_object($this->photo)) {
-            $photoName = time().'.'.$this->photo->getExtensionName();
-            $this->photo->saveAs($photosDir.time().$photoName);
+        if (is_object($this->photo))
+        {
+            $photoName = time() . '.' . $this->photo->getExtensionName();
+            $this->photo->saveAs($photosDir . time() . $photoName);
             $this->photo = $photoName;
 
-            if(!empty($this->oldPhoto)) {
-                $delete = $photosDir.$this->oldPhoto;
-                if(file_exists($delete)) unlink($delete);
+            if (!empty($this->oldPhoto))
+            {
+                $delete = $photosDir . $this->oldPhoto;
+                if (file_exists($delete))
+                    unlink($delete);
             }
         }
-        if(empty($this->photo) && !empty($this->oldPhoto)) $this->photo = $this->oldPhoto;
+        if (empty($this->photo) && !empty($this->oldPhoto))
+            $this->photo = $this->oldPhoto;
         return parent::beforeSave();
     }
 
+    public function saveCroppedImage($file, $name)
+    {
+        $im = new ImageHandler;
+        $photo_sizes = Yii::app()->params['photo_sizes'];
+        foreach ($photo_sizes as $i => $size)
+        {
+            $file->saveAs($name.'_size_'.$i.'.'.$ext,false);
+            $im->load($name.'_size_'.$i.'.'.$file->getExtensionName());
+            $im->adaptiveThumb($size[0], $size[1]);
+            $im->save(false, false, 100);
+        }
+    }
 
-    public function afterDelete() {
+    public function afterDelete()
+    {
         $this->deleteFiles();
         return parent::afterDelete();
     }
 
-    public function deleteFiles() {
-        return unlink(Yii::app()->params['photosDir'].$this->photo);
+    public function deleteFiles()
+    {
+        return unlink(Yii::app()->params['photosDir'] . $this->photo);
     }
 
 }
