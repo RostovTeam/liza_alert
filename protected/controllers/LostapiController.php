@@ -60,7 +60,8 @@ class LostapiController extends ApiController
                 array('photo' => Yii::app()->params['url'] . Yii::app()->params['photosRelative'] . $model->photo) +
                 $model->attributes +
                 array('city' => $model->city->attributes) +
-                array('coordinator' => $model->coordinator > attributes)));
+                array('coordinator' => $model->coordinator->attributes)));
         }
     }
+
 }

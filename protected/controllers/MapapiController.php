@@ -44,7 +44,8 @@ class MapapiController extends ApiController
                     {
                         return $v->attributes;
                     }, $areas),
-            'lost' => $lost->attributes + array('city' => $lost->city->attributes) + array('coordinator' => $lost->coordinator->attributes)
+            'lost' => $lost->attributes + array('city' => $lost->city->attributes) + 
+                            array('coordinator' => $lost->coordinator->attributes)
         );
 
         $this->_sendResponse(200, array('error' => 0, 'content' => $data));
@@ -53,7 +54,7 @@ class MapapiController extends ApiController
     public function actionCreate()
     {
 
-        if (!isset($_POST['Balloons']) && isset($_POST['Radars']) && isset($_POST['Areas']))
+        if (!isset($_POST['Balloons']) && !isset($_POST['Radars']) && !isset($_POST['Areas']))
         {
             $this->_sendResponse(400, array('error' => 'Nothing to save'));
         }
@@ -61,6 +62,7 @@ class MapapiController extends ApiController
         $modelnames = array('Balloons', 'Radars', 'Areas');
 
         $content = array();
+        
         foreach ($modelnames as $modelname)
         {
             if (isset($_POST[$modelname]) && is_array($_POST[$modelname])
@@ -80,7 +82,7 @@ class MapapiController extends ApiController
             }
         }
 
-        if ($content['validation_erros'])
+        if (isset($content['validation_erros']))
         {
             $this->_sendResponse(500, array('error' => 'validation_errors',array('content'=>$content)));
         }
