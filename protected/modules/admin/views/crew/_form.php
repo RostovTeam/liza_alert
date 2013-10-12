@@ -27,7 +27,7 @@
  <div class="control-group">
 		<?php echo $form->labelEx($model,'active',array('class'=>'control-label')); ?>
      <div class="controls">
-		<?php echo $form->textField($model,'active'); ?>
+		<?php echo $form->checkBox($model,'active'); ?>
 		<?php echo $form->error($model,'active'); ?>
      </div>
 </div>
