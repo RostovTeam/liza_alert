@@ -2,7 +2,7 @@
 -- Table structure for table `authassignment`
 --
 
-CREATE TABLE IF NOT EXISTS `authassignment` (
+CREATE TABLE IF NOT EXISTS `AuthAssignment` (
   `itemname` varchar(64) NOT NULL,
   `userid` varchar(64) NOT NULL,
   `bizrule` text,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `authassignment` (
 -- Table structure for table `authitem`
 --
 
-CREATE TABLE IF NOT EXISTS `authitem` (
+CREATE TABLE IF NOT EXISTS `AuthItem` (
   `name` varchar(64) NOT NULL,
   `type` int(11) NOT NULL,
   `description` text,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `authitem` (
 -- Table structure for table `authitemchild`
 --
 
-CREATE TABLE IF NOT EXISTS `authitemchild` (
+CREATE TABLE IF NOT EXISTS `AuthItemChild` (
   `parent` varchar(64) NOT NULL,
   `child` varchar(64) NOT NULL,
   PRIMARY KEY (`parent`,`child`),

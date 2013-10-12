@@ -34,7 +34,7 @@ class SiteController extends Controller
 
     function actionInstall()
     {
-        //exit();
+        exit();
         $auth = Yii::app()->authManager;
         $auth->clearAll();
 
@@ -43,7 +43,7 @@ class SiteController extends Controller
         $su->login = 'superuser';
         $su->password = 'password';
         $su->save();
-var_dump($admin->errors);
+var_dump($su->errors);
         $auth->assign('superuser', $su->user_id);
 
         $role_admin = $auth->createRole('admin');

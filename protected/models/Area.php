@@ -101,6 +101,7 @@ class Area extends CActiveRecord
     {
         parent::beforeValidate();
         $this->points=  serialize($this->points);
+        return true;
     }
 
     public function afterFind()

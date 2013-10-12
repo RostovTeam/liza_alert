@@ -65,9 +65,11 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		'name',
-		'status',
-		'city_id',
-		'coordinator_id',
+		array(
+                    'value'=>'return Yii::app()->params["status"][$data->status]'
+                    ),
+		'city.name',
+		'coordinator.name',
 		'date_created',
 		array(
 			'class'=>'CButtonColumn',
