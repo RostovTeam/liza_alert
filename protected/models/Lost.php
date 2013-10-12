@@ -46,10 +46,10 @@ class Lost extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, city_id, coordinator_id', 'required'),
+            array('name, city_id', 'required'),
             array('status, city_id, coordinator_id', 'numerical', 'integerOnly' => true),
             array('name, flyer', 'length', 'max' => 200),
-            array('photo, date_created', 'safe'),
+            array('photo, age', 'safe'),
             array('id, name, status, city_id, coordinator_id, photo, flyer, date_created', 'safe', 'on' => 'search'),
             array('photo', 'file', 'types'=>'jpg, gif, png'),
         );
@@ -60,8 +60,6 @@ class Lost extends CActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'areas' => array(self::HAS_MANY, 'Area', 'lost_id'),
             'balloons' => array(self::HAS_MANY, 'Balloon', 'lost_id'),
