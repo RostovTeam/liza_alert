@@ -1,117 +1,25 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-header, nav, section, article, aside, footer {
-	display: block;
-}
-body {
-	font: 12px/18px Arial, Tahoma, Verdana, sans-serif;
-	background: black;
-	min-height: 1200px;
-	height: 100%;
-}
-a {
-	color: blue;
-	outline: none;
-	text-decoration: underline;
-}
-a:hover {
-	text-decoration: none;
-}
-p {
-	margin: 0 0 18px
-}
-img {
-	border: none;
-}
-input {
-	vertical-align: middle;
-}
-#wrapper {
-	width: 100%;
-	min-width: 1000px;
 
-	
+/*
+    Форма входа
+*/
+
+.form-signin
+{
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
-
-
-/* Header
------------------------------------------------------------------------------*/
-#header {
-    background: white;
-	height: 70px;
-	margin: 50px;
-	margin-top: 0px;
-	padding-top: 30px;
-	padding-left: 50px;
-	-webkit-border-radius: 30px;
--moz-border-radius: 30px;
-border-radius: 30px;
-}
-#header a {
-	outline: none;
-    color: Black;
-	font-size: 35px;
-	}
-
-/* Middle
------------------------------------------------------------------------------*/
-#middle {
-	width: 100%;
-	height: 1%;
-	position: relative;
-}
-#middle:after {
-	content: '';
-	clear: both;
-	display: table;
-}
-#container {
-	width: 100%;
-	float: left;
-	overflow: hidden;
-}
-#content {
-    background: white;
-	margin: 50px;
-	padding: 60px;
-	-webkit-border-radius: 30px;
--moz-border-radius: 30px;
-border-radius: 30px;
-width: 60%;
-}
-
-
-/* Sidebar Right
------------------------------------------------------------------------------*/
-#sideRight {
-	float: left;
-	margin-right: -3px;
-	width: 280px;
-	height: 500px;
-	background: white;
-	margin-left: -280px;
-	position: relative;
-	-webkit-border-top-left-radius: 30px;
-	-webkit-border-bottom-left-radius: 30px;
-	-moz-border-radius-topleft: 30px;
-	-moz-border-radius-bottomleft: 30px;
-	border-top-left-radius: 30px;
-	border-bottom-left-radius: 30px;
-}
-
-
-/* Footer
------------------------------------------------------------------------------*/
-
-
-/* overrrides
------------------------------------------------------------------------------*/
-.ui-dialog textArea{
-    width:400px;
-}
-
-.ui-dialog .row{
-    margin-left:0px;
+.form-signin input[type="text"], .form-signin input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
 }

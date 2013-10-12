@@ -13,13 +13,25 @@ class BaseAdminController extends CController
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/column3';
-    public $main_menu = array(
-        array('label' => 'Города', 'url' => array('/admin/city/index')),
-        array('label' => 'Координаторы', 'url' => array('/admin/coordinator/index')),
-        array('label' => 'Экипажи', 'url' => array('/admin/crew/index')),
-        array('label' => 'Потеряшки', 'url' => array('/admin/lost/index')),
-        array('label' => 'Волонтеры', 'url' => array('/admin/volunteer/index')),
-    );
+
+    public function getMain_menu()
+    {
+        $menu = array(
+            array('label' => 'Города', 'url' => array('/admin/city/index')),
+            array('label' => 'Координаторы', 'url' => array('/admin/coordinator/index')),
+            array('label' => 'Экипажи', 'url' => array('/admin/crew/index')),
+            array('label' => 'Потеряшки', 'url' => array('/admin/lost/index')),
+            array('label' => 'Волонтеры', 'url' => array('/admin/volunteer/index')),
+        );
+        
+        if (Yii::app()->user->checkAccess('superuser') == true ? : array())
+        {
+            $menu[]=array('label' => 'Пользователи', 'url' => array('/admin/user/index'));
+        }
+        
+        return $menu;
+    }
+
     public $menu = array();
     public $breadcrumbs = array();
 
@@ -42,10 +54,10 @@ class BaseAdminController extends CController
     public function accessRules()
     {
         return array(
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'users' => array('*'),
+            array('allow',
+                'roles' => array('admin', 'superuser'),
             ),
-            array('deny', // deny all users
+            array('deny',
                 'users' => array('*'),
             ),
         );

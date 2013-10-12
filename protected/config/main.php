@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'name' => 'ЪGames',
+    'name' => 'Лиза Алерт',
     'defaultController' => 'site',
     'preload' => array('log'),
     // autoloading model and component classes
@@ -44,7 +44,9 @@ return array(
             ),
         ),
         'user' => array(
-            'class' => 'WebUser',
+            // enable cookie-based authentication
+            'allowAutoLogin' => true,
+            'loginUrl' => array('site/login'),
         ),
         'db' => array(
             'class' => 'system.db.CDbConnection',
@@ -75,5 +77,4 @@ return array(
         ),
     ),
     'params' => require(dirname(__FILE__) . '/params.php'),
-
 );
