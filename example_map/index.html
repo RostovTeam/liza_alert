@@ -22,15 +22,6 @@
             margin-bottom: 10px;
         }
 
-        #map-log {
-            height: 400px;
-            width: 300px;
-            border: solid 1px;
-            float: left;
-            margin-right: 10px;
-            overflow-y: scroll;
-        }
-
         #map-canvas {
             height: 400px;
             width: 600px;
@@ -51,10 +42,8 @@
         }
     </style>
 </head>
-    <div id="area">
-        <div id="map-canvas"></div>
-        <div style="clear: both;"></div>
-    </div>
+    <div id="map-canvas" data-editable="false"></div>
+
     <button id="add-marker">addMarker</button>
     <button id="add-circle">addCircle</button>
     <button id="add-polygon">addPolygon</button>
