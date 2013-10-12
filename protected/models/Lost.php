@@ -22,6 +22,8 @@
 class Lost extends CActiveRecord
 {
 
+    private $oldPhoto = null;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -46,12 +48,12 @@ class Lost extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, city_id, coordinator_id', 'required'),
+            array('name, city_id', 'required'),
             array('status, city_id, coordinator_id', 'numerical', 'integerOnly' => true),
             array('name, flyer', 'length', 'max' => 200),
-            array('photo, date_created', 'safe'),
+            array('photo, age', 'safe'),
             array('id, name, status, city_id, coordinator_id, photo, flyer, date_created', 'safe', 'on' => 'search'),
-            array('photo', 'file', 'types'=>'jpg, gif, png'),
+            array('photo', 'file', 'types' => 'jpg, gif, png, bmp', 'allowEmpty' => true),
         );
     }
 
@@ -60,8 +62,6 @@ class Lost extends CActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'areas' => array(self::HAS_MANY, 'Area', 'lost_id'),
             'balloons' => array(self::HAS_MANY, 'Balloon', 'lost_id'),
@@ -93,8 +93,6 @@ class Lost extends CActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
 
         $criteria = new CDbCriteria;
 
@@ -110,9 +108,55 @@ class Lost extends CActiveRecord
         ));
     }
 
-    public function afterDelete() {
-        $this->delete();
+    public function afterFind()
+    {
+        parent::afterFind();
+        $this->oldPhoto = $this->photo;
+    }
+
+    public function beforeSave()
+    {
+        $photosDir = Yii::app()->params['photosDir'];
+        if (is_object($this->photo))
+        {
+            $photoName = time() . '.' . $this->photo->getExtensionName();
+            $this->photo->saveAs($photosDir . time() . $photoName);
+            $this->photo = $photoName;
+
+            if (!empty($this->oldPhoto))
+            {
+                $delete = $photosDir . $this->oldPhoto;
+                if (file_exists($delete))
+                    unlink($delete);
+            }
+        }
+        if (empty($this->photo) && !empty($this->oldPhoto))
+            $this->photo = $this->oldPhoto;
+        return parent::beforeSave();
+    }
+
+    public function saveCroppedImage($file, $name)
+    {
+        $im = new ImageHandler;
+        $photo_sizes = Yii::app()->params['photo_sizes'];
+        foreach ($photo_sizes as $i => $size)
+        {
+            $file->saveAs($name.'_size_'.$i.'.'.$ext,false);
+            $im->load($name.'_size_'.$i.'.'.$file->getExtensionName());
+            $im->adaptiveThumb($size[0], $size[1]);
+            $im->save(false, false, 100);
+        }
+    }
+
+    public function afterDelete()
+    {
+        $this->deleteFiles();
         return parent::afterDelete();
+    }
+
+    public function deleteFiles()
+    {
+        return unlink(Yii::app()->params['photosDir'] . $this->photo);
     }
 
 }

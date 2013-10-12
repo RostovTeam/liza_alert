@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Создание эскорта', 'url'=>array('create')),
-	array('label'=>'Управление эскортом', 'url'=>array('index')),
+	array('label'=>'Создание экипаж', 'url'=>array('create')),
+	array('label'=>'Управление экипаж', 'url'=>array('index')),
 );
 ?>
 

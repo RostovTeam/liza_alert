@@ -43,15 +43,13 @@ class Balloon extends CActiveRecord
      */
     public function rules()
     {
-        return array(
-            array('lost_id', 'required'),
-            array('lost_id', 'numerical', 'integerOnly' => true),
-            array('title, lat, long, url', 'length', 'max' => 255),
-            array('user', 'length', 'max' => 1),
-            array('description, date_created', 'safe'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array('title, description, lat, long, url, lost_id, user, date_created, id', 'safe', 'on' => 'search'),
+         return array(
+            array('lost_id', 'numerical', 'integerOnly'=>true),
+            array('title, lat, lng, url', 'length', 'max'=>255),
+            array('user', 'length', 'max'=>1),
+            array('description, date_created, color', 'safe'),
+            
+            array('title, description, lat, lng, url, lost_id, user, date_created, id', 'safe', 'on'=>'search'),
         );
     }
 
@@ -60,8 +58,6 @@ class Balloon extends CActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'lost' => array(self::BELONGS_TO, 'Lost', 'lost_id'),
         );

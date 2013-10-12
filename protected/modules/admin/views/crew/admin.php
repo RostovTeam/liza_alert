@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Создание эскорта', 'url'=>array('create')),
+	array('label'=>'Создание экипажа', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -25,7 +25,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h2>Эскорт</h2>
+<h2>Экипаж</h2>
 
 
 
@@ -48,6 +48,16 @@ $('.search-form form').submit(function(){
             'header'=>'',
             'hiddenPageCssClass'=>'disabled'	
         ),
+    'pager'=>array(
+        'selectedPageCssClass'=>'active',
+        'cssFile'=>'',
+        'header'=>'',
+        'hiddenPageCssClass'=>'disabled',
+        'nextPageLabel'=>'Вперед',
+        'prevPageLabel'=>'Назад',
+        'lastPageLabel'=>'Последняя',
+        'firstPageLabel'=>'Первая'
+    ),
 	'columns'=>array(
 		'id',
 		'name',

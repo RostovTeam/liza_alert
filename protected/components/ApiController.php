@@ -347,7 +347,7 @@ abstract class ApiController extends Controller
 
         if ($this->format == 'json')
         {
-            return CJSON::encode($array);
+            return json_encode($array,JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         } elseif ($this->format == 'xml')
         {
             $result = '<?xml version="1.0">';

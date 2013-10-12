@@ -48,6 +48,16 @@ $('.search-form form').submit(function(){
             'header'=>'',
             'hiddenPageCssClass'=>'disabled'	
         ),
+    'pager'=>array(
+        'selectedPageCssClass'=>'active',
+        'cssFile'=>'',
+        'header'=>'',
+        'hiddenPageCssClass'=>'disabled',
+        'nextPageLabel'=>'Вперед',
+        'prevPageLabel'=>'Назад',
+        'lastPageLabel'=>'Последняя',
+        'firstPageLabel'=>'Первая'
+    ),
 	'columns'=>array(
 		'id',
 		'name',
