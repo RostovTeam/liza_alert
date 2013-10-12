@@ -31,7 +31,6 @@ class LostController extends BaseAdminController
             $model->photo=CUploadedFile::getInstance($model,'photo');
 			if($model->save())
             {
-                $model->photo->saveAs((Yii::getPathOfAlias('webroot').'/'.Yii::app()->params['photosDir']).time().'.'.$model->photo->getExtensionName());
                 $this->redirect(array('view','id'=>$model->id));
             }
 		}

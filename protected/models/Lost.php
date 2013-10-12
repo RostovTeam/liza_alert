@@ -22,6 +22,8 @@
 class Lost extends CActiveRecord
 {
 
+    private $oldPhoto = null;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -51,7 +53,7 @@ class Lost extends CActiveRecord
             array('name, flyer', 'length', 'max' => 200),
             array('photo, age', 'safe'),
             array('id, name, status, city_id, coordinator_id, photo, flyer, date_created', 'safe', 'on' => 'search'),
-            array('photo', 'file', 'types'=>'jpg, gif, png'),
+            array('photo', 'file', 'types'=>'jpg, gif, png, bmp'),
         );
     }
 
@@ -108,9 +110,36 @@ class Lost extends CActiveRecord
         ));
     }
 
+    public function afterFind() {
+        parent::afterFind();
+        $this->oldPhoto = $this->photo;
+    }
+
+
+    public function beforeSave() {
+        $photosDir = Yii::app()->params['photosDir'];
+        if(is_object($this->photo)) {
+            $photoName = time().'.'.$this->photo->getExtensionName();
+            $this->photo->saveAs($photosDir.time().$photoName);
+            $this->photo = $photoName;
+
+            if(!empty($this->oldPhoto)) {
+                $delete = $photosDir.$this->oldPhoto;
+                if(file_exists($delete)) unlink($delete);
+            }
+        }
+        if(empty($this->photo) && !empty($this->oldPhoto)) $this->photo = $this->oldPhoto;
+        return parent::beforeSave();
+    }
+
+
     public function afterDelete() {
-        $this->delete();
+        $this->deleteFiles();
         return parent::afterDelete();
+    }
+
+    public function deleteFiles() {
+        return unlink(Yii::app()->params['photosDir'].$this->photo);
     }
 
 }
