@@ -6,10 +6,6 @@ var addCircleBtn = document.getElementById('add-circle');
 var addPolygonBtn = document.getElementById('add-polygon');
 var deleteSelectBtn = document.getElementById('delete-select');
 
-var switchVisibleMarkers = document.getElementById('switch-visible-markes');
-var switchVisiblePolygons = document.getElementById('switch-visible-polygons');
-var switchVisibleCircles = document.getElementById('switch-visible-circles');
-
 var selectedElement = null;
 var infowindow = null;
 
@@ -21,6 +17,18 @@ var markersArray = ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/red.png',
     'https://maps.gstatic.com/mapfiles/ms2/micons/pink.png'
 ];
+
+function addCustomControl(control, text, callback) {
+    'use strict';
+    var controlChild = document.createElement('div');
+    controlChild.style.float = 'left';
+    controlChild.className = 'controlMap';
+    controlChild.innerText = text;
+    control.appendChild(controlChild);
+    google.maps.event.addDomListener(controlChild, 'click', function () {
+        callback();
+    });
+}
 
 function initialize() {
     'use strict';
@@ -225,17 +233,18 @@ function initialize() {
         deleteSelected();
     };
 
-    switchVisibleMarkers.onclick = function () {
+    var control = document.createElement('div');
+    control.style.margin = '5px';
+    addCustomControl(control, 'Скрыть точки', function () {
         switchVisibleLayers('marker');
-    };
-
-    switchVisiblePolygons.onclick = function () {
+    });
+    addCustomControl(control, 'Скрыть круги', function () {
         switchVisibleLayers('polygon');
-    };
-
-    switchVisibleCircles.onclick = function () {
+    });
+    addCustomControl(control, 'Скрыть области', function () {
         switchVisibleLayers('circle');
-    };
+    });
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
 
 }
 
