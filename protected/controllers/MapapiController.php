@@ -7,7 +7,7 @@ class MapapiController extends ApiController
     {
         return array_merge(
                 array(array('allow',
-                'actions' => array('view'),
+                'actions' => array('view','create'),
                 'users' => array('*'),
             )
                 ), parent::accessRules()
@@ -63,8 +63,10 @@ class MapapiController extends ApiController
         $content = array();
         foreach ($modelnames as $modelname)
         {
-            if (isset($_POST[$modelnames]) && is_array($_POST[$modelnames]))
+            if (isset($_POST[$modelnames]) && is_array($_POST[$modelnames])
+                    && intval($_POST[$modelnames][0]['lost_id']))
             {
+                $modelname::model()->deleteAllByAttributes(array('lost_id'=>$_POST[$modelnames][0]['lost_id']));
                 foreach ($_POST[$modelnames] as $key => $data)
                 {
                     $model = new $modelname;
