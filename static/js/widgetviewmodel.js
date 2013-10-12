@@ -35,10 +35,11 @@ var la = la || {};
 					scaleControl: true,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 				},
+				mapCanvas = document.getElementById('map-area'),
 				map = new google.maps.Map(mapCanvas, mapOptions),
 				geocoder = new google.maps.Geocoder(),
 				address = lost.city.name,
-				editable = Boolean(mapCanvas.getAttribute('data-editable'));
+				editable = !! mapCanvas.getAttribute('data-editable');
 
 				geocoder.geocode( { 'address': address}, function(results, status) {
 					if (status == google.maps.GeocoderStatus.OK) {
