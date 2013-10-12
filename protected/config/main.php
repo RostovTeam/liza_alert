@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'name' => 'ЪGames',
+    'name' => 'Лиза алерт',
     'defaultController' => 'site',
     'preload' => array('log'),
     // autoloading model and component classes
@@ -48,10 +48,10 @@ return array(
         ),
         'db' => array(
             'class' => 'system.db.CDbConnection',
-            'connectionString' => 'mysql:host=localhost;port=3306;dbname=zfproj',
+            'connectionString' => 'mysql:host=localhost;port=3306;dbname=liza',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => 'root',
+            'password' => '',
             'charset' => 'utf8',
             // 'enableProfiling' => true,
             'schemaCachingDuration' => 300,
