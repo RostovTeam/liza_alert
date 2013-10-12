@@ -15,3 +15,4 @@ assets/*
 protected/runtime/*
 protected/runtime/application.log
 static/photos/*
+protected/config/main.php
