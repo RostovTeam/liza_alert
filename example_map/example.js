@@ -1,5 +1,5 @@
 /*jslint vars: true*/
-/*global google, document, window*/
+/*global google, document, window, $*/
 
 var mapCanvas = document.getElementById('map-canvas');
 var addMarkerBtn = document.getElementById('add-marker');
@@ -18,7 +18,7 @@ var markersArray = {
     yellow: ['https://maps.gstatic.com/mapfiles/ms2/micons/yellow.png', '#ffff00'],
     purple: ['https://maps.gstatic.com/mapfiles/ms2/micons/purple.png', '#8b00ff'],
     pink: ['https://maps.gstatic.com/mapfiles/ms2/micons/pink.png', '#ffc0cb']
-    };
+};
 
 function addCustomControl(control, text, callback) {
     'use strict';
@@ -256,10 +256,10 @@ function initialize() {
         switchVisibleLayers('marker', item);
     });
     addCustomControl(control, 'Скрыть круги', function (item) {
-        switchVisibleLayers('polygon', item);
+        switchVisibleLayers('circle', item);
     });
     addCustomControl(control, 'Скрыть области', function (item) {
-        switchVisibleLayers('circle', item);
+        switchVisibleLayers('polygon', item);
     });
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
 
