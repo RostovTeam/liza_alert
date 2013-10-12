@@ -41,14 +41,11 @@ class Radius extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('lost_id, radius', 'numerical', 'integerOnly'=>true),
 			array('title, lat, long', 'length', 'max'=>255),
 			array('description, date_created', 'safe'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
+
 			array('title, description, lat, long, lost_id, date_created, radius, id', 'safe', 'on'=>'search'),
 		);
 	}
