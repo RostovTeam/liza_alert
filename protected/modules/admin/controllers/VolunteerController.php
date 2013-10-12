@@ -53,7 +53,20 @@ class VolunteerController extends BaseAdminController
         {
             $model->attributes = $_POST['Volunteer'];
             if ($model->save())
+            {
+                if (isset($_POST['Volunteer']['crew']))
+                {
+                    foreach($_POST['Volunteer']['crew'] as $crew)
+                    {
+                        $vc= new VolunteerCrew;
+                        
+                        $vc->crew_id=$crew;
+                        $vc->volunteer_id=$model->id;
+                        $vc->save();
+                    }
+                }
                 $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
         $this->render('update', array(

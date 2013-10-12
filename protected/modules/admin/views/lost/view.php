@@ -23,8 +23,8 @@ $this->menu=array(
 		'id',
 		'name',
 		'status',
-		'city_id',
-		'coordinator_id',
+		'city.name',
+		'coordinator.name',
 		'date_created',
 	),
 )); ?>
