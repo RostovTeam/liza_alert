@@ -39,7 +39,6 @@ $form = $this->beginWidget('CActiveForm', array(
     </div>
 </div>
 
-<?php echo CHtml::activeFileField($model, 'photo'); ?>
 <div class="control-group">
         <?php echo $form->labelEx($model, 'city_id', array('class' => 'control-label')); ?>
     <div class="controls">
@@ -64,6 +63,12 @@ $form = $this->beginWidget('CActiveForm', array(
 <?php echo $form->textField($model, 'age'); ?>
 <?php echo $form->error($model, 'age'); ?>
     </div>
+</div>
+
+<div class="control-group">
+    <div class="controls">
+    <?php echo CHtml::activeFileField($model, 'photo'); ?>
+        </div>
 </div>
 <div class="control-group">
     <div class="controls">

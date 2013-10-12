@@ -8,10 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Управление эскортом', 'url'=>array('index')),
+	array('label'=>'Управление экипаж', 'url'=>array('index')),
 );
 ?>
 
-<h1>Создать эскорт</h1>
+<h1>Создать экипаж</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -8,10 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Создание эскорта', 'url'=>array('create')),
-	array('label'=>'Обновление эскорта', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Удаление эскорта', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Удалить эскорт?')),
-	array('label'=>'Управление эскортом', 'url'=>array('index')),
+	array('label'=>'Создание экипаж', 'url'=>array('create')),
+	array('label'=>'Обновление экипаж', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Удаление экипаж', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Удалить эскорт?')),
+	array('label'=>'Управление экипаж', 'url'=>array('index')),
 );
 ?>
 
