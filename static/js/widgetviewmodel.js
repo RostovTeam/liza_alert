@@ -23,7 +23,7 @@ var la = la || {};
 			$(wa.options.city).text(lost.city.name);
 			$(wa.options.age).text(lost.age);
 
-			we.initMap(lost);
+			wa.initMap(lost);
 		},
 		initMap: function(lost) {
 			var wa = this,
