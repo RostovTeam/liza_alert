@@ -54,7 +54,7 @@ class MapapiController extends ApiController
     public function actionCreate()
     {
 
-        if (!isset($_POST['Balloon']) && !isset($_POST['Radar']) && !isset($_POST['Area']))
+        if (!isset($_REQUEST['Balloon']) && !isset($_REQUEST['Radar']) && !isset($_REQUEST['Area']))
         {
             $this->_sendResponse(400, array('error' => 'Nothing to save'));
         }
@@ -65,11 +65,11 @@ class MapapiController extends ApiController
 
         foreach ($modelnames as $postindex => $modelname)
         {
-            if (isset($_POST[$postindex]) && is_array($_POST[$postindex]) 
-                    && intval($_POST[$postindex][0]['lost_id']))
+            if (isset($_REQUEST[$postindex]) && is_array($_REQUEST[$postindex]) 
+                    && intval($_REQUEST[$postindex][0]['lost_id']))
             {
-                $modelname::model()->deleteAllByAttributes(array('lost_id' => $_POST[$postindex][0]['lost_id']));
-                foreach ($_POST[$postindex] as $key => $data)
+                $modelname::model()->deleteAllByAttributes(array('lost_id' => $_REQUEST[$postindex][0]['lost_id']));
+                foreach ($_REQUEST[$postindex] as $key => $data)
                 {
                     $model = new $modelname;
                     $model->attributes = $data;
