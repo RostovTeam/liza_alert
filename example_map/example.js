@@ -26,7 +26,7 @@ function addCustomControl(control, text, callback) {
     controlChild.innerText = text;
     control.appendChild(controlChild);
     google.maps.event.addDomListener(controlChild, 'click', function () {
-        callback();
+        callback(this);
     });
 }
 
@@ -89,11 +89,13 @@ function initialize() {
         selectedElement = element;
     }
 
-    function setStatusItems(items, type) {
+    /*set status visible elements*/
+
+    function setStatusElements(elements, type) {
         var i;
-        for (i in items) {
-            if (items.hasOwnProperty(i)) {
-                items[i].element.setVisible(type);
+        for (i in elements) {
+            if (elements.hasOwnProperty(i)) {
+                elements[i].element.setVisible(type);
             }
         }
     }
@@ -108,20 +110,26 @@ function initialize() {
         infowindow.open(map);
     }
 
-    function switchVisibleLayers(layer) {
+    function switchVisibleLayers(layer, item) {
+        var status;
         switch (layer) {
         case 'marker':
-            data.visible.markers = !data.visible.markers;
-            setStatusItems(data.markers, data.visible.markers);
+            status = data.visible.markers = !data.visible.markers;
+            setStatusElements(data.markers, data.visible.markers);
             break;
         case 'polygon':
-            data.visible.polygons = !data.visible.polygons;
-            setStatusItems(data.polygons, data.visible.polygons);
+            status = data.visible.polygons = !data.visible.polygons;
+            setStatusElements(data.polygons, data.visible.polygons);
             break;
         case 'circle':
-            data.visible.circles = !data.visible.circles;
-            setStatusItems(data.circles, !data.visible.circles);
+            status = data.visible.circles = !data.visible.circles;
+            setStatusElements(data.circles, !data.visible.circles);
             break;
+        }
+        if (status) {
+            item.style.color = '#000000';
+        } else {
+            item.style.color = '#565656';
         }
     }
 
@@ -235,23 +243,20 @@ function initialize() {
 
     var control = document.createElement('div');
     control.style.margin = '5px';
-    addCustomControl(control, 'Скрыть точки', function () {
-        switchVisibleLayers('marker');
+    addCustomControl(control, 'Скрыть точки', function (item) {
+        switchVisibleLayers('marker', item);
     });
-    addCustomControl(control, 'Скрыть круги', function () {
-        switchVisibleLayers('polygon');
+    addCustomControl(control, 'Скрыть круги', function (item) {
+        switchVisibleLayers('polygon', item);
     });
-    addCustomControl(control, 'Скрыть области', function () {
-        switchVisibleLayers('circle');
+    addCustomControl(control, 'Скрыть области', function (item) {
+        switchVisibleLayers('circle', item);
     });
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
 
 }
 
-window.onload = function () {
-    'use strict';
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize';
-    document.body.appendChild(script);
-};
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize';
+document.body.appendChild(script);
