@@ -9,9 +9,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create City', 'url'=>array('create')),
-	array('label'=>'View City', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage City', 'url'=>array('index')),
+	array('label'=>'Добавить город', 'url'=>array('create')),
+	array('label'=>'Посмотреть города', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Управление городами', 'url'=>array('index')),
 );
 ?>
 

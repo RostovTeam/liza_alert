@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create City', 'url'=>array('create')),
+	array('label'=>'Добавить город', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

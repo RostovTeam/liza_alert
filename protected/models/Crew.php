@@ -72,12 +72,12 @@ class Crew extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'name' => 'Name',
-            'active' => 'Active',
-            'lost_id' => 'Lost',
-            'coordinator_id' => 'Coordinator',
-            'date_created' => 'Date Created',
+            'id' => 'Номер',
+            'name' => 'Имя',
+            'active' => 'Активность',
+            'lost_id' => 'Номер потерявшки',
+            'coordinator_id' => 'Номер координатора',
+            'date_created' => 'Дата создания',
         );
     }
 

@@ -28,8 +28,12 @@ class LostController extends BaseAdminController
 		if(isset($_POST['Lost']))
 		{
 			$model->attributes=$_POST['Lost'];
+            $model->photo=CUploadedFile::getInstance($model,'photo');
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+            {
+                $model->photo->saveAs((Yii::getPathOfAlias('webroot').'/'.Yii::app()->params['photosDir']).time().'.'.$model->photo->getExtensionName());
+                $this->redirect(array('view','id'=>$model->id));
+            }
 		}
 
 		$this->render('create',array(

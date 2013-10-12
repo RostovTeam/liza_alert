@@ -51,6 +51,7 @@ class Lost extends CActiveRecord
             array('name, flyer', 'length', 'max' => 200),
             array('photo, date_created', 'safe'),
             array('id, name, status, city_id, coordinator_id, photo, flyer, date_created', 'safe', 'on' => 'search'),
+            array('photo', 'file', 'types'=>'jpg, gif, png'),
         );
     }
 
@@ -77,12 +78,12 @@ class Lost extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'name' => 'Name',
-            'status' => 'Status',
-            'city_id' => 'City',
-            'coordinator_id' => 'Coordinator',
-            'date_created' => 'Date Created',
+            'id' => 'Номер',
+            'name' => 'Имя',
+            'status' => 'Статус',
+            'city_id' => 'Город',
+            'coordinator_id' => 'Координатор',
+            'date_created' => 'Дата создания',
         );
     }
 
@@ -107,6 +108,11 @@ class Lost extends CActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function afterDelete() {
+        $this->delete();
+        return parent::afterDelete();
     }
 
 }

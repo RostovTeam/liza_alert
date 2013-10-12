@@ -10,7 +10,7 @@
 $form = $this->beginWidget('CActiveForm', array(
     'id' => 'lost-form',
     'enableAjaxValidation' => false,
-    'htmlOptions' => array('class' => 'form-horizontal')
+    'htmlOptions' => array('class' => 'form-horizontal','enctype'=>'multipart/form-data')
         ));
 ?>
 
@@ -38,7 +38,7 @@ $form = $this->beginWidget('CActiveForm', array(
     </div>
 </div>
 
-
+<?php echo CHtml::activeFileField($model, 'photo'); ?>
 <div class="control-group">
         <?php echo $form->labelEx($model, 'city_id', array('class' => 'control-label')); ?>
     <div class="controls">

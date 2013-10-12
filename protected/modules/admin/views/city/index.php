@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create City', 'url'=>array('create')),
-	array('label'=>'Manage City', 'url'=>array('index')),
+	array('label'=>'Добавление города', 'url'=>array('create')),
+	array('label'=>'Управление городами', 'url'=>array('index')),
 );
 ?>
 

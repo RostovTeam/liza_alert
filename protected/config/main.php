@@ -48,10 +48,10 @@ return array(
         ),
         'db' => array(
             'class' => 'system.db.CDbConnection',
-            'connectionString' => 'mysql:host=localhost;port=3306;dbname=liza',
+            'connectionString' => 'mysql:host=localhost;port=3306;dbname=zfproj',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => '',
+            'password' => 'root',
             'charset' => 'utf8',
             // 'enableProfiling' => true,
             'schemaCachingDuration' => 300,
@@ -74,4 +74,6 @@ return array(
             ),
         ),
     ),
+    'params' => array('photosDir' => 'static/photos/'),
+
 );

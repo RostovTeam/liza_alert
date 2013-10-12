@@ -70,10 +70,10 @@ class Coordinator extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'phone' => 'Phone',
-			'date_created' => 'Date Created',
+			'id' => 'Номер',
+			'name' => 'Имя',
+			'phone' => 'Телефон',
+			'date_created' => 'Дата создания',
 		);
 	}
 

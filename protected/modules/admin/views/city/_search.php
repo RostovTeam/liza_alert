@@ -22,7 +22,7 @@
 
 
 	<div>
-		<?php echo CHtml::submitButton('Search',array('class'=>'btn')); ?>
+		<?php echo CHtml::submitButton('Поиск',array('class'=>'btn')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
