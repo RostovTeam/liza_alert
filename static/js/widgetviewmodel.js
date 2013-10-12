@@ -38,10 +38,9 @@ var la = la || {};
 				mapCanvas = document.getElementById('map-area'),
 				map = new google.maps.Map(mapCanvas, mapOptions),
 				geocoder = new google.maps.Geocoder(),
-				address = lost.city.name,
-				editable = !! mapCanvas.getAttribute('data-editable');
+				address = lost.city.name;
 
-				geocoder.geocode( { 'address': address}, function(results, status) {
+				geocoder.geocode({'address': address}, function(results, status) {
 					if (status == google.maps.GeocoderStatus.OK) {
 						map.setCenter(results[0].geometry.location);
 					}
