@@ -45,8 +45,7 @@ class Radius extends CActiveRecord
         return array(
             array('lost_id, radius', 'numerical', 'integerOnly' => true),
             array('title, lat, lng', 'length', 'max' => 255),
-            array('description, date_created,color', 'safe'),
-            
+            array('description, color,radius', 'safe'),
             array('title, description, lat, lng, lost_id, date_created, radius, id', 'safe', 'on' => 'search'),
         );
     }

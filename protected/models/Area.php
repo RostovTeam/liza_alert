@@ -45,7 +45,6 @@ class Area extends CActiveRecord
             array('lost_id', 'numerical', 'integerOnly' => true),
             array('tittle', 'length', 'max' => 255),
             array('description, date_created, points, color', 'safe'),
-            
             array('tittle, description, date_created, points, lost_id, id', 'safe', 'on' => 'search'),
         );
     }
@@ -55,7 +54,7 @@ class Area extends CActiveRecord
      */
     public function relations()
     {
-         return array(
+        return array(
             'lost' => array(self::BELONGS_TO, 'Lost', 'lost_id'),
         );
     }
@@ -98,4 +97,14 @@ class Area extends CActiveRecord
         ));
     }
 
+    public function beforeValidate()
+    {
+        parent::beforeValidate();
+        $this->points=  serialize($this->points);
+    }
+
+    public function afterFind()
+    {
+        $this->points=  unserialize($this->points);
+    }
 }
