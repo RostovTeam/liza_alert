@@ -85,7 +85,7 @@ CREATE TABLE `radar` (
   `lng` varchar(255) DEFAULT NULL,
   `lost_id` int(11) DEFAULT NULL,
   `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `radius` int(11) DEFAULT NULL,
+  `radius` varchar(100) DEFAULT NULL,
   `color` varchar(200) DEFAULT NULL, 
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
