@@ -33,8 +33,11 @@ class LostapiController extends ApiController
         {
             $content = array_map(function($v)
                     {
-                        return $v->attributes +
-                                array('city' => $v->city) + array('coordinator' => $v->coordinator);
+                        return
+                                array('photo' => Yii::app()->params['url'] . Yii::app()->params['photosRelative'] . $model->photo) +
+                                $v->attributes +
+                                array('city' => $v->city->attributes) +
+                                array('coordinator' => $v->coordinator->attributes);
                     }, $models);
 
             $this->_sendResponse(200, array('error' => 0, 'content' => $content));
@@ -53,7 +56,11 @@ class LostapiController extends ApiController
             $this->_sendResponse(404, array('error' => "Couldn't find model."));
         } else
         {
-            $this->_sendResponse(200, array('error' => 0, 'content' => $model->attributes+array('city' => $model->city) + array('coordinator' => $model->coordinator)));
+            $this->_sendResponse(200, array('error' => 0, 'content' =>
+                array('photo' => Yii::app()->params['url'] . Yii::app()->params['photosRelative'] . $model->photo) +
+                $model->attributes +
+                array('city' => $model->city->attributes) +
+                array('coordinator' => $model->coordinator > attributes)));
         }
     }
 

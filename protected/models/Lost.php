@@ -53,7 +53,8 @@ class Lost extends CActiveRecord
             array('name, flyer', 'length', 'max' => 200),
             array('photo, age', 'safe'),
             array('id, name, status, city_id, coordinator_id, photo, flyer, date_created', 'safe', 'on' => 'search'),
-            array('photo', 'file', 'types'=>'jpg, gif, png, bmp'),
+
+            array('photo', 'file', 'types'=>'jpg, gif, png, bmp', 'allowEmpty'=>true),
         );
     }
 
@@ -93,8 +94,6 @@ class Lost extends CActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
 
         $criteria = new CDbCriteria;
 
