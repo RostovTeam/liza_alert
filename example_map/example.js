@@ -126,7 +126,7 @@ function initialize() {
             break;
         case 'circle':
             status = data.visible.circles = !data.visible.circles;
-            setStatusElements(data.circles, !data.visible.circles);
+            setStatusElements(data.circles, data.visible.circles);
             break;
         }
         if (status) {
