@@ -35,7 +35,9 @@ var la = la || {};
 		get: function(route) {
 			var w = this,
 				onDataLoaded = function(json) {
-					w.data = JSON.parse(json.content);
+					var tmp = JSON.parse(json);
+					w.data = tmp.content;
+					// @todo: handle error case
 					w.$node.trigger('refresh.la');
 				}, onDataLoadingError = function() {
 				};
