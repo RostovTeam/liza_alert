@@ -31,27 +31,25 @@
 		<?php echo $form->error($model,'active'); ?>
      </div>
 </div>
- <div class="control-group">
-		<?php echo $form->labelEx($model,'lost_id',array('class'=>'control-label')); ?>
-     <div class="controls">
-		<?php echo $form->textField($model,'lost_id'); ?>
-		<?php echo $form->error($model,'lost_id'); ?>
-     </div>
+<div class="control-group">
+        <?php echo $form->labelEx($model, 'lost_id', array('class' => 'control-label')); ?>
+    <div class="controls">
+        <?=
+        $form->dropDownList($model, 'lost_id', CHtml::listData(Lost::model()->findAll(), 'id', 'name'));
+        ?>
+        <?php echo $form->error($model, 'lost_id'); ?>
+    </div>
 </div>
- <div class="control-group">
-		<?php echo $form->labelEx($model,'coordinator_id',array('class'=>'control-label')); ?>
-     <div class="controls">
-		<?php echo $form->textField($model,'coordinator_id'); ?>
-		<?php echo $form->error($model,'coordinator_id'); ?>
-     </div>
+<div class="control-group">
+        <?php echo $form->labelEx($model, 'coordinator_id', array('class' => 'control-label')); ?>
+    <div class="controls">
+        <?=
+        $form->dropDownList($model, 'coordinator_id', CHtml::listData(Coordinator::model()->findAll(), 'id', 'name'));
+        ?>
+        <?php echo $form->error($model, 'coordinator_id'); ?>
+    </div>
 </div>
- <div class="control-group">
-		<?php echo $form->labelEx($model,'age',array('class'=>'control-label')); ?>
-     <div class="controls">
-		<?php echo $form->textField($model,'age'); ?>
-		<?php echo $form->error($model,'age'); ?>
-     </div>
-</div>
+
  <div class="control-group">
 	<div class="controls">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить',array('class'=>'btn')); ?>

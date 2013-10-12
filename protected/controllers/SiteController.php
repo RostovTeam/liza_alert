@@ -8,9 +8,12 @@
 class SiteController extends Controller
 {
 
-    function actionIndex()
+    function actionIndex($id)
     {
-        $this->render('index');
+        if(Lost::model()->findByPk($id))
+            $this->render('index',array('id'=>$id));
+        else
+            $this->render('index',array('id'=>null));
     }
 
     function actionInstall()
