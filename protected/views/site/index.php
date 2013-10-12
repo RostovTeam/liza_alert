@@ -1,11 +1,12 @@
+<div id="map-area"></div>
+<div id="name"></div>
+<div id="city"></div>
+<div id="age"></div>
+<div id="coordinator-phone"></div>
 
-<div id="area">
-    <div id="map-log"></div>
-    <div id="map-canvas"></div>
-    <div style="clear: both;"></div>
-</div>
-<script type="text/javascript" href="/static/js/widget.js"></script>
-
+<script type="text/javascript" src="http://yandex.st/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/widget.js"></script>
+<script type="text/javascript" src="../static/js/widgetviewmodel.js"></script>
 <script type="text/javascript">
-	$('#map-canvas').laWidget({route: '/api/lost/<?php echo $id ?>'});
+	$('#map-area').laWidget({route: '/api/map/<?php echo $id ?>'});
 </script>
