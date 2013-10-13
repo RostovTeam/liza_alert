@@ -96,7 +96,7 @@ function initialize() {
                 $('.share-buttons-panel').data('url', location.href);
                 $('.share-buttons-panel').data('title', 'Важно! Пропал человек: ' + data.content.lost.name + ' #' + data.content.lost.city.name);
                 $('.share-buttons-panel').data('imageurl', data.content.lost.photo['300x300']);
-                $('.share-buttons-panel').data('description', 'Description');
+                $('.share-buttons-panel').data('description', data.content.lost.description);
                 geocoder.geocode({
                     'address': data.content.lost.city.name
                 }, function (results, status) {

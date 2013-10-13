@@ -45,15 +45,18 @@
             </form>
         </div>
     <? else: ?>
-        <div id="share_buttons" class="share-buttons-panel invisible">
-            <a class="vkontakte" href="javascript: void(0);"></a>
-            <a class="facebook" href="javascript: void(0);">Расказать в facebook</a>
-            <a class="mailru" href="javascript: void(0);">Рассказать на mail.ru</a>
-            <a class="odnoklassniki" href="javascript: void(0);">Рассказать на Одноклассники.ру</a>
-            <a class="twitter" href="javascript: void(0);">Рассказать на twitter</a>
-        </div>
+
     <? endif; ?>
 </div>
+
+<? if (! $editable): ?>
+<div id="share_buttons" class="share-buttons-panel invisible">
+    <a class="i16x16 vkontakte" href="javascript: void(0);" title="Рассказать Vkontakte"></a>
+    <a class="i16x16 facebook" href="javascript: void(0);" title="Расказать в Facebook"></a>
+    <a class="i16x16 odnoklassniki" href="javascript: void(0);" title="Рассказать в Одноклассниках"></a>
+    <a class="i16x16 twitter" href="javascript: void(0);" title="Рассказать в Twitter"></a>
+</div>
+<? endif; ?>
 
 <div id="popup-alert" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-header">
@@ -63,8 +66,6 @@
     <div class="modal-body">
         <input id="volunteersName" type="text" placeholder="Ф.И.О">&nbsp;&nbsp;&nbsp;
         <input id="volunteersPhone" type="text" placeholder="Телефон">
-
-
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
