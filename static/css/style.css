@@ -103,14 +103,14 @@ html, body {
     display: inline-block;
 }
 .share-buttons-panel .vkontakte {
-    background: url(/static/images/icons/vk.png) 0 0 transparent;
+    background: url(/static/img/icons/vk.png) 0 0 transparent;
 }
 .share-buttons-panel .facebook {
-    background: url(/static/images/icons/fb.png) 0 0 transparent;
+    background: url(/static/img/icons/fb.png) 0 0 transparent;
 }
 .share-buttons-panel .odnoklassniki {
-    background: url(/static/images/icons/ok.png) 0 0 transparent;
+    background: url(/static/img/icons/ok.png) 0 0 transparent;
 }
 .share-buttons-panel .twitter {
-    background: url(/static/images/icons/t.png) 0 0 transparent;
+    background: url(/static/img/icons/t.png) 0 0 transparent;
 }
