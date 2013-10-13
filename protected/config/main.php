@@ -2,7 +2,8 @@
 
 return array(
 
-    'name' => 'Лиза Алерт',
+    'name' => 'Лиза алерт',
+    'language' => 'ru',
 
     'defaultController' => 'site',
     'preload' => array('log'),

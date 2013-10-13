@@ -62,7 +62,7 @@ $form = $this->beginWidget('CActiveForm', array(
         <label  class= 'control-label'>Добавить в экипаж</label>
         <div class="controls">
             <?=
-            CHtml::dropDownList('Volunteer[crew][]', '', CHTML::listData(Crew::model()->findAllByAttributes(array('active' => 1)), 'id', 'name'), array('multiple' => true, 'class' => 'chosen')
+            CHtml::dropDownList('Volunteer[crew][]', '', CHTML::listData($model->AvailableCrew(), 'id', 'name'), array('multiple' => true, 'class' => 'chosen')
             );
             ?><br>
             <small>Волонтеров можно добавлять только в активные экипажи</small>

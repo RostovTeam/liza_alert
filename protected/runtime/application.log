@@ -190,3 +190,42 @@ Stack trace:
 #14 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
 #15 C:\xampp\htdocs\liza\index.php(10): CWebApplication->run()
 REQUEST_URI=/index.php/api/map/1
+2013/10/13 10:52:16 [error] [exception.CDbException] exception 'CDbException' with message 'Relation "valunteer" is not defined in active record class "Crew".' in C:\xampp\htdocs\framework\db\ar\CActiveFinder.php:226
+Stack trace:
+#0 C:\xampp\htdocs\framework\db\ar\CActiveFinder.php(298): CActiveFinder->buildJoinTree(Object(CJoinElement), 'valunteer', Array)
+#1 C:\xampp\htdocs\framework\db\ar\CActiveFinder.php(48): CActiveFinder->buildJoinTree(Object(CJoinElement), Array)
+#2 C:\xampp\htdocs\framework\db\ar\CActiveRecord.php(909): CActiveFinder->__construct(Object(Crew), Array)
+#3 C:\xampp\htdocs\framework\db\ar\CActiveRecord.php(1355): CActiveRecord->getActiveFinder(Array)
+#4 C:\xampp\htdocs\framework\db\ar\CActiveRecord.php(1470): CActiveRecord->query(Object(CDbCriteria), true)
+#5 C:\xampp\htdocs\liza\protected\models\Volunteer.php(123): CActiveRecord->findAll(Object(CDbCriteria))
+#6 C:\xampp\htdocs\liza\protected\modules\admin\views\volunteer\_form.php(65): Volunteer->AvailableCrew()
+#7 C:\xampp\htdocs\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#8 C:\xampp\htdocs\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#9 C:\xampp\htdocs\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#10 C:\xampp\htdocs\liza\protected\modules\admin\views\volunteer\update.php(20): CController->renderPartial('_form', Array)
+#11 C:\xampp\htdocs\framework\web\CBaseController.php(126): require('C:\xampp\htdocs...')
+#12 C:\xampp\htdocs\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\xampp\htdocs...', Array, true)
+#13 C:\xampp\htdocs\framework\web\CController.php(869): CBaseController->renderFile('C:\xampp\htdocs...', Array, true)
+#14 C:\xampp\htdocs\framework\web\CController.php(782): CController->renderPartial('update', Array, true)
+#15 C:\xampp\htdocs\liza\protected\modules\admin\controllers\VolunteerController.php(74): CController->render('update', Array)
+#16 [internal function]: VolunteerController->actionUpdate('1')
+#17 C:\xampp\htdocs\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(VolunteerController), Array)
+#18 C:\xampp\htdocs\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(VolunteerController), Object(ReflectionMethod), Array)
+#19 C:\xampp\htdocs\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#20 C:\xampp\htdocs\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#21 C:\xampp\htdocs\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#22 C:\xampp\htdocs\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#23 C:\xampp\htdocs\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#24 C:\xampp\htdocs\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#25 C:\xampp\htdocs\framework\web\CController.php(291): CFilterChain->run()
+#26 C:\xampp\htdocs\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#27 C:\xampp\htdocs\framework\web\CWebApplication.php(282): CController->run('update')
+#28 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('admin/volunteer...')
+#29 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#30 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#31 {main}
+REQUEST_URI=/index.php/admin/volunteer/update/id/1
+HTTP_REFERER=http://liza.loc/index.php/admin/volunteer/index
+---
+2013/10/13 10:57:35 [warning] [application] Failed to set unsafe attribute "crew" of "Volunteer".
+2013/10/13 10:57:56 [warning] [application] Failed to set unsafe attribute "crew" of "Volunteer".

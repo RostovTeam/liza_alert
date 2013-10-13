@@ -114,11 +114,12 @@ class Volunteer extends CActiveRecord
     public function AvailableCrew()
     {
         $crit = new CDBCriteria;
-        $crit->addCondition('id in(select crew_id from volunteer_crew vc
-                    join volunteer v on vc.crew_id=tg.id where tg.name=:tname )');
+        $crit->addCondition('id not in(select crew_id from volunteer_crew vc
+                    join volunteer v on vc.volunteer_id=v.id where vc.volunteer_id=:volunteer_id )');
+        $crit->params=array(':volunteer_id'=>$this->id);
 
-        return Crew::model()->with(array('valunteer' =>
-                    array('condition' => '')))->findAllByAttributes(array('active' => 1));
+        $crit->compare('active',1);
+        return Crew::model()->findAll($crit);
     }
 
 }

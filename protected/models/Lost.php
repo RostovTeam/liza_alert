@@ -85,6 +85,7 @@ class Lost extends CActiveRecord
             'status' => 'Статус',
             'city_id' => 'Город',
             'coordinator_id' => 'Координатор',
+            'age'=>'Возраст',
             'date_created' => 'Дата создания',
         );
     }
