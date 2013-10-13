@@ -8,7 +8,8 @@ var saveElementBtn = document.getElementById('save-element');
 
 var selectedElement = null;
 var editable = false;
-var lost_id = $('#map-canvas').data('lost-id');
+var lost_id = $('#map-canvas').data('lost-id');,
+var status = '0';
 
 var aliaseColor = {
     green: ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png', '#00ff00'],
@@ -236,12 +237,6 @@ function initialize() {
             a.lost_id = lost_id;
             areas.push(a);
         }
-
-        console.log({
-            Balloon: balloons,
-            Radar: radars,
-            Area: areas
-        });
 
         $.ajax({
             url: 'http://146.185.145.71/api/map/',
@@ -514,7 +509,7 @@ function initialize() {
 
     var control = document.createElement('div');
     control.style.margin = '0 0 20px 0';
-    if (editable) {
+    if (editable || status === '0') {
         control.style.display = 'none';
     }
     addCustomControl(control, 'Принять участие', function (item) {
@@ -531,7 +526,6 @@ $('#saveVolunteers').click(function () {
             phone: $('#volunteersPhone').val()
         }
     };
-
     $.ajax({
         type: 'post',
         dataType: 'json',
