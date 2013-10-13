@@ -50,10 +50,10 @@ return array(
         ),
         'db' => array(
             'class' => 'system.db.CDbConnection',
-            'connectionString' => 'mysql:host=localhost;port=3306;dbname=zfproj',
+            'connectionString' => 'mysql:host=localhost;port=3306;dbname=liza',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => 'root',
+            'password' => '',
             'charset' => 'utf8',
             // 'enableProfiling' => true,
             'schemaCachingDuration' => 300,
