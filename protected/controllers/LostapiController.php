@@ -53,7 +53,7 @@ class LostapiController extends ApiController
             $this->_sendResponse(404, array('error' => "Couldn't find model."));
         } else
         {
-            $content = generateContent($model);
+            $content = $this->generateContent($model);
 
             $this->_sendResponse(200, array('error' => 0, 'content' => $content));
         }
