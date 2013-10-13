@@ -39,12 +39,13 @@ function initialize() {
         mapTypeControl: true,
         zoomControl: true,
         scaleControl: true,
-        center: new google.maps.LatLng(47.216653, 39.703646),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(mapCanvas, mapOptions);
     editable = mapCanvas.getAttribute('data-editable') === 'true';
-    var centerMap = map.getCenter();
+
+    var geocoder = new google.maps.Geocoder(),
+        centerMap;
 
     var data = {
         visible: {
@@ -74,9 +75,9 @@ function initialize() {
     }
 
     function drawMap() {
-        function request(type, callback) {
+        function request(callback) {
             $.ajax({
-                url: 'http://146.185.145.71/api/' + type + '?lost_id=' + lost_id,
+                url: 'http://146.185.145.71/api/map/' + lost_id,
                 type: 'get',
                 dataType: 'json',
                 success: function (data) {
@@ -85,45 +86,46 @@ function initialize() {
             });
         }
 
-        request('balloon', function (data) {
+        request(function (data) {
             if (data.error !== 0) {
                 console.log(data.error);
             } else {
-                var i;
-                for(i in data.content) {
-                    var d = data.content[i];
-                    var info = {title: d.title, description: d.description};
-                    addMarker({lb: d.lat, mb: d.lat}, d.color, info);
-                }
-                console.log(data);
-            }
-        });
+                geocoder.geocode({
+                    'address': data.content.lost.city.name
+                }, function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        centerMap = results[0].geometry.location;
+                        map.setCenter(centerMap);
 
-        request('radar', function(data) {
-            if (data.error !== 0) {
-                console.log(data.error);
-            } else {
-                var i;
-                for(i in data.content) {
-                    var d = data.content[i];
-                    var info = {title: d.title, description: d.description};
-                    addCircle({lb: d.lat, mb: d.lat}, d.color, info, d.radius);
-                }
-                console.log(data);
-            }
-        });
+                        var i;
+                        for (i in data.content.ballons) {
+                            var d = data.content.ballons[i];
+                            var info = {
+                                title: d.title,
+                                description: d.description
+                            };
+                            addMarker([d.lat, d.lng], d.color, info);
+                        }
 
-        request('area', function(data) {
-            if (data.error !== 0) {
-                console.log(data.error);
-            } else {
-                var i;
-                for(i in data.content) {
-                    var d = data.content[i];
-                    var info = {title: d.title, description: d.description};
-                    addPolygon(d.points, d.color, info);
-                }
-                console.log(data);
+                        for (i in data.content.radars) {
+                            var d = data.content.radars[i];
+                            var info = {
+                                title: d.title,
+                                description: d.description
+                            };
+                            addCircle([d.lat, d.lng], d.color, info, d.radius);
+                        }
+
+                        /*for (i in data.content.areas) {
+                            var d = data.content.areas[i];
+                            var info = {
+                                title: d.title,
+                                description: d.description
+                            };
+                            addPolygon(d.points, d.color, info);
+                        }*/
+                    }
+                });
             }
         });
     }
@@ -137,19 +139,19 @@ function initialize() {
         for (i in data.markers) {
             el = data.markers[i];
             el.element.setOptions({
-                icon: el.defaultValue
+                icon: markersArray[el.defaultValue][0]
             });
         }
         for (i in data.polygons) {
             el = data.polygons[i];
             el.element.setOptions({
-                fillColor: el.defaultValue
+                fillColor: markersArray[el.defaultValue][1]
             });
         }
         for (i in data.circles) {
             el = data.circles[i];
             el.element.setOptions({
-                fillColor: el.defaultValue
+                fillColor: markersArray[el.defaultValue][1]
             });
         }
 
@@ -190,6 +192,7 @@ function initialize() {
             var balloon = data.markers[i];
             b.title = balloon.info.title;
             b.description = balloon.info.description;
+            b.color = balloon.defaultValue;
             b.lost_id = lost_id;
             b.lat = balloon.element.getPosition().lat();
             b.lng = balloon.element.getPosition().lng();
@@ -203,6 +206,7 @@ function initialize() {
             var radar = data.circles[i];
             r.title = radar.info.title;
             r.description = radar.info.description;
+            r.color = radar.defaultValue;
             r.lost_id = lost_id;
             r.lat = radar.element.getCenter().lat();
             r.lng = radar.element.getCenter().lng();
@@ -215,8 +219,9 @@ function initialize() {
 
         for (i in data.polygons) {
             var area = data.polygons[i];
-            var objs = data.polygons[0].element.getPath().getArray(),
+            var objs = data.polygons[i].element.getPath().getArray(),
                 j;
+            a.color = area.defaultValue;
             a.points = [];
             for (j in objs) {
                 a.points.push([objs[j].lng(), objs[j].lng()]);
@@ -350,8 +355,9 @@ function initialize() {
         var color = markersArray[colorName][0];
         bounds = bounds || centerMap;
         info = info || '';
+        var latLng = new google.maps.LatLng(bounds[0], bounds[1]);
         var marker = new google.maps.Marker({
-            position: bounds,
+            position: latLng,
             icon: color,
             map: map,
             draggable: editable
@@ -361,9 +367,8 @@ function initialize() {
         data.markers.push({
             element: marker,
             info: info,
-            defaultValue: color
+            defaultValue: colorName
         });
-
         google.maps.event.addListener(marker, 'click', function (e) {
             setSelectElement(this);
             if (editable === false) {
@@ -406,7 +411,7 @@ function initialize() {
         data.polygons.push({
             element: polygon,
             info: info,
-            defaultValue: color
+            defaultValue: colorName
         });
 
         google.maps.event.addListener(polygon, 'click', function (e) {
@@ -418,11 +423,11 @@ function initialize() {
     }
 
     function addCircle(coords, colorName, info, radius) {
-        radius = radius || 1000;
+        radius = parseFloat(radius) || 1000;
         var color = markersArray[colorName][1];
         info = info || '';
         coords = coords || centerMap;
-
+        var latLng = new google.maps.LatLng(coords[0], coords[1]);
         var circle = new google.maps.Circle({
             strokeColor: color,
             strokeOpacity: 0.2,
@@ -431,7 +436,7 @@ function initialize() {
             fillOpacity: 0.2,
             editable: editable,
             draggable: editable,
-            center: coords,
+            center: latLng,
             radius: radius
         });
         circle.setMap(map);
@@ -439,7 +444,7 @@ function initialize() {
         data.circles.push({
             element: circle,
             info: info,
-            defaultValue: color
+            defaultValue: colorName
         });
 
         google.maps.event.addListener(circle, 'click', function (e) {
