@@ -24,7 +24,7 @@
 
             <div style="float:right;width:150px;height:75px;">
                 <div id ="lost_name" style="font-weight:bold; font-size:16px;text-overflow: ellipsis"></div>
-                <div id="lost_description" style="padding:3px;font-size:12px;text-overflow: ellipsis"></div>
+                <!-- <div id="lost_description" style="padding:3px;font-size:12px;text-overflow: ellipsis"></div> -->
             </div>
 
             <div id ="lost_age" style="float:left; width:100px;text-align: center;margin-top:3px;font-weight: bold"></div>
