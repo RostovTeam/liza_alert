@@ -82,7 +82,7 @@
 </div>
 
 <? if (! $editable): ?>
-<div id="share_buttons" class="share-buttons-panel invisible">
+<div id="share_buttons" class="share-buttons-panel">
     <a class="i16x16 vkontakte" href="javascript: void(0);" title="Рассказать Vkontakte"></a>
     <a class="i16x16 facebook" href="javascript: void(0);" title="Расказать в Facebook"></a>
     <a class="i16x16 odnoklassniki" href="javascript: void(0);" title="Рассказать в Одноклассниках"></a>
