@@ -12,7 +12,11 @@ class SiteController extends Controller
     {
         $this->redirect('http://lizaalert.org');
     }
-
+    
+    function actionFrame($id)
+    {
+        $this->render('frame',array('editable'=>false,'lost_id'=>$id));
+    }
 
     function actionTest()
     {

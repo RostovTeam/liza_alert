@@ -109,3 +109,15 @@ Stack trace:
 #23 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
 #24 C:\xampp\htdocs\liza\index.php(10): CWebApplication->run()
 REQUEST_URI=/index.php/admin/lost/update/id/1
+2013/10/13 08:54:17 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 C:\xampp\htdocs\framework\web\CWebApplication.php(282): CController->run('frame')
+#4 C:\xampp\htdocs\framework\web\CWebApplication.php(141): CWebApplication->runController('site/frame')
+#5 C:\xampp\htdocs\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#6 C:\xampp\htdocs\liza\index.php(10): CApplication->run()
+#7 {main}
+REQUEST_URI=/index.php/site/frame
+---
