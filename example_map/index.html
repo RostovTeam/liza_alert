@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link href="http://yandex.st/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="https://raw.github.com/aFarkas/html5shiv/master/dist/html5shiv.js"></script>
@@ -28,6 +29,10 @@
             border: solid 1px;
         }
 
+        #map-canvas img {
+            max-width: none;
+        }
+
         .controlMap {
             background-color: rgb(255, 255, 255);
             padding: 1px 6px;
@@ -43,24 +48,19 @@
     </style>
 </head>
 <body data-lost-id="1">
-    <div id="map-canvas" data-editable="true"></div>
-
-
-    <button id="add-marker">addMarker</button>
-    <button id="add-circle">addCircle</button>
-    <button id="add-polygon">addPolygon</button>
-    <button id="delete-select">deleteSelect</button>
-
-
-    <button id="save-map">Сохранить карту</button>
-
-    <div class="element">
+    <div class="span8">
+        <div id="map-canvas" data-editable="true"></div>
+    </div>
+    <div class="span4">
+        <form>
+        <fieldset>
+        <label>Тип: </label>
         <select name="type">
             <option value="balloon">Метка</option>
             <option value="radius">Окружность</option>
             <option value="area">Произвольная область</option>
         </select>
-        <br>
+        <label>Цвет: </label>
         <select name="color">
             <option value="green">Зеленый</option>
             <option value="lightblue">Светло-голубой</option>
@@ -69,16 +69,25 @@
             <option value="purple">Фиолетовый</option>
             <option value="pink">Розовый</option>
         </select>
-        <br>
         <input name="element_id" type="hidden" value="" />
-        <input name="title" type="text" value="" />
-        <br>
-        <textarea name="description" cols="10" rows="2"></textarea>
-        <br>
-        <button id="save-element">Сохранить</button>
+        <input type="text" name="title" placeholder="Заголовок">
+        <textarea rows="3" name="description" placeholder="Описание"></textarea>
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" id="save-element">Сохранить</button>
+                <button type="button" class="btn btn-danger" id="delete-select">Удалить</button>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="button" class="btn" id="save-map">Сохранить карту</button>
+            </div>
+        </div>
+        </fieldset>
+        </form>
     </div>
-
     <script type="text/javascript" src="http://yandex.st/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://yandex.st/bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="example.js"></script>
 </body>
 </html>

@@ -136,7 +136,7 @@ class Lost extends CActiveRecord
             $this->photo = $photoName.'.'.$this->photo->getExtensionName();
 
             if(!empty($this->oldPhoto)) {
-                $delete = $photosDir.$this->oldPhoto.'.'.$this->oldPhoto->getExtensionName();
+                $delete = $photosDir.$this->oldPhoto;
                 if(file_exists($delete)) unlink($delete);
             }
         }
