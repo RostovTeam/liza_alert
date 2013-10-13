@@ -9,7 +9,7 @@ var saveElementBtn = document.getElementById('save-element');
 var selectedElement = null;
 var editable = false;
 var lost_id = $('#map-canvas').data('lost-id');
-var status = '0';
+var status_lost = '0';
 
 var aliaseColor = {
     green: ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png', '#00ff00'],
@@ -102,7 +102,7 @@ function initialize() {
                     }
                     $('#lost_cart').show();
                 }
-                status = data.content.lost.status;
+                status_lost = data.content.lost.status;
                 $('span[name="name"]').html(data.content.lost.coordinator.name);
                 $('span[name="phone"]').html(data.content.lost.coordinator.phone);
                 geocoder.geocode({
@@ -141,6 +141,31 @@ function initialize() {
                         }
                     }
                 });
+
+                var control = document.createElement('div');
+                control.style.margin = '5px';
+                addCustomControl(control, 'Скрыть точки', function (item) {
+                    switchVisibleLayers('marker', item);
+                });
+                addCustomControl(control, 'Скрыть круги', function (item) {
+                    switchVisibleLayers('circle', item);
+                });
+                addCustomControl(control, 'Скрыть области', function (item) {
+                    switchVisibleLayers('polygon', item);
+                });
+                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
+
+                control = document.createElement('div');
+                control.style.background = 'red';
+                control.style.margin = '0 0 20px 0';
+                if (editable || status_lost !== '2') {
+                    control.style.display = 'none';
+                }
+                addCustomControl(control, 'Принять участие', function (item) {
+                        $('#popup-alert').modal('toggle');
+                    },
+                    'redControlMap');
+                map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(control);
             }
         });
     }
@@ -510,32 +535,6 @@ function initialize() {
             saveMap();
         };
     }
-
-    var control = document.createElement('div');
-    control.style.margin = '5px';
-    addCustomControl(control, 'Скрыть точки', function (item) {
-        switchVisibleLayers('marker', item);
-    });
-    addCustomControl(control, 'Скрыть круги', function (item) {
-        switchVisibleLayers('circle', item);
-    });
-    addCustomControl(control, 'Скрыть области', function (item) {
-        switchVisibleLayers('polygon', item);
-    });
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
-
-    control = document.createElement('div');
-    control.style.background = 'red';
-    control.style.margin = '0 0 20px 0';
-    if (editable || status !== '2') {
-        control.style.display = 'none';
-    }
-    addCustomControl(control, 'Принять участие', function (item) {
-            $('#popup-alert').modal('toggle');
-        },
-        'redControlMap');
-    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(control);
-
 }
 
 $('#saveVolunteers').click(function () {
