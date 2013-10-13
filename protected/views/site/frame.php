@@ -8,6 +8,9 @@
 
     $(function(){
         $('#volunteersPhone').mask('+7 (999) 999 9999');
+        $('#close_lost_card').click(function(){
+            $('#lost_cart').hide();
+        });
     });
 
 </script>
@@ -15,6 +18,7 @@
 <div class="span12">
     <div class="span8" style="position:relative;">
         <div id="lost_cart" style="position:absolute;right:25px;bottom:25px;z-index:1;width:260px;heigth:100px;background: rgba(255,255,255,0.7);border-radius: 3px;padding:10px;display:none;">
+            <div  id="close_lost_card" style="position:absolute;right:10px;top:10px;">×</div>
             <div style="width:100%;text-align:center;color:red;text-transform: uppercase;margin-bottom: 3px">Внимание! Пропал человек</div>
             <div style="float:left;width:80px">
                 <div id ="lost_photo" style="width:80px;height:75px;padding:0px;margin:0px;text-align: center;">
@@ -23,10 +27,10 @@
             </div>
 
             <div  style="float:right;width:165px;height:75px;">
-                <div id ="lost_name" style="text-align: center; font-weight:bold;
+                <div id ="lost_name" style="text-align: left; font-weight:bold;
                      font-size:16px;text-overflow: ellipsis;line-height: 90%;"></div>
-                <div  style="padding:3px;font-size:15px;text-overflow: ellipsis;line-height: 150%;
-                     width:150px;height:75px;
+                <div  style="padding:3px;font-size:12px;text-overflow: ellipsis;line-height: 150%;
+                     width:150px;height:68px;
                      ">
                     Город: <span id="lost_city"></span><br />
                     Год рождения: <span id="lost_age"></span>
