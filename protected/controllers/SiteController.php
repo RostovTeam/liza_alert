@@ -20,6 +20,7 @@ class SiteController extends Controller
 
     function actionTest()
     {
+        echo Yii::app()->user->returnUrl;
         $models = array('Area', 'Balloon', 'City', 'Lost', 'Radius', 'Volunteer');
         
         foreach ($models as $mn)
@@ -86,7 +87,7 @@ var_dump($su->errors);
             $model->attributes = $_POST['LoginForm'];
 
             if ($model->validate() && $model->login())
-                $this->redirect(Yii::app()->user->returnUrl);
+                $this->redirect('/admin');
         }
 
         $this->render('login', array('model' => $model));

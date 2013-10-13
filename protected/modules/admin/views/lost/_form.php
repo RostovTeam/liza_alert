@@ -75,6 +75,23 @@ $form = $this->beginWidget('CActiveForm', array(
 </div>
 
 <div class="control-group">
+    <?php echo $form->labelEx($model, 'forum_link', array('class' => 'control-label')); ?>
+    <div class="controls">
+        <?php echo $form->textField($model, 'forum_link'); ?>
+        <?php echo $form->error($model, 'forum_link'); ?>
+    </div>
+</div>
+
+
+<div class="control-group">
+    <?php echo $form->labelEx($model, 'description', array('class' => 'control-label')); ?>
+    <div class="controls">
+        <?php echo $form->textArea($model, 'description'); ?>
+        <?php echo $form->error($model, 'description'); ?>
+    </div>
+</div>
+
+<div class="control-group">
     <label class="control-label">Фотография</label>
     <div class="controls">
     <?php if(!empty($model->photo)): ?>
