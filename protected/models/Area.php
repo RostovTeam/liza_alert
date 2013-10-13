@@ -43,9 +43,9 @@ class Area extends CActiveRecord
         return array(
             array('lost_id', 'required'),
             array('lost_id', 'numerical', 'integerOnly' => true),
-            array('tittle', 'length', 'max' => 255),
+            array('title', 'length', 'max' => 255),
             array('description, date_created, points, color', 'safe'),
-            array('tittle, description, date_created, points, lost_id, id', 'safe', 'on' => 'search'),
+            array('title, description, date_created, points, lost_id, id', 'safe', 'on' => 'search'),
         );
     }
 

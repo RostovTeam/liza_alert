@@ -2,13 +2,13 @@
 /* @var $this CrewController */
 /* @var $model Crew */
 
-$this->breadcrumbs=array(
-	'Crews'=>array('index'),
-	'Manage',
+$this->breadcrumbs = array(
+    'Crews' => array('index'),
+    'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'Создание экипажа', 'url'=>array('create')),
+$this->menu = array(
+    array('label' => 'Создание экипажа', 'url' => array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -29,45 +29,58 @@ $('.search-form form').submit(function(){
 
 
 
-<?php echo CHtml::link('Поиск','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('Поиск', '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
+    <?php
+    $this->renderPartial('_search', array(
+        'model' => $model,
+    ));
+    ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'crew-grid',
-	'dataProvider'=>$model->search(),
+<?php
+$this->widget('zii.widgets.grid.CGridView', array(
+    'id' => 'crew-grid',
+    'dataProvider' => $model->search(),
     'emptyText' => 'Данные отсутствуют',
     'itemsCssClass' => 'table table-striped table-bordered',
-        'summaryText'=>'',
-        'pagerCssClass'=>'pagination',
-        'pager'=>array(
-            'selectedPageCssClass'=>'active',
-            'cssFile'=>'',
-            'header'=>'',
-            'hiddenPageCssClass'=>'disabled'	
-        ),
-    'pager'=>array(
-        'selectedPageCssClass'=>'active',
-        'cssFile'=>'',
-        'header'=>'',
-        'hiddenPageCssClass'=>'disabled',
-        'nextPageLabel'=>'Вперед',
-        'prevPageLabel'=>'Назад',
-        'lastPageLabel'=>'Последняя',
-        'firstPageLabel'=>'Первая'
+    'summaryText' => '',
+    'pagerCssClass' => 'pagination',
+    'pager' => array(
+        'selectedPageCssClass' => 'active',
+        'cssFile' => '',
+        'header' => '',
+        'hiddenPageCssClass' => 'disabled'
     ),
-	'columns'=>array(
-		'id',
-		'name',
-		'active',
-		'lost_id',
-		'coordinator_id',
-		'date_created',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+    'pager' => array(
+        'selectedPageCssClass' => 'active',
+        'cssFile' => '',
+        'header' => '',
+        'hiddenPageCssClass' => 'disabled',
+        'nextPageLabel' => 'Вперед',
+        'prevPageLabel' => 'Назад',
+        'lastPageLabel' => 'Последняя',
+        'firstPageLabel' => 'Первая'
+    ),
+    'columns' => array(
+        'id',
+        'name',
+       array(
+            'name'=>'Активен',
+            'value' => '$data->active==1?"Да":"Нет"'
+        ),
+        array(
+            'name' => 'Потеряшка',
+            'value' => '$data->lost->name'
+        ),
+        array(
+            'name' => 'Координатор',
+            'value' => '$data->coordinator->name'
+        ),
+        'date_created',
+        array(
+            'class' => 'CButtonColumn',
+        ),
+    ),
+));
+?>

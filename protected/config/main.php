@@ -10,7 +10,7 @@ return array(
     'import' => array(
         'application.models.*',
         'application.components.*',
-        'application.widgets.*',
+        'application.controllers.*',
         'application.modules.user.models.*',
         'application.modules.user.components.*',
     ),

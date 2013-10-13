@@ -31,10 +31,10 @@ class LostapiController extends ApiController
             $this->_sendResponse(200, array('error' => 0, 'content' => array()));
         } else
         {
-            $_this=$this;
-            $content = array_map(function($v)use ($_this)
+            //$_this=$this;
+            $content = array_map(function($v)
                     {
-                        return $_this->generateContent($v);
+                        return LostapiController::generateContent($v);
                     }, $models);
 
             $this->_sendResponse(200, array('error' => 0, 'content' => $content));
@@ -53,13 +53,13 @@ class LostapiController extends ApiController
             $this->_sendResponse(404, array('error' => "Couldn't find model."));
         } else
         {
-            $content = $this->generateContent($model);
+            $content = LostapiController::generateContent($model);
 
             $this->_sendResponse(200, array('error' => 0, 'content' => $content));
         }
     }
 
-    public function generateContent($model)
+    public static function generateContent($model)
     {
         $content =
                 $model->attributes +
