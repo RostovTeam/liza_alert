@@ -2,7 +2,7 @@
 <? Yii::app()->clientScript->registerScriptFile('/static/js/example.js', CClientScript::POS_END); ?>
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/bootstrap_frame.min.css'); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/bootstrap_frame.min.js', CClientScript::POS_END); ?>
-
+<? Yii::app()->clientScript->registerScriptFile('/static/js/share-panel.js', CClientScript::POS_END); ?>
 
 <div class="span12">
     <div class="span8">
@@ -43,6 +43,14 @@
                     </div>
                 </fieldset>
             </form>
+        </div>
+    <? else: ?>
+        <div id="share_buttons" class="share-buttons-panel invisible">
+            <a class="vkontakte" href="javascript: void(0);"></a>
+            <a class="facebook" href="javascript: void(0);">Расказать в facebook</a>
+            <a class="mailru" href="javascript: void(0);">Рассказать на mail.ru</a>
+            <a class="odnoklassniki" href="javascript: void(0);">Рассказать на Одноклассники.ру</a>
+            <a class="twitter" href="javascript: void(0);">Рассказать на twitter</a>
         </div>
     <? endif; ?>
 </div>
