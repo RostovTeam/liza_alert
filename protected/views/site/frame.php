@@ -30,6 +30,12 @@
 
             <div id ="lost_age" style="float:left; width:100px;text-align: center;margin-top:3px;font-weight: bold"></div>
             <div id ="lost_forum_link" style="float:right; width:130px;text-align:right;padding-right:15px;margin-top:3px;"></div>
+            <div id="share_buttons" class="share-buttons-panel">
+                <a class="i16x16 vkontakte" href="javascript: void(0);" title="Рассказать Vkontakte"></a>
+                <a class="i16x16 facebook" href="javascript: void(0);" title="Расказать в Facebook"></a>
+                <a class="i16x16 odnoklassniki" href="javascript: void(0);" title="Рассказать в Одноклассниках"></a>
+                <a class="i16x16 twitter" href="javascript: void(0);" title="Рассказать в Twitter"></a>
+            </div>
         </div>
         <div id="map-canvas" data-editable="<?= $editable ?>" data-lost-id="<?= $lost_id ?>"></div>
     </div>
@@ -73,15 +79,6 @@
 
     <? endif; ?>
 </div>
-
-<? if (! $editable): ?>
-<div id="share_buttons" class="share-buttons-panel">
-    <a class="i16x16 vkontakte" href="javascript: void(0);" title="Рассказать Vkontakte"></a>
-    <a class="i16x16 facebook" href="javascript: void(0);" title="Расказать в Facebook"></a>
-    <a class="i16x16 odnoklassniki" href="javascript: void(0);" title="Рассказать в Одноклассниках"></a>
-    <a class="i16x16 twitter" href="javascript: void(0);" title="Рассказать в Twitter"></a>
-</div>
-<? endif; ?>
 
 <div id="popup-alert" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-header">

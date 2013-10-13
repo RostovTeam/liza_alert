@@ -97,9 +97,6 @@ html, body {
     display: block;
     position: relative;
 }
-.share-buttons-panel.invisible {
-    display: none;
-}
 .share-buttons-panel .i16x16 {
     width: 16px;
     height: 16px;
