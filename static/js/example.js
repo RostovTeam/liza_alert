@@ -20,11 +20,11 @@ var aliaseColor = {
     man: ['https://maps.gstatic.com/mapfiles/ms2/micons/man.png']
 };
 
-function addCustomControl(control, text, callback) {
+function addCustomControl(control, text, callback, custome) {
     'use strict';
     var controlChild = document.createElement('div');
     controlChild.style.float = 'left';
-    controlChild.className = 'controlMap';
+    controlChild.className = custome || 'controlMap';
     controlChild.innerText = text;
     control.appendChild(controlChild);
     google.maps.event.addDomListener(controlChild, 'click', function () {
@@ -513,13 +513,15 @@ function initialize() {
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
 
     var control = document.createElement('div');
+    control.style.background = 'red';
     control.style.margin = '0 0 20px 0';
     if (editable) {
         control.style.display = 'none';
     }
     addCustomControl(control, 'Принять участие', function (item) {
         $('#popup-alert').modal('toggle');
-    });
+    },
+    'redControlMap');
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(control);
 
 }
@@ -536,8 +538,7 @@ $('#saveVolunteers').click(function () {
         type: 'post',
         dataType: 'json',
         data: volunteer,
-        url: 'http://146.185.145.71/api/volunteer/',
-
+        url: 'http://146.185.145.71/api/volunteer/'
     });
     $('#popup-alert').modal('hide');
 
