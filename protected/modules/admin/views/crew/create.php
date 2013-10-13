@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Управление экипаж', 'url'=>array('index')),
+	array('label'=>'Управление экипажем', 'url'=>array('index')),
 );
 ?>
 

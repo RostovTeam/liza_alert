@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Coordinator', 'url'=>array('create')),
+	array('label'=>'Добавление координатора', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -39,7 +39,8 @@ $('.search-form form').submit(function(){
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'coordinator-grid',
 	'dataProvider'=>$model->search(),
-	'itemsCssClass' => 'table table-striped table-bordered',
+    'emptyText' => 'Данные отсутствуют',
+    'itemsCssClass' => 'table table-striped table-bordered',
         'summaryText'=>'',
         'pagerCssClass'=>'pagination',
         'pager'=>array(

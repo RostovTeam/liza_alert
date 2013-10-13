@@ -113,11 +113,10 @@ class Lost extends CActiveRecord
 
     public function beforeValidate()
     {
-        parent::beforeValidate();
         $this->photo=CUploadedFile::getInstance($this,'photo');
         $this->flyer=CUploadedFile::getInstance($this,'flyer');
 
-        return true;
+        return parent::beforeValidate();
     }
 
     public function afterFind() {
@@ -150,7 +149,7 @@ class Lost extends CActiveRecord
             $this->flyer = $flyerName.'.'.$this->flyer->getExtensionName();
 
             if(!empty($this->oldFlyer)) {
-                $delete = $flyerDir.$this->oldFlyer.'.'.$this->oldFlyer->getExtensionName();
+                $delete = $flyerDir.$this->oldFlyer;
                 if(file_exists($delete)) unlink($delete);
             }
         }

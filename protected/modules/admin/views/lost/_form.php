@@ -75,6 +75,7 @@ $form = $this->beginWidget('CActiveForm', array(
 </div>
 
 <div class="control-group">
+    <label class="control-label">Фотография</label>
     <div class="controls">
     <?php if(!empty($model->photo)): ?>
         <div>
@@ -87,6 +88,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 
 <div class="control-group">
+    <label class="control-label">Ориентировка</label>
     <div class="controls">
         <?php if(!empty($model->flyer)): ?>
             <div>

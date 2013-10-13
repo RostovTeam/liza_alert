@@ -9,12 +9,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'View User', 'url'=>array('view', 'id'=>$model->user_id)),
-	array('label'=>'Manage User', 'url'=>array('index')),
+	array('label'=>'Создать пользователя', 'url'=>array('create')),
+	array('label'=>'Просмотр пользователя', 'url'=>array('view', 'id'=>$model->user_id)),
+	array('label'=>'Управление пользователями', 'url'=>array('index')),
 );
 ?>
 
-<h1>Update User <?php echo $model->user_id; ?></h1>
+<h1>Обновить пользователя #<?php echo $model->user_id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Manage Coordinator', 'url'=>array('index')),
+	array('label'=>'Создание координатора', 'url'=>array('index')),
 );
 ?>
 

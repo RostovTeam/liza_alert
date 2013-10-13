@@ -27,7 +27,7 @@
  <div class="control-group">
 		<?php echo $form->labelEx($model,'password',array('class'=>'control-label')); ?>
      <div class="controls">
-		<?php echo $form->passwordField($model,'password',array('size'=>60,'maxlength'=>100)); ?>
+         <input size="60" maxlength="100" name="User[password]" id="User_password" type="password" value="">
 		<?php echo $form->error($model,'password'); ?>
      </div>
 </div>

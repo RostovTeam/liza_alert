@@ -25,7 +25,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h2>Manage Volunteers</h2>
+<h2>Управление волонтерами</h2>
 
 
 
