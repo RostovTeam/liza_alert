@@ -49,10 +49,10 @@ class Lost extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, city_id', 'required'),
+            array('name, city_id,forum_link', 'required'),
             array('status, city_id, coordinator_id', 'numerical', 'integerOnly' => true),
             array('name, flyer', 'length', 'max' => 200),
-            array('photo, age,description,forum_link', 'safe'),
+            array('photo, age,description', 'safe'),
             array('id, name, status, city_id, coordinator_id, photo, flyer, date_created', 'safe', 'on' => 'search'),
             array('photo', 'file', 'types' => 'jpg, gif, png, bmp', 'allowEmpty' => true),
             array('flyer', 'file', 'types' => 'jpg, gif, png, bmp', 'allowEmpty' => true),
