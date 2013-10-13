@@ -2,10 +2,11 @@
 
 return array(
 
-    'name' => 'Ð›Ð¸Ð·Ð° Ð°Ð»ÐµÑ€Ñ‚',
+    'name' => 'Ëèçà àëåðò',
     'language' => 'ru',
 
     'defaultController' => 'site',
+    'homeUrl'=>'/admin',
     'preload' => array('log'),
     // autoloading model and component classes
     'import' => array(
@@ -50,12 +51,14 @@ return array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
             'loginUrl' => array('site/login'),
+            'returnUrl'=>'/admin'
         ),
         'db' => array(
             'class' => 'system.db.CDbConnection',
             'connectionString' => 'mysql:host=localhost;port=3306;dbname=liza',
             'emulatePrepare' => true,
             'username' => 'root',
+
 
 
             'password' => 'j8Kdmqdo94jLd',
