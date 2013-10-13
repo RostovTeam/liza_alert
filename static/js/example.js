@@ -97,7 +97,7 @@ function initialize() {
                     $('#lost_name').html(data.content.lost.name);
                     $('#lost_description').html(data.content.lost.description);
                     $('#lost_age').html(data.content.lost.age);
-                    if (data.content.lost.forum_link === null) {
+                    if (data.content.lost.forum_link !== null) {
                         $('#lost_forum_link').html('<a href="' + data.content.lost.forum_link + '">link</a>');
                     }
                     $('#lost_cart').show();
