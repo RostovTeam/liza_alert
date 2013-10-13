@@ -31,19 +31,10 @@ class LostapiController extends ApiController
             $this->_sendResponse(200, array('error' => 0, 'content' => array()));
         } else
         {
-            $content = array_map(function($v)
+            $_this=$this;
+            $content = array_map(function($v)use ($_this)
                     {
-                        $content =
-                                $v->attributes +
-                                array('city' => $v->city->attributes) +
-                                array('coordinator' => $v->coordinator->attributes);
-
-                        if ($v->photo)
-                        {
-                            $content['photo'] = Yii::app()->params['url'] . Yii::app()->params['photosRelative'] .
-                                    $v->photo;
-                        }
-                        return $content;
+                        return $_this->generateContent($v);
                     }, $models);
 
             $this->_sendResponse(200, array('error' => 0, 'content' => $content));
@@ -62,20 +53,36 @@ class LostapiController extends ApiController
             $this->_sendResponse(404, array('error' => "Couldn't find model."));
         } else
         {
-            $content =
-                    $model->attributes +
-                    array('city' => $model->city->attributes) +
-                    array('coordinator' => $model->coordinator->attributes);
-
-            if ($model->photo)
-            {
-                $content['photo'] = Yii::app()->params['url'] . Yii::app()->params['photosRelative'] .
-                        $model->photo;
-            }
-
+            $content = generateContent($model);
 
             $this->_sendResponse(200, array('error' => 0, 'content' => $content));
         }
+    }
+
+    public function generateContent($model)
+    {
+        $content =
+                $model->attributes +
+                array('city' => $model->city->attributes) +
+                array('coordinator' => $model->coordinator->attributes);
+
+        if ($model->photo)
+        {
+            $content['photo']=array();
+            $content['photo']['original'] = Yii::app()->params['url'] . Yii::app()->params['photosRelative'] .
+                    $model->photo;
+            $base_filename = explode('.', $model->photo)[0];
+            $ext = explode('.', $model->photo)[1];
+
+            foreach (Yii::app()->params['photo_sizes']as $size)
+            {
+                $content['photo'][$size[0] . 'x' . $size[1]] = Yii::app()->params['url'] .
+                        Yii::app()->params['photosRelative'] .
+                        $base_filename . '_' . $size[0] . 'x' . $size[1] . '.' . $ext;
+            }
+        }
+
+        return $content;
     }
 
 }
