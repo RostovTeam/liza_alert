@@ -2,7 +2,15 @@
 <? Yii::app()->clientScript->registerScriptFile('/static/js/example.js', CClientScript::POS_END); ?>
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/bootstrap_frame.min.css'); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/bootstrap_frame.min.js', CClientScript::POS_END); ?>
+<? Yii::app()->clientScript->registerScriptFile('/static/js/vendor/jquery.maskedinput.min.js'); ?>
 
+<script>
+    
+    $(function(){
+        $('#volunteersPhone').mask('+7 (999) 999 9999');
+    });
+    
+</script>
 
 <div class="span12">
     <div class="span8" style="position:relative;">
@@ -12,15 +20,15 @@
                   color:red;text-transform: uppercase;margin-bottom: 3px">Внимание! Пропал человек</div>
             <div   style="float:left;width:80px">
                 <div id ="lost_photo" style="width:100px;height:75px;padding:0px;margin:0px;text-align: center;">
-                    <img src="http://146.185.145.71/static/photos/1381629561_75x75.jpg" />
+                    
                 </div>
             </div>
 
             <div  style="float:right;width:150px;height:75px;">
                 <div id ="lost_name" style="text-align: center; font-weight:bold;
-                     font-size:16px;text-overflow: ellipsis"> имя</div>
+                     font-size:16px;text-overflow: ellipsis"></div>
                 <div id="lost_description" style="padding:3px;font-size:12px;text-overflow: ellipsis
-                     ">трала ыва ыва ыв ыва</div>
+                     "></div>
             </div>
 
             <div  id ="lost_age" style="float:left; width:100px;text-align: center;margin-top:3px;font-weight: bold"> 1995</div>
@@ -78,8 +86,6 @@
     <div class="modal-body">
         <input id="volunteersName" type="text" placeholder="Ф.И.О">&nbsp;&nbsp;&nbsp;
         <input id="volunteersPhone" type="text" placeholder="Телефон">
-
-
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
