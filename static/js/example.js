@@ -93,6 +93,10 @@ function initialize() {
             } else {
                 $('span[name="name"]').html(data.content.lost.coordinator.name);
                 $('span[name="phone"]').html(data.content.lost.coordinator.phone);
+                $('.share-buttons-panel').data('url', location.href);
+                $('.share-buttons-panel').data('title', 'Важно! Пропал человек: ' + data.content.lost.name + ' #' + data.content.lost.city.name);
+                $('.share-buttons-panel').data('imageurl', data.content.lost.photo['300x300']);
+                $('.share-buttons-panel').data('description', 'Description');
                 geocoder.geocode({
                     'address': data.content.lost.city.name
                 }, function (results, status) {
