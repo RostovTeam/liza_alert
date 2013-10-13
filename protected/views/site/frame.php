@@ -24,11 +24,11 @@
 
             <div  style="float:right;width:165px;height:75px;">
                 <div id ="lost_name" style="text-align: center; font-weight:bold;
-                     font-size:14px;text-overflow: ellipsis;line-height: 80%;"></div>
-                <div  style="padding:3px;font-size:10px;text-overflow: ellipsis;line-height: 80%;
+                     font-size:16px;text-overflow: ellipsis;line-height: 90%;"></div>
+                <div  style="padding:3px;font-size:15px;text-overflow: ellipsis;line-height: 150%;
                      width:150px;height:75px;
                      ">
-                    Город: <span id="lost_city"></span>
+                    Город: <span id="lost_city"></span><br />
                     Год рождения: <span id="lost_age"></span>
                 </div>
            </div>
