@@ -219,7 +219,8 @@ function initialize() {
             radars.push(r);
         }
 
-        var areas = [], a = {}, area, objs, j;
+        var areas = [],
+            a = {}, area, objs, j;
 
         for (i in data.polygons) {
             a = {};
@@ -237,10 +238,10 @@ function initialize() {
         }
 
         console.log({
-                Balloon: balloons,
-                Radar: radars,
-                Area: areas
-            });
+            Balloon: balloons,
+            Radar: radars,
+            Area: areas
+        });
 
         $.ajax({
             url: 'http://146.185.145.71/api/map/',
@@ -364,7 +365,7 @@ function initialize() {
 
     function addMarker(bounds, colorName, info) {
         var color = aliaseColor[colorName][0];
-        if(bounds !== null) {
+        if (bounds !== null) {
             bounds = new google.maps.LatLng(bounds[0], bounds[1])
         }
         bounds = bounds || centerMap;
@@ -440,7 +441,7 @@ function initialize() {
         radius = parseFloat(radius) || 1000;
         var color = aliaseColor[colorName][1];
         info = info || '';
-        if(coords !== null) {
+        if (coords !== null) {
             coords = new google.maps.LatLng(coords[0], coords[1]);
         }
         coords = coords || centerMap;
@@ -481,17 +482,23 @@ function initialize() {
         resetSelected();
     }
 
-    deleteSelectBtn.onclick = function () {
-        deleteSelected();
-    };
+    if (deleteSelectBtn !== null) {
+        deleteSelectBtn.onclick = function () {
+            deleteSelected();
+        };
+    }
 
-    saveElementBtn.onclick = function () {
-        saveElement(selectedElement);
-    };
+    if (saveElementBtn !== null) {
+        saveElementBtn.onclick = function () {
+            saveElement(selectedElement);
+        };
+    }
 
-    saveMapBtn.onclick = function () {
-        saveMap();
-    };
+    if (saveMapBtn !== null) {
+        saveMapBtn.onclick = function () {
+            saveMap();
+        };
+    }
 
     var control = document.createElement('div');
     control.style.margin = '5px';
@@ -507,7 +514,7 @@ function initialize() {
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
 
     var control = document.createElement('div');
-    control.style.margin= '0 0 20px 0';
+    control.style.margin = '0 0 20px 0';
     addCustomControl(control, 'Принять участие', function (item) {
         alert();
         $('#popup-alert').toggle();
