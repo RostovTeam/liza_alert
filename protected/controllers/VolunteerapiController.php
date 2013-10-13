@@ -2,6 +2,8 @@
 
 class VolunteerapiController extends ApiController
 {
+    
+    public $model='Volunteer';
 
     public function accessRules()
     {
@@ -16,9 +18,9 @@ class VolunteerapiController extends ApiController
 
     public function actionCreate()
     {
-        if (isset($_POST[$modelname]))
+        if (isset($_POST['Volunteer']))
         {
-            $model->attributes = $_POST[$modelname];
+            $model->attributes = $_POST['Volunteer'];
 
             if ($model->save())
             {
