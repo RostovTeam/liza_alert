@@ -18,17 +18,22 @@
         <div id="lost_cart" style="position:absolute;right:25px;bottom:25px;z-index:1;width:260px;heigth:100px;background: rgba(255,255,255,0.7);border-radius: 3px;padding:10px;display:none;">
             <div style="width:100%;text-align:center;color:red;text-transform: uppercase;margin-bottom: 3px">Внимание! Пропал человек</div>
             <div style="float:left;width:80px">
-                <div id ="lost_photo" style="width:100px;height:75px;padding:0px;margin:0px;text-align: center;">
+                <div id ="lost_photo" style="width:80px;height:75px;padding:0px;margin:0px;text-align: center;">
                     <img src="" />
                 </div>
             </div>
 
-            <div style="float:right;width:150px;height:75px;">
-                <div id ="lost_name" style="font-weight:bold; font-size:16px;text-overflow: ellipsis"></div>
-                <!-- <div id="lost_description" style="padding:3px;font-size:12px;text-overflow: ellipsis"></div> -->
-            </div>
+            <div  style="float:right;width:165px;height:75px;">
+                <div id ="lost_name" style="text-align: center; font-weight:bold;
+                     font-size:14px;text-overflow: ellipsis;line-height: 80%;"></div>
+                <div  style="padding:3px;font-size:10px;text-overflow: ellipsis;line-height: 80%;
+                     width:150px;height:75px;
+                     ">
+                    Город: <span id="lost_city"></span>
+                    Год рождения: <span id="lost_age"></span>
+                </div>
+           </div>
 
-            <div id ="lost_age" style="float:left; width:100px;text-align: center;margin-top:3px;font-weight: bold"></div>
             <div id ="lost_forum_link" style="float:right; width:130px;text-align:right;padding-right:15px;margin-top:3px;"></div>
             <div id="share_buttons" class="share-buttons-panel">
                 <a class="i16x16 vkontakte" href="javascript: void(0);" title="Рассказать Vkontakte"></a>
