@@ -18,7 +18,7 @@
 <div class="span12">
     <div class="span8" style="position:relative;">
         <div id="lost_cart" style="position:absolute;right:25px;bottom:25px;z-index:1;width:260px;heigth:100px;background: rgba(255,255,255,0.7);border-radius: 3px;padding:10px;display:none;">
-            <div  id="close_lost_card" style="position:absolute;right:10px;top:10px;">×</div>
+            <div  id="close_lost_card" style="position:absolute;right:5px;top:5px;cursor:pointer">×</div>
             <div style="width:100%;text-align:center;color:red;text-transform: uppercase;margin-bottom: 3px">Внимание! Пропал человек</div>
             <div style="float:left;width:80px">
                 <div id ="lost_photo" style="width:80px;height:75px;padding:0px;margin:0px;text-align: center;">
