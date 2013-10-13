@@ -57,7 +57,9 @@ return array(
             'emulatePrepare' => true,
             'username' => 'root',
 
+
             'password' => 'j8Kdmqdo94jLd',
+
 
             'charset' => 'utf8',
             // 'enableProfiling' => true,
