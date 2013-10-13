@@ -34,6 +34,7 @@ return array(
         ),
         'urlManager' => array(
             'urlFormat' => 'path',
+            'showScriptName' => false,
             'rules' => array(
                 array('<model>api/list', 'pattern' => 'api/<model:\w+>', 'verb' => 'GET'),
                 array('<model>api/view', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'GET'),
