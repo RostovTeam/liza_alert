@@ -48,16 +48,18 @@ Share = {
 $('.share-buttons-panel a.facebook').bind('click', function() {
 	var url = $('.share-buttons-panel').data('url'),
 		title = $('.share-buttons-panel').data('title'),
-		imgurl = $('.share-buttons-panel').data('imageurl'),
-		desciption = $('.share-buttons-panel').data('desciption');
+		imgurl = $('.share-buttons-panel').data('imageurl300x300'),
+		description = $('.share-buttons-panel').data('description');
 
-	Share.facebook(url, title, imgurl, desciption);
+	Share.facebook(url, title, imgurl, description);
 });
 $('.share-buttons-panel a.twitter').bind('click', function() {
 	var url = $('.share-buttons-panel').data('url'),
-		title = $('.share-buttons-panel').data('title');
+		name = $('#lost_name').text(),
+		city = $('#lost_city').text(),
+		age = $('#lost_age').text();
 
-	Share.twitter(url, title);
+	Share.twitter(url, 'Пропал человек! ' + name + ' ' + age + ' ' + city);
 });
 $('.share-buttons-panel a.odnoklassniki').bind('click', function() {
 	var url = $('.share-buttons-panel').data('url'),
@@ -68,16 +70,16 @@ $('.share-buttons-panel a.odnoklassniki').bind('click', function() {
 $('.share-buttons-panel a.vkontakte').bind('click', function() {
 	var url = $('.share-buttons-panel').data('url'),
 		title = $('.share-buttons-panel').data('title'),
-		imgurl = $('.share-buttons-panel').data('imageurl'),
-		desciption = $('.share-buttons-panel').data('desciption');
+		imgurl = $('.share-buttons-panel').data('imageurl300x300'),
+		description = $('.share-buttons-panel').data('description');
 
-	Share.vkontakte(url, title, imgurl, desciption);
+	Share.vkontakte(url, title, imgurl, description);
 });
 $('.share-buttons-panel a.mailru').bind('click', function() {
 	var url = $('.share-buttons-panel').data('url'),
 		title = $('.share-buttons-panel').data('title'),
-		imgurl = $('.share-buttons-panel').data('imageurl'),
-		desciption = $('.share-buttons-panel').data('desciption');
+		imgurl = $('.share-buttons-panel').data('imageurl300x300'),
+		description = $('.share-buttons-panel').data('description');
 
-	Share.mailru(url, title, imgurl, desciption);
+	Share.mailru(url, title, imgurl, description);
 });
