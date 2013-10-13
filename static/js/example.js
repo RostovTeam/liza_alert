@@ -341,15 +341,16 @@ function initialize() {
                 break;
             }
         } else {
+            var c;
             if (type === 'balloon') {
-                color = aliaseColor[color][0];
+                c = aliaseColor[color][0];
                 element.setOptions({
-                    icon: color
+                    icon: c
                 });
             } else {
-                color = aliaseColor[color][1];
+                c = aliaseColor[color][1];
                 element.setOptions({
-                    fillColor: color
+                    fillColor: c
                 });
             }
 
@@ -419,6 +420,7 @@ function initialize() {
         });
         polygon.setMap(map);
 
+        var id = data.polygons.length;
         data.polygons.push({
             element: polygon,
             info: info,
@@ -430,6 +432,7 @@ function initialize() {
             if (editable === false) {
                 infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
             }
+            editElement('area', colorName, info, id);
         });
     }
 
@@ -454,6 +457,7 @@ function initialize() {
         });
         circle.setMap(map);
 
+        var id = data.circles.length;
         data.circles.push({
             element: circle,
             info: info,
@@ -465,6 +469,7 @@ function initialize() {
             if (editable === false) {
                 infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
             }
+            editElement('radius', colorName, info, id);
         });
     }
 
@@ -501,6 +506,13 @@ function initialize() {
     });
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
 
+    var control = document.createElement('div');
+    control.style.margin= '0 0 20px 0';
+    addCustomControl(control, 'Принять участие', function (item) {
+        alert();
+        $('#popup-alert').toggle();
+    });
+    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(control);
 }
 
 var script = document.createElement('script');
