@@ -2,15 +2,13 @@
 /*global google, document, window, $*/
 
 var mapCanvas = document.getElementById('map-canvas');
-var addMarkerBtn = document.getElementById('add-marker');
-var addCircleBtn = document.getElementById('add-circle');
-var addPolygonBtn = document.getElementById('add-polygon');
 var deleteSelectBtn = document.getElementById('delete-select');
 var saveMapBtn = document.getElementById('save-map');
 var saveElementBtn = document.getElementById('save-element');
 
 var selectedElement = null;
 var editable = false;
+var lost_id = $('body').data('lost-id');
 
 var markersArray = {
     green: ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png', '#00ff00'],
@@ -75,8 +73,64 @@ function initialize() {
         return ret;
     }
 
+    function drawMap() {
+        function request(type, callback) {
+            $.ajax({
+                url: 'http://146.185.145.71/api/' + type + '?lost_id=' + lost_id,
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    callback(data);
+                }
+            });
+        }
+
+        request('balloon', function (data) {
+            if (data.error !== 0) {
+                console.log(data.error);
+            } else {
+                var i;
+                for(i in data.content) {
+                    var d = data.content[i];
+                    var info = {title: d.title, description: d.description};
+                    addMarker({lb: d.lat, mb: d.lat}, d.color, info);
+                }
+                console.log(data);
+            }
+        });
+
+        request('radar', function(data) {
+            if (data.error !== 0) {
+                console.log(data.error);
+            } else {
+                var i;
+                for(i in data.content) {
+                    var d = data.content[i];
+                    var info = {title: d.title, description: d.description};
+                    addCircle({lb: d.lat, mb: d.lat}, d.color, info, d.radius);
+                }
+                console.log(data);
+            }
+        });
+
+        request('area', function(data) {
+            if (data.error !== 0) {
+                console.log(data.error);
+            } else {
+                var i;
+                for(i in data.content) {
+                    var d = data.content[i];
+                    var info = {title: d.title, description: d.description};
+                    addPolygon(d.points, d.color, info);
+                }
+                console.log(data);
+            }
+        });
+    }
+    drawMap();
+
     function setSelectElement(element) {
-        if(editable === true) {
+        if (editable !== true) {
             return false;
         }
         var i, el;
@@ -99,6 +153,10 @@ function initialize() {
             });
         }
 
+        if (element === null) {
+            return false;
+        }
+
         // set select element
         if (element.hasOwnProperty('fillColor')) { // polygon or circle
             element.setOptions({
@@ -113,11 +171,22 @@ function initialize() {
         $('#save-element').show();
     }
 
-    function saveMap(lost_id) {
+    function resetSelected() {
+        $('[name="type"]').val('balloon').removeAttr('disabled');
+        $('[name="color"]').val('green');
+        $('[name="title"]').val('');
+        $('textarea[name="description"]').val('');
+        $('[name="element_id"]').val('');
+
+        setSelectElement(null);
+        selectedElement = null;
+    }
+
+    function saveMap() {
         var balloons = [],
             b = {}, i;
 
-        for(i in data.markers) {
+        for (i in data.markers) {
             var balloon = data.markers[i];
             b.title = balloon.info.title;
             b.description = balloon.info.description;
@@ -146,9 +215,10 @@ function initialize() {
 
         for (i in data.polygons) {
             var area = data.polygons[i];
-            var objs = data.polygons[0].element.getPath().getArray(), j;
+            var objs = data.polygons[0].element.getPath().getArray(),
+                j;
             a.points = [];
-            for(j in objs) {
+            for (j in objs) {
                 a.points.push([objs[j].lng(), objs[j].lng()]);
             }
             a.title = area.info.title;
@@ -226,32 +296,54 @@ function initialize() {
     }
 
     function saveElement(element) {
-        var id = $('[name="element_id"]').val() | 0;
-        var type = $('[name="type"]').val();
-        var title = $('[name="title"]').val();
-        var description = $('textarea[name="description"]').val();
-        var color = $('[name="color"]').val();
-        if (type === 'balloon') {
-            color = markersArray[color][0];
-            element.setOptions({
-                icon: color
-            });
+        var isNew = false;
+        var id = $('[name="element_id"]').val();
+        if (selectedElement === null) {
+            isNew = true;
         } else {
-            color = markersArray[color][1];
-            element.setOptions({
-                fillColor: color
-            });
+            id = id | 0;
         }
 
-        var d = data[type.tr() + 's'][id];
-        d.defaultValue = color;
-        d.title.title = title;
-        d.title.description = description;
+        var type = $('[name="type"]').val();
+        var title = $('[name="title"]').val() || null;
+        var description = $('textarea[name="description"]').val() || null;
+        var color = $('[name="color"]').val();
+        var info = {
+            title: title,
+            description: description
+        };
 
-        $('[name="type"]').val('balloon').removeAttr('disabled');
-        $('[name="color"]').val('green');
-        $('[name="title"]').val('');
-        $('textarea[name="description"]').val('');
+        if (isNew) {
+            switch (type.tr()) {
+            case 'marker':
+                addMarker(null, color, info);
+                break;
+            case 'circle':
+                addCircle(null, color, info);
+                break;
+            case 'polygon':
+                addPolygon(null, color, info);
+                break;
+            }
+        } else {
+            if (type === 'balloon') {
+                color = markersArray[color][0];
+                element.setOptions({
+                    icon: color
+                });
+            } else {
+                color = markersArray[color][1];
+                element.setOptions({
+                    fillColor: color
+                });
+            }
+
+            var d = data[type.tr() + 's'][id];
+            d.defaultValue = color;
+            d.info.title = title;
+            d.info.description = description;
+        }
+        resetSelected();
     }
 
     function addMarker(bounds, colorName, info) {
@@ -325,7 +417,8 @@ function initialize() {
         });
     }
 
-    function addCircle(coords, colorName, radius, info) {
+    function addCircle(coords, colorName, info, radius) {
+        radius = radius || 1000;
         var color = markersArray[colorName][1];
         info = info || '';
         coords = coords || centerMap;
@@ -362,9 +455,10 @@ function initialize() {
             return false;
         }
         selectedElement.setMap(null);
+        resetSelected();
     }
 
-    addMarkerBtn.onclick = function () {
+    /*addMarkerBtn.onclick = function () {
         var color = $('select[name="color"] option:selected').val();
         var info = {
             title: 'test',
@@ -380,16 +474,16 @@ function initialize() {
             description: 'text1111'
         };
         addPolygon(null, color, info);
-    };
+    };*/
 
-    addCircleBtn.onclick = function () {
+    /*addCircleBtn.onclick = function () {
         var color = $('select[name="color"] option:selected').val();
         var info = {
             title: 'test',
             description: 'text1111'
         };
         addCircle(null, color, 1000, info);
-    };
+    };*/
 
     deleteSelectBtn.onclick = function () {
         deleteSelected();
@@ -400,7 +494,7 @@ function initialize() {
     };
 
     saveMapBtn.onclick = function () {
-        saveMap($('body').data('lost-id'));
+        saveMap();
     };
 
     var control = document.createElement('div');
