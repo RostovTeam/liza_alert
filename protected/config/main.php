@@ -2,6 +2,7 @@
 
 return array(
     'name' => 'Лиза алерт',
+    'language' => 'ru',
     'defaultController' => 'site',
     'preload' => array('log'),
     // autoloading model and component classes
