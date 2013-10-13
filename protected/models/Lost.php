@@ -49,10 +49,10 @@ class Lost extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, city_id', 'required'),
+            array('name, city_id,forum_link', 'required'),
             array('status, city_id, coordinator_id', 'numerical', 'integerOnly' => true),
             array('name, flyer', 'length', 'max' => 200),
-            array('photo, age,description,forum_link', 'safe'),
+            array('photo, age,description', 'safe'),
             array('id, name, status, city_id, coordinator_id, photo, flyer, date_created', 'safe', 'on' => 'search'),
             array('photo', 'file', 'types' => 'jpg, gif, png, bmp', 'allowEmpty' => true),
             array('flyer', 'file', 'types' => 'jpg, gif, png, bmp', 'allowEmpty' => true),
@@ -176,9 +176,9 @@ class Lost extends CActiveRecord
         foreach ($photo_sizes as $size)
         {
             $fullPath = $path . $newName . '_' . $size[0] . 'x' . $size[1] . '.' . $file->getExtensionName();
-            $file->saveAs($fullPath, false,array(0,0,0));
+            $file->saveAs($fullPath, false);
             $im->load($fullPath);
-            $im->resizeCanvas($size[0], $size[1],false);
+            $im->resizeCanvas($size[0], $size[1],array(255,255,255));
             $im->save(false, false, 100);
         }
     }
