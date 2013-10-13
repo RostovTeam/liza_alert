@@ -7,15 +7,27 @@
 
 <script>
 
-    $(function(){
+    $(function() {
         $('#volunteersPhone').mask('+7 (999) 999 9999');
-        $('#close_lost_card').click(function(){
+        $('#close_lost_card').click(function() {
             $('#lost_cart').hide();
         });
     });
 
 </script>
-
+<? if ($editable): ?>
+    <div class="control-group">
+        <label class="control-label">Код для вставки :</label>
+        <div class="controls">
+            <span class="label label-info">
+                <?=
+                CHtml::encode('<iframe src="' .
+                        $this->createAbsoluteUrl('/site/frame', array('id' => $lost_id)) . '"></iframe>');
+                ?>
+            </span>
+        </div>
+    </div>
+<? endif; ?>
 <div class="span12">
     <div class="span8" style="position:relative;">
         <div id="lost_cart" style="position:absolute;right:25px;bottom:25px;z-index:1;width:260px;heigth:100px;background: rgba(255,255,255,0.7);border-radius: 3px;padding:10px;display:none;">
@@ -31,12 +43,12 @@
                 <div id ="lost_name" style="text-align: left; font-weight:bold;
                      font-size:16px;text-overflow: ellipsis;line-height: 90%;"></div>
                 <div  style="padding:3px;font-size:12px;text-overflow: ellipsis;line-height: 150%;
-                     width:150px;height:64px;
-                     ">
+                      width:150px;height:64px;
+                      ">
                     Город: <span id="lost_city"></span><br />
                     Год рождения: <span id="lost_age"></span>
                 </div>
-           </div>
+            </div>
 
             <div id ="lost_forum_link" style="float:right; width:130px;text-align:right;padding-right:15px;margin-top:3px;"></div>
             <div id="share_buttons" class="share-buttons-panel">
@@ -48,7 +60,7 @@
         </div>
         <div id="map-canvas" data-editable="<?= $editable ?>" data-lost-id="<?= $lost_id ?>"></div>
     </div>
-    <? if ($editable): ?>
+<? if ($editable): ?>
         <div class="span3">
             <form>
                 <fieldset>
@@ -84,9 +96,9 @@
                 </fieldset>
             </form>
         </div>
-    <? else: ?>
 
-    <? endif; ?>
+<? endif; ?>
+
 </div>
 
 <div id="popup-alert" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
