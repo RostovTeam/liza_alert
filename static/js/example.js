@@ -515,11 +515,31 @@ function initialize() {
     var control = document.createElement('div');
     control.style.margin = '0 0 20px 0';
     addCustomControl(control, 'Принять участие', function (item) {
-        alert();
-        $('#popup-alert').toggle();
+        $('#popup-alert').modal('toggle');
     });
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(control);
+
+
 }
+
+$('#saveVolunteers').click(function(){
+    var volunteer = {
+        Volunteer: {
+            name: $('#volunteersName').val(),
+            phone:$('#volunteersPhone').val()
+        }
+    };
+
+    $.ajax({
+            type:          'post',
+            dataType:      'json',
+            data: volunteer,
+            url:    'http://146.185.145.71/api/volunteer/',
+            
+    });
+    $('#popup-alert').modal('hide');
+
+});
 
 var script = document.createElement('script');
 script.type = 'text/javascript';

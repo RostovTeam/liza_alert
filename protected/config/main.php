@@ -2,13 +2,15 @@
 
 return array(
     'name' => 'Лиза алерт',
+    'language' => 'ru',
     'defaultController' => 'site',
+    'homeUrl'=>'/admin',
     'preload' => array('log'),
     // autoloading model and component classes
     'import' => array(
         'application.models.*',
         'application.components.*',
-        'application.widgets.*',
+        'application.controllers.*',
         'application.modules.user.models.*',
         'application.modules.user.components.*',
     ),
@@ -47,6 +49,7 @@ return array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
             'loginUrl' => array('site/login'),
+            'returnUrl'=>'/admin'
         ),
         'db' => array(
             'class' => 'system.db.CDbConnection',

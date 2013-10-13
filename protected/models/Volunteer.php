@@ -35,15 +35,11 @@ class Volunteer extends CActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('name, phone', 'required'),
             array('name', 'length', 'max' => 200),
             array('phone', 'length', 'max' => 50),
             array('date_created', 'safe'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             array('id, name, phone, date_created', 'safe', 'on' => 'search'),
         );
     }
@@ -53,7 +49,7 @@ class Volunteer extends CActiveRecord
      */
     public function relations()
     {
-        
+
         return array(
             'crew' => array(self::MANY_MANY, 'Crew', 'volunteer_crew(volunteer_id,crew_id)'),
         );
@@ -113,6 +109,17 @@ class Volunteer extends CActiveRecord
             return $model;
         else
             return false;
+    }
+
+    public function AvailableCrew()
+    {
+        $crit = new CDBCriteria;
+        $crit->addCondition('id not in(select crew_id from volunteer_crew vc
+                    join volunteer v on vc.volunteer_id=v.id where vc.volunteer_id=:volunteer_id )');
+        $crit->params=array(':volunteer_id'=>$this->id);
+
+        $crit->compare('active',1);
+        return Crew::model()->findAll($crit);
     }
 
 }

@@ -44,8 +44,7 @@ class MapapiController extends ApiController
                         return $v->attributes;
                     }, $areas),
 
-            'lost' => $lost->attributes + array('city' => $lost->city->attributes) +
-            array('coordinator' => $lost->coordinator->attributes)
+            'lost' => LostapiController::generateContent($lost)
 
         );
 
@@ -99,4 +98,5 @@ class MapapiController extends ApiController
         }
     }
 
+   
 }

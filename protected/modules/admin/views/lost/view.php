@@ -16,33 +16,37 @@ $this->menu = array(
 ?>
 
 <h1>Просмотр потеряшки #<?php echo $model->id; ?></h1>
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'name',
+<?php
+$this->widget('zii.widgets.CDetailView', array(
+    'data' => $model,
+    'attributes' => array(
+        'id',
+        'name',
+        'description',
+        'forum_link',
         array(
             'name' => 'status',
             'value' => Yii::app()->params["lost_status"][$model->status]
         ),
         array(
-            'label'=>'Город',
-            'type'=>'raw',
-            'value'=>CHtml::encode($model->city->name)
+            'label' => 'Город',
+            'type' => 'raw',
+            'value' => CHtml::encode($model->city->name)
         ),
         array(
-            'label'=>'Фотография',
-            'type'=>'raw',
-            'value'=> $model->photo != null ? '<img src="'.Yii::app()->params['photosRelative'].CHtml::encode($model->photo).'">' : ''
+            'label' => 'Фотография',
+            'type' => 'raw',
+            'value' => $model->photo != null ? '<img src="' . Yii::app()->params['photosRelative'] . CHtml::encode($model->photo) . '">' : ''
         ),
         array(
-            'label'=>'Ориентировка',
-            'type'=>'raw',
-            'value'=> $model->flyer != null ? '<img src="'.Yii::app()->params['flyerRelative'].CHtml::encode($model->flyer).'">' : ''
+            'label' => 'Ориентировка',
+            'type' => 'raw',
+            'value' => $model->flyer != null ? '<img src="' . Yii::app()->params['flyerRelative'] . CHtml::encode($model->flyer) . '">' : ''
         ),
-		'date_created',
-	),
-)); ?>
+        'date_created',
+    ),
+));
+?>
 
 <hr>
 <?php echo $this->renderPartial('application.views.site.frame', array('lost_id' => $model->id, 'editable' => 'false')); ?>

@@ -3,6 +3,8 @@
 class VolunteerapiController extends ApiController
 {
 
+    public $model = 'Volunteer';
+
     public function accessRules()
     {
         return array_merge(
@@ -16,11 +18,12 @@ class VolunteerapiController extends ApiController
 
     public function actionCreate()
     {
-        if (isset($_POST[$modelname]))
+        if (isset($_POST['Volunteer']))
         {
-            $model->attributes = $_POST[$modelname];
 
-            if ($model->save())
+            $model = $model = Volunteer::create($_POST['Volunteer']);
+
+            if ($model->id)
             {
                 $this->_sendResponse(200, array('error' => 0, 'content' => $model->attributes));
             } else

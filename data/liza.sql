@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `AuthItemChild` (
 -- ----------------------------
 DROP TABLE IF EXISTS `area`;
 CREATE TABLE `area` (
-  `tittle` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `points` text,
@@ -204,3 +204,7 @@ ALTER TABLE `radar`
 
 ALTER TABLE `balloon`
   ADD CONSTRAINT `ballon_ibfk_1` FOREIGN KEY (`lost_id`) REFERENCES `lost` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+ALTER TABLE  `lost` ADD  `description` TEXT NULL AFTER  `age` ,
+ADD  `forum_link` VARCHAR( 500 ) NULL AFTER  `description`
