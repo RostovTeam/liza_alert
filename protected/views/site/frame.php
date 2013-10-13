@@ -2,7 +2,15 @@
 <? Yii::app()->clientScript->registerScriptFile('/static/js/example.js', CClientScript::POS_END); ?>
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/bootstrap_frame.min.css'); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/bootstrap_frame.min.js', CClientScript::POS_END); ?>
+<? Yii::app()->clientScript->registerScriptFile('/static/js/vendor/jquery.maskedinput.min.js'); ?>
 
+<script>
+
+    $(function(){
+        $('#volunteersPhone').mask('+7 (999) 999 9999');
+    });
+
+</script>
 
 <div class="span12">
     <div class="span8" style="position:relative;">
@@ -71,8 +79,6 @@
     <div class="modal-body">
         <input id="volunteersName" type="text" placeholder="Ф.И.О">&nbsp;&nbsp;&nbsp;
         <input id="volunteersPhone" type="text" placeholder="Телефон">
-
-
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
