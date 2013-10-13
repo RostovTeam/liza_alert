@@ -10,15 +10,7 @@ class SiteController extends Controller
 
     function actionIndex()
     {
-        $this->render('index');
-    }
-    
-    function actionFrame($id)
-    {
-        if (Lost::model()->findByPk($id))
-            $this->render('frame', array('id' => $id,$editable=>false));
-        else
-            $this->render('frame', array('id' => null));
+        $this->redirect('http://lizaalert.org');
     }
 
     function actionTest()
