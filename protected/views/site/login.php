@@ -16,7 +16,7 @@ $form = $this->beginWidget('CActiveForm', array(
     'clientOptions' => array(
         'validateOnSubmit' => true,
     ),
-    'htmlOptions' => array('class' => 'form-signin')
+    'htmlOptions' => array('class' => 'form-signin','style' => 'margin-top:100px;')
         ));
 ?>
 <h2>Вход</h2>
