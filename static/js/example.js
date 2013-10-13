@@ -98,7 +98,7 @@ function initialize() {
                     /*$('#lost_description').html(data.content.lost.description);*/
                     $('#lost_age').html(data.content.lost.age);
                     if (data.content.lost.forum_link !== null) {
-                        $('#lost_forum_link').html('<a href="' + data.content.lost.forum_link + '">link</a>');
+                        $('#lost_forum_link').html('<a href="' + data.content.lost.forum_link + '">ссылка на источник</a>');
                     }
                     $('#lost_cart').show();
                 }
