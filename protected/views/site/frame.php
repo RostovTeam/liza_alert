@@ -65,7 +65,7 @@
                     <textarea rows="3" name="description" placeholder="Описание"></textarea>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="button" class="btn" id="save-element">Сохранить</button>
+                            <button type="button" class="btn" id="save-element">Добавить</button>
                             <button type="button" class="btn btn-danger" id="delete-select">Удалить</button>
                         </div>
                     </div>
