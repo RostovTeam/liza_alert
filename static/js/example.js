@@ -92,6 +92,16 @@ function initialize() {
             if (data.error !== 0) {
                 console.log(data.error);
             } else {
+                if (editable === false) {
+                    $('#lost_photo img').attr('src', data.content.lost.photo['75x75']);
+                    $('#lost_name').html(data.content.lost.name);
+                    $('#lost_description').html(data.content.lost.description);
+                    $('#lost_age').html(data.content.lost.age);
+                    if (data.content.lost.forum_link === null) {
+                        $('#lost_forum_link').html('<a href="' + data.content.lost.forum_link + '">link</a>');
+                    }
+                    $('#lost_cart').show();
+                }
                 status = data.content.lost.status;
                 $('span[name="name"]').html(data.content.lost.coordinator.name);
                 $('span[name="phone"]').html(data.content.lost.coordinator.phone);
@@ -515,9 +525,9 @@ function initialize() {
         control.style.display = 'none';
     }
     addCustomControl(control, 'Принять участие', function (item) {
-        $('#popup-alert').modal('toggle');
-    },
-    'redControlMap');
+            $('#popup-alert').modal('toggle');
+        },
+        'redControlMap');
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(control);
 
 }
