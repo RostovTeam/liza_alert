@@ -25,7 +25,7 @@ $this->widget('zii.widgets.CDetailView', array(
         'name',
         array(
             'name' => 'status',
-            'value' => Yii::app()->params["lost_status"][$data->status]
+            'value' => Yii::app()->params["lost_status"][$model->status]
         ),
         'city.name',
         'coordinator.name',
