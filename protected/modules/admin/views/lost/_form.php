@@ -12,7 +12,7 @@
 
 <script>
     $(function() {
-        $('select').chosen();
+        $('.form-horizontal select').chosen();
         
     });
 </script>

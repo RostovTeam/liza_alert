@@ -43,3 +43,6 @@ $this->menu = array(
 		'date_created',
 	),
 )); ?>
+
+<hr>
+<?php echo $this->renderPartial('application.views.site.frame', array('lost_id' => $model->id, 'editable' => 'false')); ?>

@@ -44,9 +44,4 @@
         </div>
     <? endif; ?>
 </div>
-<div class="span9">
-    <div class="well well-small">
-        Имя: <span name="name"></span><br>
-        Телефон: <span name="phone"></span>
-    </div>
-</div>
+

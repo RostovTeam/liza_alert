@@ -121,3 +121,5 @@ Stack trace:
 #7 {main}
 REQUEST_URI=/index.php/site/frame
 ---
+2013/10/13 09:37:39 [warning] [application] Failed to set unsafe attribute "photo" of "Lost".
+2013/10/13 09:37:39 [warning] [application] Failed to set unsafe attribute "flyer" of "Lost".
