@@ -95,9 +95,7 @@ html, body {
 
 .share-buttons-panel {
     display: block;
-}
-.share-buttons-panel.invisible {
-    display: none;
+    position: relative;
 }
 .share-buttons-panel .i16x16 {
     width: 16px;

@@ -92,10 +92,20 @@ function initialize() {
             if (data.error !== 0) {
                 console.log(data.error);
             } else {
+                if (editable === false) {
+                    $('#lost_photo img').attr('src', data.content.lost.photo['75x75']);
+                    $('#lost_name').html(data.content.lost.name);
+                    /*$('#lost_description').html(data.content.lost.description);*/
+                    $('#lost_age').html(data.content.lost.age);
+                    if (data.content.lost.forum_link !== null) {
+                        $('#lost_forum_link').html('<a href="' + data.content.lost.forum_link + '">ссылка на источник</a>');
+                    }
+                    $('#lost_cart').show();
+                }
                 status = data.content.lost.status;
                 $('span[name="name"]').html(data.content.lost.coordinator.name);
                 $('span[name="phone"]').html(data.content.lost.coordinator.phone);
-                $('.share-buttons-panel').data('url', location.href);
+                $('.share-buttons-panel').data('url', data.content.lost.forum_link);
                 $('.share-buttons-panel').data('title', 'Важно! Пропал человек: ' + data.content.lost.name + ' #' + data.content.lost.city.name);
                 $('.share-buttons-panel').data('imageurl', data.content.lost.photo['300x300']);
                 $('.share-buttons-panel').data('description', data.content.lost.description);
@@ -385,7 +395,9 @@ function initialize() {
         google.maps.event.addListener(marker, 'click', function (e) {
             setSelectElement(this);
             if (editable === false) {
-                infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
+                if (info.title !== null || info.description !== null) {
+                    infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
+                }
             }
             editElement('balloon', colorName, info, id);
         });
@@ -430,7 +442,9 @@ function initialize() {
         google.maps.event.addListener(polygon, 'click', function (e) {
             setSelectElement(this);
             if (editable === false) {
-                infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
+                if (info.title !== null || info.description !== null) {
+                    infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
+                }
             }
             editElement('area', colorName, info, id);
         });
@@ -467,7 +481,9 @@ function initialize() {
         google.maps.event.addListener(circle, 'click', function (e) {
             setSelectElement(this);
             if (editable === false) {
-                infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
+                if (info.title !== null || info.description !== null) {
+                    infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
+                }
             }
             editElement('radius', colorName, info, id);
         });
@@ -519,9 +535,9 @@ function initialize() {
         control.style.display = 'none';
     }
     addCustomControl(control, 'Принять участие', function (item) {
-        $('#popup-alert').modal('toggle');
-    },
-    'redControlMap');
+            $('#popup-alert').modal('toggle');
+        },
+        'redControlMap');
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(control);
 
 }
