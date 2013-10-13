@@ -95,10 +95,10 @@ function initialize() {
                 if (editable === false) {
                     $('#lost_photo img').attr('src', data.content.lost.photo['75x75']);
                     $('#lost_name').html(data.content.lost.name);
-                    /*$('#lost_description').html(data.content.lost.description);*/
+                    $('#lost_city').html(data.content.lost.city.name);
                     $('#lost_age').html(data.content.lost.age);
                     if (data.content.lost.forum_link !== null) {
-                        $('#lost_forum_link').html('<a href="' + data.content.lost.forum_link + '">ссылка на источник</a>');
+                        $('#lost_forum_link').html('<a style="text-decoration: underline;" href="' + data.content.lost.forum_link + '">источник</a>');
                     }
                     $('#lost_cart').show();
                 }
