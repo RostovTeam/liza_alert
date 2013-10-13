@@ -2,8 +2,8 @@
 <? Yii::app()->clientScript->registerScriptFile('/static/js/example.js'); ?>
 
 
-<div class="span9">
-    <div class="span6">
+<div class="span12">
+    <div class="span8">
         <div id="map-canvas" data-editable="<?=$editable?>" data-lost-id="<?=$lost_id?>"></div>
     </div>
     <div class="span3">
