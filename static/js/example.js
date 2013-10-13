@@ -95,20 +95,20 @@ function initialize() {
                 if (editable === false) {
                     $('#lost_photo img').attr('src', data.content.lost.photo['75x75']);
                     $('#lost_name').html(data.content.lost.name);
-                    /*$('#lost_description').html(data.content.lost.description);*/
+                    $('#lost_city').html(data.content.lost.city.name);
                     $('#lost_age').html(data.content.lost.age);
                     if (data.content.lost.forum_link !== null) {
-                        $('#lost_forum_link').html('<a href="' + data.content.lost.forum_link + '">ссылка на источник</a>');
+                        $('#lost_forum_link').html('<a style="text-decoration: underline;" href="' + data.content.lost.forum_link + '">источник</a>');
                     }
+                    $('.share-buttons-panel').data('url', data.content.lost.forum_link);
+                    $('.share-buttons-panel').data('title', 'Важно! Пропал человек: ' + data.content.lost.name + ' #' + data.content.lost.city.name);
+                    $('.share-buttons-panel').data('imageurl300x300', data.content.lost.photo['300x300']);
+                    $('.share-buttons-panel').data('description', data.content.lost.description);
                     $('#lost_cart').show();
                 }
                 status = data.content.lost.status;
                 $('span[name="name"]').html(data.content.lost.coordinator.name);
                 $('span[name="phone"]').html(data.content.lost.coordinator.phone);
-                $('.share-buttons-panel').data('url', data.content.lost.forum_link);
-                $('.share-buttons-panel').data('title', 'Важно! Пропал человек: ' + data.content.lost.name + ' #' + data.content.lost.city.name);
-                $('.share-buttons-panel').data('imageurl', data.content.lost.photo['300x300']);
-                $('.share-buttons-panel').data('description', data.content.lost.description);
                 geocoder.geocode({
                     'address': data.content.lost.city.name
                 }, function (results, status) {

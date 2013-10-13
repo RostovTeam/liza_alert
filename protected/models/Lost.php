@@ -178,7 +178,7 @@ class Lost extends CActiveRecord
             $fullPath = $path . $newName . '_' . $size[0] . 'x' . $size[1] . '.' . $file->getExtensionName();
             $file->saveAs($fullPath, false);
             $im->load($fullPath);
-            $im->resizeCanvas($size[0], $size[1],array(255,255,255));
+            $im->resizeCanvas($size[0], $size[1], array(255, 255, 255));
             $im->save(false, false, 100);
         }
     }
@@ -191,10 +191,10 @@ class Lost extends CActiveRecord
 
     public function deleteFiles()
     {
-        if (is_object($this->photo))
+        if (!empty($this->photo) && file_exists($this->photo))
             unlink(Yii::app()->params['photosDir'] . $this->photo);
 
-        if (is_object($this->flyer))
+        if (!empty($this->flyer) && file_exists($this->photo))
             unlink(Yii::app()->params['flyerDir'] . $this->flyer);
 
         return true;
