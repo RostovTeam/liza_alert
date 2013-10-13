@@ -2,10 +2,41 @@
 <? Yii::app()->clientScript->registerScriptFile('/static/js/example.js', CClientScript::POS_END); ?>
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/bootstrap_frame.min.css'); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/bootstrap_frame.min.js', CClientScript::POS_END); ?>
+<? Yii::app()->clientScript->registerScriptFile('/static/js/vendor/jquery.maskedinput.min.js'); ?>
 
+<script>
+    
+    $(function(){
+        $('#volunteersPhone').mask('+7 (999) 999 9999');
+    });
+    
+</script>
 
 <div class="span12">
-    <div class="span8">
+    <div class="span8" style="position:relative;">
+        <div id="lost_cart" style="position:absolute;right:25px;bottom:25px;z-index:1;
+             width:260px;heigth:100px;background: rgba(255,255,255,0.7);border-radius: 3px;padding:10px">
+            <div  style="width:100%;text-align:center;
+                  color:red;text-transform: uppercase;margin-bottom: 3px">Внимание! Пропал человек</div>
+            <div   style="float:left;width:80px">
+                <div id ="lost_photo" style="width:100px;height:75px;padding:0px;margin:0px;text-align: center;">
+                    
+                </div>
+            </div>
+
+            <div  style="float:right;width:150px;height:75px;">
+                <div id ="lost_name" style="text-align: center; font-weight:bold;
+                     font-size:16px;text-overflow: ellipsis"></div>
+                <div id="lost_description" style="padding:3px;font-size:12px;text-overflow: ellipsis
+                     "></div>
+            </div>
+
+            <div  id ="lost_age" style="float:left; width:100px;text-align: center;margin-top:3px;font-weight: bold"> 1995</div>
+            <div  id ="lost_forum_link" style="float:right; 
+                  width:130px;text-align:right;padding-right:15px;margin-top:3px;">link</div>
+            <div></div>
+        </div>
+
         <div id="map-canvas" data-editable="<?= $editable ?>" data-lost-id="<?= $lost_id ?>"></div>
     </div>
     <? if ($editable): ?>
@@ -55,8 +86,6 @@
     <div class="modal-body">
         <input id="volunteersName" type="text" placeholder="Ф.И.О">&nbsp;&nbsp;&nbsp;
         <input id="volunteersPhone" type="text" placeholder="Телефон">
-
-
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
