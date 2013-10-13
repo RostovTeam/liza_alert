@@ -5,7 +5,7 @@
     <!-- Start: Navigation wrapper -->
     <div class="navbar navbar-static-top">
         <div class="navbar-inner ">
-            <div class="container">
+            <div style="width:1200px;margin: 0px auto">
                 <a href="" class="brand ">Лиза алерт</a>
 
                 <!-- Start: Primary navigation -->
@@ -26,7 +26,7 @@
     <!-- End: Navigation wrapper -->   
 </header>
 <div class="content">
-    <div class="container" style="margin-top: 20px">
+    <div class="" style="width:1200px;margin: 20px auto">
         <div class="span2" style="margin-left: 0px">
             <div class="well" style="padding: 8px 0px">
                 <?php
@@ -42,14 +42,9 @@
                 ));
                 $this->endWidget();
                 ?>
+
+
             </div>
-        </div>
-        <div class="span8">
-            <div id="content">
-                <?= $content; ?>
-            </div><!-- content -->
-        </div>
-        <div class="span2">
             <?php
             $this->beginWidget('zii.widgets.CPortlet', array(
                 'title' => '',
@@ -60,6 +55,16 @@
             ));
             $this->endWidget();
             ?>
+        </div>
+        <div class="span12">
+            <div id="content">
+
+<?= $content; ?>
+            </div><!-- content -->
+        </div>
+        <div class="span2">
+
+
         </div>
     </div>
 </div>

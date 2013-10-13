@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Добавление города', 'url'=>array('create')),
 	array('label'=>'Обновление города', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Удаление города', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Удалить город?')),
+	array('label'=>'Удалить город', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Удалить город?')),
 	array('label'=>'Управление городами', 'url'=>array('index')),
 );
 ?>

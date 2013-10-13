@@ -7,12 +7,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Coordinator', 'url'=>array('create')),
-	array('label'=>'Manage Coordinator', 'url'=>array('index')),
+	array('label'=>'Добавить координатора', 'url'=>array('create')),
+	array('label'=>'Управление координаторами', 'url'=>array('index')),
 );
 ?>
 
-<h1>Coordinators</h1>
+<h1>Координаторы</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

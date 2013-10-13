@@ -21,7 +21,7 @@
 		<?php echo $form->textField($model,'login',array('size'=>50,'maxlength'=>50)); ?>
 
 	<div>
-		<?php echo CHtml::submitButton('Search',array('class'=>'btn')); ?>
+		<?php echo CHtml::submitButton('Поиск',array('class'=>'btn')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

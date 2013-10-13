@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create User', 'url'=>array('create')),
+	array('label'=>'Добавление пользователя', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -25,7 +25,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h2>Manage Users</h2>
+<h2>Управление пользователями</h2>
 
 
 

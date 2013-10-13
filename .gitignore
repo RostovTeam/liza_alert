@@ -16,4 +16,4 @@ protected/runtime/*
 protected/runtime/application.log
 static/photos/*
 protected/config/main.php
-static/photos/flyer/*
+static/flyer/*

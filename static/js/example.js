@@ -8,15 +8,16 @@ var saveElementBtn = document.getElementById('save-element');
 
 var selectedElement = null;
 var editable = false;
-var lost_id = $('body').data('lost-id');
+var lost_id = $('#map-canvas').data('lost-id');
 
-var markersArray = {
+var aliaseColor = {
     green: ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png', '#00ff00'],
     lightblue: ['https://maps.gstatic.com/mapfiles/ms2/micons/lightblue.png', '#79a0c1'],
     blue: ['https://maps.gstatic.com/mapfiles/ms2/micons/blue.png', '#42aaff'],
     yellow: ['https://maps.gstatic.com/mapfiles/ms2/micons/yellow.png', '#ffff00'],
     purple: ['https://maps.gstatic.com/mapfiles/ms2/micons/purple.png', '#8b00ff'],
-    pink: ['https://maps.gstatic.com/mapfiles/ms2/micons/pink.png', '#ffc0cb']
+    pink: ['https://maps.gstatic.com/mapfiles/ms2/micons/pink.png', '#ffc0cb'],
+    man: ['https://maps.gstatic.com/mapfiles/ms2/micons/man.png']
 };
 
 function addCustomControl(control, text, callback) {
@@ -90,6 +91,8 @@ function initialize() {
             if (data.error !== 0) {
                 console.log(data.error);
             } else {
+                $('span[name="name"]').html(data.content.lost.coordinator.name);
+                $('span[name="phone"]').html(data.content.lost.coordinator.phone);
                 geocoder.geocode({
                     'address': data.content.lost.city.name
                 }, function (results, status) {
@@ -116,14 +119,14 @@ function initialize() {
                             addCircle([d.lat, d.lng], d.color, info, d.radius);
                         }
 
-                        /*for (i in data.content.areas) {
+                        for (i in data.content.areas) {
                             var d = data.content.areas[i];
                             var info = {
                                 title: d.title,
                                 description: d.description
                             };
                             addPolygon(d.points, d.color, info);
-                        }*/
+                        }
                     }
                 });
             }
@@ -139,19 +142,19 @@ function initialize() {
         for (i in data.markers) {
             el = data.markers[i];
             el.element.setOptions({
-                icon: markersArray[el.defaultValue][0]
+                icon: aliaseColor[el.defaultValue][0]
             });
         }
         for (i in data.polygons) {
             el = data.polygons[i];
             el.element.setOptions({
-                fillColor: markersArray[el.defaultValue][1]
+                fillColor: aliaseColor[el.defaultValue][1]
             });
         }
         for (i in data.circles) {
             el = data.circles[i];
             el.element.setOptions({
-                fillColor: markersArray[el.defaultValue][1]
+                fillColor: aliaseColor[el.defaultValue][1]
             });
         }
 
@@ -189,6 +192,7 @@ function initialize() {
             b = {}, i;
 
         for (i in data.markers) {
+            b = {}
             var balloon = data.markers[i];
             b.title = balloon.info.title;
             b.description = balloon.info.description;
@@ -203,6 +207,7 @@ function initialize() {
             r = {};
 
         for (i in data.circles) {
+            r = {};
             var radar = data.circles[i];
             r.title = radar.info.title;
             r.description = radar.info.description;
@@ -214,23 +219,28 @@ function initialize() {
             radars.push(r);
         }
 
-        var areas = [],
-            a = {};
+        var areas = [], a = {}, area, objs, j;
 
         for (i in data.polygons) {
-            var area = data.polygons[i];
-            var objs = data.polygons[i].element.getPath().getArray(),
-                j;
+            a = {};
+            area = data.polygons[i];
+            objs = area.element.getPath().getArray();
             a.color = area.defaultValue;
             a.points = [];
             for (j in objs) {
-                a.points.push([objs[j].lng(), objs[j].lng()]);
+                a.points.push([objs[j].lat(), objs[j].lng()]);
             }
             a.title = area.info.title;
             a.description = area.info.description;
             a.lost_id = lost_id;
             areas.push(a);
         }
+
+        console.log({
+                Balloon: balloons,
+                Radar: radars,
+                Area: areas
+            });
 
         $.ajax({
             url: 'http://146.185.145.71/api/map/',
@@ -331,15 +341,16 @@ function initialize() {
                 break;
             }
         } else {
+            var c;
             if (type === 'balloon') {
-                color = markersArray[color][0];
+                c = aliaseColor[color][0];
                 element.setOptions({
-                    icon: color
+                    icon: c
                 });
             } else {
-                color = markersArray[color][1];
+                c = aliaseColor[color][1];
                 element.setOptions({
-                    fillColor: color
+                    fillColor: c
                 });
             }
 
@@ -352,12 +363,14 @@ function initialize() {
     }
 
     function addMarker(bounds, colorName, info) {
-        var color = markersArray[colorName][0];
+        var color = aliaseColor[colorName][0];
+        if(bounds !== null) {
+            bounds = new google.maps.LatLng(bounds[0], bounds[1])
+        }
         bounds = bounds || centerMap;
         info = info || '';
-        var latLng = new google.maps.LatLng(bounds[0], bounds[1]);
         var marker = new google.maps.Marker({
-            position: latLng,
+            position: bounds,
             icon: color,
             map: map,
             draggable: editable
@@ -379,7 +392,7 @@ function initialize() {
     }
 
     function addPolygon(bounds, colorName, info) {
-        var color = markersArray[colorName][1];
+        var color = aliaseColor[colorName][1];
         info = info || '';
         var x = centerMap.lat(),
             y = centerMap.lng();
@@ -395,7 +408,6 @@ function initialize() {
                 coords.push(new google.maps.LatLng(bounds[i][0], bounds[i][1]));
             }
         }
-
         var polygon = new google.maps.Polygon({
             paths: coords,
             strokeColor: color,
@@ -408,6 +420,7 @@ function initialize() {
         });
         polygon.setMap(map);
 
+        var id = data.polygons.length;
         data.polygons.push({
             element: polygon,
             info: info,
@@ -419,15 +432,18 @@ function initialize() {
             if (editable === false) {
                 infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
             }
+            editElement('area', colorName, info, id);
         });
     }
 
     function addCircle(coords, colorName, info, radius) {
         radius = parseFloat(radius) || 1000;
-        var color = markersArray[colorName][1];
+        var color = aliaseColor[colorName][1];
         info = info || '';
+        if(coords !== null) {
+            coords = new google.maps.LatLng(coords[0], coords[1]);
+        }
         coords = coords || centerMap;
-        var latLng = new google.maps.LatLng(coords[0], coords[1]);
         var circle = new google.maps.Circle({
             strokeColor: color,
             strokeOpacity: 0.2,
@@ -436,11 +452,12 @@ function initialize() {
             fillOpacity: 0.2,
             editable: editable,
             draggable: editable,
-            center: latLng,
+            center: coords,
             radius: radius
         });
         circle.setMap(map);
 
+        var id = data.circles.length;
         data.circles.push({
             element: circle,
             info: info,
@@ -452,6 +469,7 @@ function initialize() {
             if (editable === false) {
                 infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
             }
+            editElement('radius', colorName, info, id);
         });
     }
 
@@ -462,33 +480,6 @@ function initialize() {
         selectedElement.setMap(null);
         resetSelected();
     }
-
-    /*addMarkerBtn.onclick = function () {
-        var color = $('select[name="color"] option:selected').val();
-        var info = {
-            title: 'test',
-            description: 'text1111'
-        };
-        addMarker(null, color, info);
-    };
-
-    addPolygonBtn.onclick = function () {
-        var color = $('select[name="color"] option:selected').val();
-        var info = {
-            title: 'test',
-            description: 'text1111'
-        };
-        addPolygon(null, color, info);
-    };*/
-
-    /*addCircleBtn.onclick = function () {
-        var color = $('select[name="color"] option:selected').val();
-        var info = {
-            title: 'test',
-            description: 'text1111'
-        };
-        addCircle(null, color, 1000, info);
-    };*/
 
     deleteSelectBtn.onclick = function () {
         deleteSelected();
@@ -515,6 +506,13 @@ function initialize() {
     });
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
 
+    var control = document.createElement('div');
+    control.style.margin= '0 0 20px 0';
+    addCustomControl(control, 'Принять участие', function (item) {
+        alert();
+        $('#popup-alert').toggle();
+    });
+    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(control);
 }
 
 var script = document.createElement('script');

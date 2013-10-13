@@ -43,8 +43,10 @@ class MapapiController extends ApiController
                     {
                         return $v->attributes;
                     }, $areas),
+
             'lost' => $lost->attributes + array('city' => $lost->city->attributes) +
             array('coordinator' => $lost->coordinator->attributes)
+
         );
 
         $this->_sendResponse(200, array('error' => 0, 'content' => $data));
@@ -54,9 +56,11 @@ class MapapiController extends ApiController
     {
 
         if (!isset($_REQUEST['Balloon']) && !isset($_REQUEST['Radar']) && !isset($_REQUEST['Area']))
+
         {
             $this->_sendResponse(400, array('error' => 'Nothing to save'));
         }
+
 
         $modelnames = array('Balloon' => 'Balloon', 'Radar' => 'Radius', 'Area' => 'Area');
 
@@ -69,17 +73,21 @@ class MapapiController extends ApiController
             {
                 $modelname::model()->deleteAllByAttributes(array('lost_id' => $_REQUEST[$postindex][0]['lost_id']));
                 foreach ($_REQUEST[$postindex] as $key => $data)
+
                 {
                     $model = new $modelname;
                     $model->attributes = $data;
 
                     if (!$model->save())
                     {
+
                         $content['validation_erros'][$postindex][$key] = $model->errors;
+
                     }
                 }
             }
         }
+
 
         if (isset($content['validation_erros']))
         {
@@ -87,6 +95,7 @@ class MapapiController extends ApiController
         } else
         {
             $this->_sendResponse(200, array('error' => 0, array('content' => $content)));
+
         }
     }
 

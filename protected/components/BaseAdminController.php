@@ -13,11 +13,13 @@ class BaseAdminController extends CController
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/column3';
+    
+    public $h1;
 
     public function getMain_menu()
     {
         $menu = array(
-            array('label' => 'Города', 'url' => array('/admin/city/index')),
+            array('label' => 'Города', 'url' => array('/admin/city/index'),),
             array('label' => 'Координаторы', 'url' => array('/admin/coordinator/index')),
             array('label' => 'Экипажи', 'url' => array('/admin/crew/index')),
             array('label' => 'Потеряшки', 'url' => array('/admin/lost/index')),

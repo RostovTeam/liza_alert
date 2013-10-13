@@ -11,7 +11,7 @@ return array(
     'photosDir' => dirname(__FILE__) . '/../../static/photos/',
     'photosRelative' => '/static/photos/',
     'flyerDir' => dirname(__FILE__).'/../../static/flyer/',
-    'flyerRelative' => '/static/photos/',
+    'flyerRelative' => '/static/flyer/',
     'url' => 'http://146.185.145.71',
     'photo_sizes' => array(
         array(75, 75),
@@ -21,6 +21,6 @@ return array(
          'не требуется ничего',
          'требуется информационная поддржка(шаринг)',
          'выезд на местность',
-         'Найдено'
+         'Найден'
     ),
 );

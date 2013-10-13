@@ -12,6 +12,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Lost</h1>
+<h1>Создание потеряшки</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

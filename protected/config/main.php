@@ -1,7 +1,9 @@
 <?php
 
 return array(
+
     'name' => 'Лиза Алерт',
+
     'defaultController' => 'site',
     'preload' => array('log'),
     // autoloading model and component classes
@@ -53,7 +55,9 @@ return array(
             'connectionString' => 'mysql:host=localhost;port=3306;dbname=liza',
             'emulatePrepare' => true,
             'username' => 'root',
+
             'password' => 'j8Kdmqdo94jLd',
+
             'charset' => 'utf8',
             // 'enableProfiling' => true,
             'schemaCachingDuration' => 300,
@@ -78,3 +82,4 @@ return array(
     ),
     'params' => require(dirname(__FILE__) . '/params.php'),
 );
+

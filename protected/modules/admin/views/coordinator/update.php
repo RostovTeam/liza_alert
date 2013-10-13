@@ -9,12 +9,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Coordinator', 'url'=>array('create')),
-	array('label'=>'View Coordinator', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Coordinator', 'url'=>array('index')),
+	array('label'=>'Добавление координатора', 'url'=>array('create')),
+	array('label'=>'Просмотр координатора', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Управление координаторам', 'url'=>array('index')),
 );
 ?>
 
-<h1>Update Coordinator <?php echo $model->id; ?></h1>
+<h1>Обновление координатора #<?php echo $model->id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
