@@ -58,6 +58,21 @@ html, body {
     box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
     cursor: pointer;
 }
+
+.redControlMap {
+    background-color: #ec5b00;
+    padding: 1px 6px;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.14902);
+    -webkit-box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+    box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+    cursor: pointer;
+}
+
+.redControlMap:hover {
+    background-color: rgb(233, 233, 233);
+}
+
 .controlMap:hover {
     background-color: rgb(233, 233, 233);
 }

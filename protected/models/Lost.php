@@ -176,9 +176,9 @@ class Lost extends CActiveRecord
         foreach ($photo_sizes as $size)
         {
             $fullPath = $path . $newName . '_' . $size[0] . 'x' . $size[1] . '.' . $file->getExtensionName();
-            $file->saveAs($fullPath, false);
+            $file->saveAs($fullPath, false,array(0,0,0));
             $im->load($fullPath);
-            $im->adaptiveThumb($size[0], $size[1]);
+            $im->resizeCanvas($size[0], $size[1],false);
             $im->save(false, false, 100);
         }
     }

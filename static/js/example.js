@@ -9,6 +9,7 @@ var saveElementBtn = document.getElementById('save-element');
 var selectedElement = null;
 var editable = false;
 var lost_id = $('#map-canvas').data('lost-id');
+var status = '0';
 
 var aliaseColor = {
     green: ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png', '#00ff00'],
@@ -20,11 +21,11 @@ var aliaseColor = {
     man: ['https://maps.gstatic.com/mapfiles/ms2/micons/man.png']
 };
 
-function addCustomControl(control, text, callback) {
+function addCustomControl(control, text, callback, custome) {
     'use strict';
     var controlChild = document.createElement('div');
     controlChild.style.float = 'left';
-    controlChild.className = 'controlMap';
+    controlChild.className = custome || 'controlMap';
     controlChild.innerText = text;
     control.appendChild(controlChild);
     google.maps.event.addDomListener(controlChild, 'click', function () {
@@ -73,7 +74,7 @@ function initialize() {
             break;
         }
         return ret;
-    }
+    };
 
     function drawMap() {
         function request(callback) {
@@ -91,6 +92,7 @@ function initialize() {
             if (data.error !== 0) {
                 console.log(data.error);
             } else {
+                status = data.content.lost.status;
                 $('span[name="name"]').html(data.content.lost.coordinator.name);
                 $('span[name="phone"]').html(data.content.lost.coordinator.phone);
                 $('.share-buttons-panel').data('url', location.href);
@@ -241,12 +243,6 @@ function initialize() {
             areas.push(a);
         }
 
-        console.log({
-            Balloon: balloons,
-            Radar: radars,
-            Area: areas
-        });
-
         $.ajax({
             url: 'http://146.185.145.71/api/map/',
             data: {
@@ -358,7 +354,6 @@ function initialize() {
                     fillColor: c
                 });
             }
-
             var d = data[type.tr() + 's'][id];
             d.defaultValue = color;
             d.info.title = title;
@@ -517,30 +512,32 @@ function initialize() {
     });
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
 
-    var control = document.createElement('div');
+    control = document.createElement('div');
+    control.style.background = 'red';
     control.style.margin = '0 0 20px 0';
+    if (editable || status !== '2') {
+        control.style.display = 'none';
+    }
     addCustomControl(control, 'Принять участие', function (item) {
         $('#popup-alert').modal('toggle');
-    });
+    },
+    'redControlMap');
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(control);
-
 
 }
 
-$('#saveVolunteers').click(function(){
+$('#saveVolunteers').click(function () {
     var volunteer = {
         Volunteer: {
             name: $('#volunteersName').val(),
-            phone:$('#volunteersPhone').val()
+            phone: $('#volunteersPhone').val()
         }
     };
-
     $.ajax({
-            type:          'post',
-            dataType:      'json',
-            data: volunteer,
-            url:    'http://146.185.145.71/api/volunteer/',
-            
+        type: 'post',
+        dataType: 'json',
+        data: volunteer,
+        url: 'http://146.185.145.71/api/volunteer/'
     });
     $('#popup-alert').modal('hide');
 

@@ -238,8 +238,6 @@ class ImageHandler
 
         imagecopyresampled($newImage, $this->image, 0, 0, 0, 0, $newWidth, $newHeight, $this->width, $this->height);
 
-
-
         imagedestroy($this->image);
 
         $this->image = $newImage;
