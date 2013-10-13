@@ -96,6 +96,7 @@ html, body {
 .share-buttons-panel {
     display: block;
     position: relative;
+    float: left;
 }
 .share-buttons-panel .i16x16 {
     width: 16px;
