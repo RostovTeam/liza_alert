@@ -178,7 +178,7 @@ class Lost extends CActiveRecord
             $fullPath = $path . $newName . '_' . $size[0] . 'x' . $size[1] . '.' . $file->getExtensionName();
             $file->saveAs($fullPath, false);
             $im->load($fullPath);
-            $im->resizeCanvas($size[0], $size[1],false,array(255,255,255));
+            $im->resizeCanvas($size[0], $size[1],array(255,255,255));
             $im->save(false, false, 100);
         }
     }
