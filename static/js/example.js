@@ -73,7 +73,7 @@ function initialize() {
             break;
         }
         return ret;
-    }
+    };
 
     function drawMap() {
         function request(callback) {
@@ -354,7 +354,6 @@ function initialize() {
                     fillColor: c
                 });
             }
-
             var d = data[type.tr() + 's'][id];
             d.defaultValue = color;
             d.info.title = title;
