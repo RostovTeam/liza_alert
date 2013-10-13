@@ -204,3 +204,7 @@ ALTER TABLE `radar`
 
 ALTER TABLE `balloon`
   ADD CONSTRAINT `ballon_ibfk_1` FOREIGN KEY (`lost_id`) REFERENCES `lost` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+ALTER TABLE  `lost` ADD  `description` TEXT NULL AFTER  `age` ,
+ADD  `forum_link` VARCHAR( 500 ) NULL AFTER  `description`
