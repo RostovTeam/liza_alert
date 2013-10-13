@@ -5,6 +5,18 @@
 ?>
 
 
+<? Yii::app()->getClientScript()->registerCssFile('/static/css/chosen.css'); ?>
+<? Yii::app()->clientScript->registerScriptFile('/static/js/vendor/chosen.jquery.js'); ?>
+
+<? Yii::app()->clientScript->registerScriptFile('/static/js/vendor/jquery.maskedinput.min.js'); ?>
+
+<script>
+    $(function() {
+        $('select').chosen();
+        
+    });
+</script>
+
 
 <?php
 $form = $this->beginWidget('CActiveForm', array(

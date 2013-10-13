@@ -5,6 +5,14 @@
 ?>
 
 
+<? Yii::app()->clientScript->registerScriptFile('/static/js/vendor/jquery.maskedinput.min.js'); ?>
+
+<script>
+    $(function() {
+        
+        $('#Coordinator_phone').mask('+7 (999) 999 9999');;
+    });
+</script>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'coordinator-form',
