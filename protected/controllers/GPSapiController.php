@@ -1,6 +1,6 @@
 <?php
 
-class GSMapiController extends ApiController
+class GPSapiController extends ApiController
 {
 
     public function accessRules()
