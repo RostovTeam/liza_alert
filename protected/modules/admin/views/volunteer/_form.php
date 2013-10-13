@@ -14,7 +14,7 @@
     $(function() {
         $('select').chosen({'data-placehodler': 'Выберите опцию'});
         $('#Volunteer_phone').mask('+7 (999) 999 9999');
-        ;
+        
     });
 </script>
 
