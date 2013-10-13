@@ -24,7 +24,6 @@ class MapapiController extends ApiController
             $this->_sendResponse(404, array('error' => "Couldn't find model."));
         }
 
-
         $params = array('lost_id' => $id);
 
         $ballons = Balloon::model()->findAllByAttributes($params);

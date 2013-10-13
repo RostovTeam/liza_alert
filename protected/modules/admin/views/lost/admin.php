@@ -66,7 +66,8 @@ $('.search-form form').submit(function(){
 		'id',
 		'name',
 		array(
-                    'value'=>'Yii::app()->params["status"][$data->status];'
+                    'name'=>'status',
+                    'value'=>'Yii::app()->params["lost_status"][$data->status];'
                     ),
 		'city.name',
 		'coordinator.name',

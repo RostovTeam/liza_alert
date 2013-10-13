@@ -33,11 +33,17 @@ class LostapiController extends ApiController
         {
             $content = array_map(function($v)
                     {
-                        return
-                                array('photo' => Yii::app()->params['url'] . Yii::app()->params['photosRelative'] . $v->photo) +
+                        $content =
                                 $v->attributes +
                                 array('city' => $v->city->attributes) +
                                 array('coordinator' => $v->coordinator->attributes);
+
+                        if ($v->photo)
+                        {
+                            $content['photo'] = Yii::app()->params['url'] . Yii::app()->params['photosRelative'] .
+                                    $v->photo;
+                        }
+                        return $content;
                     }, $models);
 
             $this->_sendResponse(200, array('error' => 0, 'content' => $content));
@@ -56,11 +62,19 @@ class LostapiController extends ApiController
             $this->_sendResponse(404, array('error' => "Couldn't find model."));
         } else
         {
-            $this->_sendResponse(200, array('error' => 0, 'content' =>
-                array('photo' => Yii::app()->params['url'] . Yii::app()->params['photosRelative'] . $model->photo) +
-                $model->attributes +
-                array('city' => $model->city->attributes) +
-                array('coordinator' => $model->coordinator->attributes)));
+            $content =
+                    $model->attributes +
+                    array('city' => $model->city->attributes) +
+                    array('coordinator' => $model->coordinator->attributes);
+
+            if ($model->photo)
+            {
+                $content['photo'] = Yii::app()->params['url'] . Yii::app()->params['photosRelative'] .
+                        $model->photo;
+            }
+
+
+            $this->_sendResponse(200, array('error' => 0, 'content' => $content));
         }
     }
 
