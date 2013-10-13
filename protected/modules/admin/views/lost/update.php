@@ -18,3 +18,5 @@ $this->menu=array(
 <h1>Обновление потеряшки №<?php echo $model->id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+
+<?php echo $this->renderPartial('application.views.site.frame', array('lost_id'=>$model->id,'editable'=>true)); ?>
