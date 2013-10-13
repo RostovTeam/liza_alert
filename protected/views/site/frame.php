@@ -2,6 +2,7 @@
 <? Yii::app()->clientScript->registerScriptFile('/static/js/example.js', CClientScript::POS_END); ?>
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/bootstrap_frame.min.css'); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/bootstrap_frame.min.js', CClientScript::POS_END); ?>
+<? Yii::app()->clientScript->registerScriptFile('/static/js/share-panel.js', CClientScript::POS_END); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/vendor/jquery.maskedinput.min.js'); ?>
 
 <script>
@@ -38,6 +39,12 @@
            </div>
 
             <div id ="lost_forum_link" style="float:right; width:130px;text-align:right;padding-right:15px;margin-top:3px;"></div>
+            <div id="share_buttons" class="share-buttons-panel">
+                <a class="i16x16 vkontakte" href="javascript: void(0);" title="Рассказать Vkontakte"></a>
+                <a class="i16x16 facebook" href="javascript: void(0);" title="Расказать в Facebook"></a>
+                <a class="i16x16 odnoklassniki" href="javascript: void(0);" title="Рассказать в Одноклассниках"></a>
+                <a class="i16x16 twitter" href="javascript: void(0);" title="Рассказать в Twitter"></a>
+            </div>
         </div>
         <div id="map-canvas" data-editable="<?= $editable ?>" data-lost-id="<?= $lost_id ?>"></div>
     </div>
@@ -77,6 +84,8 @@
                 </fieldset>
             </form>
         </div>
+    <? else: ?>
+
     <? endif; ?>
 </div>
 
