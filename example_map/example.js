@@ -90,6 +90,9 @@ function initialize() {
             if (data.error !== 0) {
                 console.log(data.error);
             } else {
+                $('span[name="name"]').html(data.content.lost.coordinator.name);
+                $('span[name="phone"]').html(data.content.lost.coordinator.phone);
+                //debugger;
                 geocoder.geocode({
                     'address': data.content.lost.city.name
                 }, function (results, status) {
@@ -116,14 +119,14 @@ function initialize() {
                             addCircle([d.lat, d.lng], d.color, info, d.radius);
                         }
 
-                        /*for (i in data.content.areas) {
+                        for (i in data.content.areas) {
                             var d = data.content.areas[i];
                             var info = {
                                 title: d.title,
                                 description: d.description
                             };
                             addPolygon(d.points, d.color, info);
-                        }*/
+                        }
                     }
                 });
             }
@@ -189,6 +192,7 @@ function initialize() {
             b = {}, i;
 
         for (i in data.markers) {
+            b = {}
             var balloon = data.markers[i];
             b.title = balloon.info.title;
             b.description = balloon.info.description;
@@ -203,6 +207,7 @@ function initialize() {
             r = {};
 
         for (i in data.circles) {
+            r = {};
             var radar = data.circles[i];
             r.title = radar.info.title;
             r.description = radar.info.description;
@@ -214,23 +219,28 @@ function initialize() {
             radars.push(r);
         }
 
-        var areas = [],
-            a = {};
+        var areas = [], a = {}, area, objs, j;
 
         for (i in data.polygons) {
-            var area = data.polygons[i];
-            var objs = data.polygons[i].element.getPath().getArray(),
-                j;
+            a = {};
+            area = data.polygons[i];
+            objs = area.element.getPath().getArray();
             a.color = area.defaultValue;
             a.points = [];
             for (j in objs) {
-                a.points.push([objs[j].lng(), objs[j].lng()]);
+                a.points.push([objs[j].lat(), objs[j].lng()]);
             }
             a.title = area.info.title;
             a.description = area.info.description;
             a.lost_id = lost_id;
             areas.push(a);
         }
+
+        console.log({
+                Balloon: balloons,
+                Radar: radars,
+                Area: areas
+            });
 
         $.ajax({
             url: 'http://146.185.145.71/api/map/',
@@ -353,11 +363,13 @@ function initialize() {
 
     function addMarker(bounds, colorName, info) {
         var color = markersArray[colorName][0];
+        if(bounds !== null) {
+            bounds = new google.maps.LatLng(bounds[0], bounds[1])
+        }
         bounds = bounds || centerMap;
         info = info || '';
-        var latLng = new google.maps.LatLng(bounds[0], bounds[1]);
         var marker = new google.maps.Marker({
-            position: latLng,
+            position: bounds,
             icon: color,
             map: map,
             draggable: editable
@@ -395,7 +407,6 @@ function initialize() {
                 coords.push(new google.maps.LatLng(bounds[i][0], bounds[i][1]));
             }
         }
-
         var polygon = new google.maps.Polygon({
             paths: coords,
             strokeColor: color,
