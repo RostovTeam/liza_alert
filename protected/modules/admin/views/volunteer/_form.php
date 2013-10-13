@@ -7,9 +7,14 @@
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/chosen.css'); ?>
 
 <? Yii::app()->clientScript->registerScriptFile('/static/js/vendor/chosen.jquery.js'); ?>
+
+<? Yii::app()->clientScript->registerScriptFile('/static/js/vendor/jquery.maskedinput.min.js'); ?>
+
 <script>
-    $(function(){
-        $('.chosen').chosen();
+    $(function() {
+        $('select').chosen({'data-placehodler': 'Выберите опцию'});
+        $('#Volunteer_phone').mask('+7 (999) 999 9999');
+        ;
     });
 </script>
 
@@ -43,13 +48,15 @@ $form = $this->beginWidget('CActiveForm', array(
 <? if (!$model->isNewRecord): ?>
     <div class="control-group">
         <label  class= 'control-label'>Состоит в экипажах:</label>
-        <? if ($model->crew): ?>
-            <ul>
-                <? foreach ($model->crew as $crew): ?>
-                    <li><?= $crew->name ?>  -  <?= $crew->lost->name ?> </li>
-                <? endforeach; ?>
-            </ul>
-        <? endif; ?>
+        <div class="controls">
+            <? if ($model->crew): ?>
+                <ul>
+                    <? foreach ($model->crew as $crew): ?>
+                        <li><?= $crew->name ?>  </li>
+                    <? endforeach; ?>
+                </ul>
+            <? endif; ?>
+        </div>
     </div>
     <div class="control-group">
         <label  class= 'control-label'>Добавить в экипаж</label>
@@ -57,8 +64,8 @@ $form = $this->beginWidget('CActiveForm', array(
             <?=
             CHtml::dropDownList('Volunteer[crew][]', '', CHTML::listData(Crew::model()->findAllByAttributes(array('active' => 1)), 'id', 'name'), array('multiple' => true, 'class' => 'chosen')
             );
-            ?>
-
+            ?><br>
+            <small>Волонтеров можно добавлять только в активные экипажи</small>
         </div>
     </div>
 <? endif; ?>

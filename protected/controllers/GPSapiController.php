@@ -23,7 +23,7 @@ class GPSapiController extends ApiController
             $data = unserialize($data);
         else
             $data = array();
-        
+
         $this->_sendResponse(200, array('error' => 0, 'content' => $data));
     }
 
@@ -63,7 +63,7 @@ class GPSapiController extends ApiController
             $data[$recieved['phone']] = $recieved;
         }
 
-        if ($redis->set("gps", serialize($data),50000))
+        if ($redis->set("gps", serialize($data), 50000))
             $this->_sendResponse(200, array('error' => 0, 'content' => array()));
         else
             $this->_sendResponse(500, array('error' => 'cant_save_data', 'content' => array()));
