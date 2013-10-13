@@ -47,6 +47,7 @@ class LostController extends BaseAdminController
      */
     public function actionUpdate($id)
     {
+        //$this->layout = '//layouts/main';
         $model = $this->loadModel($id);
 
         // Uncomment the following line if AJAX validation is needed

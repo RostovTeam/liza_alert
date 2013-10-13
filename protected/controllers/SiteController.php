@@ -12,16 +12,21 @@ class SiteController extends Controller
     {
         $this->redirect('http://lizaalert.org');
     }
+    
+    function actionFrame($id)
+    {
+        $this->render('frame',array('editable'=>false,'lost_id'=>$id));
+    }
 
     function actionTest()
     {
         $models = array('Area', 'Balloon', 'City', 'Lost', 'Radius', 'Volunteer');
-
+        
         foreach ($models as $mn)
         {
-            $m = new $mn;
-            echo $mn . '<BR>';
-            echo json_encode(array('error' => 0, 'content' => $m->attributes));
+            $m=new $mn;
+            echo $mn.'<BR>';
+            echo json_encode(array('error'=>0,'content'=>$m->attributes));
             echo '<br />';
         }
     }
