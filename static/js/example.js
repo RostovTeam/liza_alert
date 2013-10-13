@@ -8,7 +8,7 @@ var saveElementBtn = document.getElementById('save-element');
 
 var selectedElement = null;
 var editable = false;
-var lost_id = $('#map-canvas').data('lost-id');,
+var lost_id = $('#map-canvas').data('lost-id');
 var status = '0';
 
 var aliaseColor = {
@@ -92,6 +92,7 @@ function initialize() {
             if (data.error !== 0) {
                 console.log(data.error);
             } else {
+                status = data.content.lost.status;
                 $('span[name="name"]').html(data.content.lost.coordinator.name);
                 $('span[name="phone"]').html(data.content.lost.coordinator.phone);
                 geocoder.geocode({
@@ -507,10 +508,10 @@ function initialize() {
     });
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
 
-    var control = document.createElement('div');
+    control = document.createElement('div');
     control.style.background = 'red';
     control.style.margin = '0 0 20px 0';
-    if (editable || status === '0') {
+    if (editable || status !== '2') {
         control.style.display = 'none';
     }
     addCustomControl(control, 'Принять участие', function (item) {
