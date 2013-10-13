@@ -8,15 +8,16 @@ var saveElementBtn = document.getElementById('save-element');
 
 var selectedElement = null;
 var editable = false;
-var lost_id = $('body').data('lost-id');
+var lost_id = $('#map-canvas').data('lost-id');
 
-var markersArray = {
+var aliaseColor = {
     green: ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png', '#00ff00'],
     lightblue: ['https://maps.gstatic.com/mapfiles/ms2/micons/lightblue.png', '#79a0c1'],
     blue: ['https://maps.gstatic.com/mapfiles/ms2/micons/blue.png', '#42aaff'],
     yellow: ['https://maps.gstatic.com/mapfiles/ms2/micons/yellow.png', '#ffff00'],
     purple: ['https://maps.gstatic.com/mapfiles/ms2/micons/purple.png', '#8b00ff'],
-    pink: ['https://maps.gstatic.com/mapfiles/ms2/micons/pink.png', '#ffc0cb']
+    pink: ['https://maps.gstatic.com/mapfiles/ms2/micons/pink.png', '#ffc0cb'],
+    man: ['https://maps.gstatic.com/mapfiles/ms2/micons/man.png']
 };
 
 function addCustomControl(control, text, callback) {
@@ -92,7 +93,6 @@ function initialize() {
             } else {
                 $('span[name="name"]').html(data.content.lost.coordinator.name);
                 $('span[name="phone"]').html(data.content.lost.coordinator.phone);
-                //debugger;
                 geocoder.geocode({
                     'address': data.content.lost.city.name
                 }, function (results, status) {
@@ -142,19 +142,19 @@ function initialize() {
         for (i in data.markers) {
             el = data.markers[i];
             el.element.setOptions({
-                icon: markersArray[el.defaultValue][0]
+                icon: aliaseColor[el.defaultValue][0]
             });
         }
         for (i in data.polygons) {
             el = data.polygons[i];
             el.element.setOptions({
-                fillColor: markersArray[el.defaultValue][1]
+                fillColor: aliaseColor[el.defaultValue][1]
             });
         }
         for (i in data.circles) {
             el = data.circles[i];
             el.element.setOptions({
-                fillColor: markersArray[el.defaultValue][1]
+                fillColor: aliaseColor[el.defaultValue][1]
             });
         }
 
@@ -342,12 +342,12 @@ function initialize() {
             }
         } else {
             if (type === 'balloon') {
-                color = markersArray[color][0];
+                color = aliaseColor[color][0];
                 element.setOptions({
                     icon: color
                 });
             } else {
-                color = markersArray[color][1];
+                color = aliaseColor[color][1];
                 element.setOptions({
                     fillColor: color
                 });
@@ -362,7 +362,7 @@ function initialize() {
     }
 
     function addMarker(bounds, colorName, info) {
-        var color = markersArray[colorName][0];
+        var color = aliaseColor[colorName][0];
         if(bounds !== null) {
             bounds = new google.maps.LatLng(bounds[0], bounds[1])
         }
@@ -391,7 +391,7 @@ function initialize() {
     }
 
     function addPolygon(bounds, colorName, info) {
-        var color = markersArray[colorName][1];
+        var color = aliaseColor[colorName][1];
         info = info || '';
         var x = centerMap.lat(),
             y = centerMap.lng();
@@ -435,10 +435,12 @@ function initialize() {
 
     function addCircle(coords, colorName, info, radius) {
         radius = parseFloat(radius) || 1000;
-        var color = markersArray[colorName][1];
+        var color = aliaseColor[colorName][1];
         info = info || '';
+        if(coords !== null) {
+            coords = new google.maps.LatLng(coords[0], coords[1]);
+        }
         coords = coords || centerMap;
-        var latLng = new google.maps.LatLng(coords[0], coords[1]);
         var circle = new google.maps.Circle({
             strokeColor: color,
             strokeOpacity: 0.2,
@@ -447,7 +449,7 @@ function initialize() {
             fillOpacity: 0.2,
             editable: editable,
             draggable: editable,
-            center: latLng,
+            center: coords,
             radius: radius
         });
         circle.setMap(map);
@@ -473,33 +475,6 @@ function initialize() {
         selectedElement.setMap(null);
         resetSelected();
     }
-
-    /*addMarkerBtn.onclick = function () {
-        var color = $('select[name="color"] option:selected').val();
-        var info = {
-            title: 'test',
-            description: 'text1111'
-        };
-        addMarker(null, color, info);
-    };
-
-    addPolygonBtn.onclick = function () {
-        var color = $('select[name="color"] option:selected').val();
-        var info = {
-            title: 'test',
-            description: 'text1111'
-        };
-        addPolygon(null, color, info);
-    };*/
-
-    /*addCircleBtn.onclick = function () {
-        var color = $('select[name="color"] option:selected').val();
-        var info = {
-            title: 'test',
-            description: 'text1111'
-        };
-        addCircle(null, color, 1000, info);
-    };*/
 
     deleteSelectBtn.onclick = function () {
         deleteSelected();
