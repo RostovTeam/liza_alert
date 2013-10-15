@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `AuthAssignment` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `authitem`
+-- Table structure for table `AuthItem`
 --
 
 CREATE TABLE IF NOT EXISTS `AuthItem` (
@@ -171,17 +171,17 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
 
 --
--- Constraints for table `authassignment`
+-- Constraints for table `AuthAssignment`
 --
-ALTER TABLE `authassignment`
-  ADD CONSTRAINT `authassignment_ibfk_1` FOREIGN KEY (`itemname`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `AuthAssignment`
+  ADD CONSTRAINT `authassignment_ibfk_1` FOREIGN KEY (`itemname`) REFERENCES `AuthItem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `authitemchild`
+-- Constraints for table `AuthItemChild`
 --
-ALTER TABLE `authitemchild`
-  ADD CONSTRAINT `authitemchild_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `authitemchild_ibfk_2` FOREIGN KEY (`child`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `AuthItemChild`
+  ADD CONSTRAINT `authitemchild_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `AuthItem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `authitemchild_ibfk_2` FOREIGN KEY (`child`) REFERENCES `AuthItem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `lost`
   ADD CONSTRAINT `lost_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
