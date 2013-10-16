@@ -12,8 +12,8 @@ var lost_id = $('#map-canvas').data('lost-id');
 var status_lost = '0';
 var ib = null;
 
-var urlDefault = 'http://146.185.145.71';
-//var urlDefault = '';
+//var urlDefault = 'http://146.185.145.71';
+var urlDefault = '';
 
 var aliaseColor = {
     green: ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png', '#00ff00'],
@@ -536,6 +536,18 @@ function initialize() {
         if (selectedElement === null) {
             return false;
         }
+
+        [data.markers, data.circles, data.polygons].forEach(function (arr) {
+            var i;
+            for (i in arr) {
+                if (arr.hasOwnProperty(i)) {
+                    if (arr[i].element === selectedElement) {
+                        delete arr[i];
+                    }
+                }
+            }
+        });
+
         selectedElement.setMap(null);
         resetSelected();
     }
