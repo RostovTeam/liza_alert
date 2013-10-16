@@ -1,5 +1,5 @@
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/style.css'); ?>
-<? Yii::app()->clientScript->registerScriptFile('/static/js/example.js', CClientScript::POS_END); ?>
+<? Yii::app()->clientScript->registerScriptFile('/static/js/widget.js', CClientScript::POS_END); ?>
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/bootstrap_frame.min.css'); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/bootstrap_frame.min.js', CClientScript::POS_END); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/share-panel.js', CClientScript::POS_END); ?>
@@ -17,7 +17,7 @@
 </script>
 <? if ($editable): ?>
     <div class="control-group">
-        <label class="control-label">Код для вставки :</label>
+        <label class="control-label">Код для вставки:</label>
         <div class="controls">
             <span class="label label-info">
                 <?=
