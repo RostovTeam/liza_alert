@@ -1,6 +1,7 @@
 /*jslint vars: true*/
-/*global google, document, window, $*/
+/*global google, document, window, $, console*/
 
+var that = this;
 var mapCanvas = document.getElementById('map-canvas');
 var deleteSelectBtn = document.getElementById('delete-select');
 var saveMapBtn = document.getElementById('save-map');
@@ -10,6 +11,8 @@ var selectedElement = null;
 var editable = false;
 var lost_id = $('#map-canvas').data('lost-id');
 var status_lost = '0';
+var ib = null;
+var urlDefault = 'http://146.185.145.71';
 
 var aliaseColor = {
     green: ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png', '#00ff00'],
@@ -31,6 +34,40 @@ function addCustomControl(control, text, callback, custome) {
     google.maps.event.addDomListener(controlChild, 'click', function () {
         callback(this);
     });
+}
+
+function editElement(element, color, info, id) {
+    'use strict';
+    $('[name="element_id"]').val(id);
+    $('[name="type"]').val(element).attr('disabled', true);
+    $('[name="color"]').val(color);
+    $('[name="title"]').val(info.title);
+    $('textarea[name="description"]').val(info.description);
+}
+
+function infoWindow(map, event, contentString) {
+    'use strict';
+    if (contentString === '') {
+        return false;
+    }
+    var info = new google.maps.InfoWindow();
+    info.setContent(contentString);
+    info.setPosition(event.latLng);
+    info.open(map);
+    return info;
+}
+
+function infoBlock(map, e, colorName, info, id) {
+    'use strict';
+    if (ib) {
+        ib.close();
+    }
+    if (editable === false) {
+        if (info.title !== '' || info.description !== '') {
+            ib = infoWindow(map, e, '<b>' + info.title + '</b><br>' + info.description);
+        }
+    }
+    editElement('radius', colorName, info, id);
 }
 
 function initialize() {
@@ -79,7 +116,7 @@ function initialize() {
     function drawMap() {
         function request(callback) {
             $.ajax({
-                url: 'http://146.185.145.71/api/map/' + lost_id,
+                url: urlDefault + '/api/map/' + lost_id,
                 type: 'get',
                 dataType: 'json',
                 success: function (data) {
@@ -279,7 +316,7 @@ function initialize() {
         }
 
         $.ajax({
-            url: 'http://146.185.145.71/api/map/',
+            url: urlDefault + '/api/map/',
             data: {
                 Balloon: balloons,
                 Radar: radars,
@@ -304,17 +341,6 @@ function initialize() {
         }
     }
 
-    function infoWindow(event, contentString) {
-        if (contentString === '') {
-            return false;
-        }
-        var info = new google.maps.InfoWindow();
-        info.setContent(contentString);
-        info.setPosition(event.latLng);
-        info.open(map);
-        return info;
-    }
-
     function switchVisibleLayers(layer, item) {
         var status;
         switch (layer) {
@@ -336,14 +362,6 @@ function initialize() {
         } else {
             item.style.color = '#565656';
         }
-    }
-
-    function editElement(element, color, info, id) {
-        $('[name="element_id"]').val(id);
-        $('[name="type"]').val(element).attr('disabled', true);
-        $('[name="color"]').val(color);
-        $('[name="title"]').val(info.title);
-        $('textarea[name="description"]').val(info.description);
     }
 
     function saveElement(element) {
@@ -419,12 +437,7 @@ function initialize() {
         });
         google.maps.event.addListener(marker, 'click', function (e) {
             setSelectElement(this);
-            if (editable === false) {
-                if (info.title !== '' || info.description !== '') {
-                    infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
-                }
-            }
-            editElement('balloon', colorName, info, id);
+            that.infoBlock(map, e, colorName, info, id);
         });
     }
 
@@ -466,12 +479,7 @@ function initialize() {
 
         google.maps.event.addListener(polygon, 'click', function (e) {
             setSelectElement(this);
-            if (editable === false) {
-                if (info.title !== '' || info.description !== '') {
-                    infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
-                }
-            }
-            editElement('area', colorName, info, id);
+            that.infoBlock(map, e, colorName, info, id);
         });
     }
 
@@ -505,12 +513,7 @@ function initialize() {
 
         google.maps.event.addListener(circle, 'click', function (e) {
             setSelectElement(this);
-            if (editable === false) {
-                if (info.title !== '' || info.description !== '') {
-                    infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
-                }
-            }
-            editElement('radius', colorName, info, id);
+            that.infoBlock(map, e, colorName, info, id);
         });
     }
 
@@ -552,7 +555,7 @@ $('#saveVolunteers').click(function () {
         type: 'post',
         dataType: 'json',
         data: volunteer,
-        url: 'http://146.185.145.71/api/volunteer/'
+        url: urlDefault + '/api/volunteer/'
     });
     $('#popup-alert').modal('hide');
 
