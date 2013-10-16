@@ -420,7 +420,7 @@ function initialize() {
         google.maps.event.addListener(marker, 'click', function (e) {
             setSelectElement(this);
             if (editable === false) {
-                if (info.title !== null || info.description !== null) {
+                if (info.title !== '' || info.description !== '') {
                     infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
                 }
             }
@@ -467,7 +467,7 @@ function initialize() {
         google.maps.event.addListener(polygon, 'click', function (e) {
             setSelectElement(this);
             if (editable === false) {
-                if (info.title !== null || info.description !== null) {
+                if (info.title !== '' || info.description !== '') {
                     infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
                 }
             }
@@ -506,7 +506,7 @@ function initialize() {
         google.maps.event.addListener(circle, 'click', function (e) {
             setSelectElement(this);
             if (editable === false) {
-                if (info.title !== null || info.description !== null) {
+                if (info.title !== '' || info.description !== '') {
                     infoWindow(e, '<b>' + info.title + '</b><br>' + info.description);
                 }
             }
