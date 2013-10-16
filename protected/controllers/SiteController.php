@@ -34,7 +34,7 @@ class SiteController extends Controller
 
     function actionInstall()
     {
-        //exit();
+        exit();
         $auth = Yii::app()->authManager;
         $auth->clearAll();
 
