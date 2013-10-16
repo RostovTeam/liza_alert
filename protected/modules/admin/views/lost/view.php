@@ -10,7 +10,7 @@ $this->breadcrumbs = array(
 $this->menu = array(
     array('label' => 'Создание потеряшек', 'url' => array('create')),
     array('label' => 'Обновление потеряшек', 'url' => array('update', 'id' => $model->id)),
-    array('label' => 'Удалить потеряшеку', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Удалить потеряшку?')),
+    array('label' => 'Удалить потеряшку', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Удалить потеряшку?')),
     array('label' => 'Управление потеряшек', 'url' => array('index')),
 );
 ?>

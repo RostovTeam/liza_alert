@@ -1,5 +1,5 @@
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/style.css'); ?>
-<? Yii::app()->clientScript->registerScriptFile('/static/js/example.js', CClientScript::POS_END); ?>
+<? Yii::app()->clientScript->registerScriptFile('/static/js/widget.js', CClientScript::POS_END); ?>
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/bootstrap_frame.min.css'); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/bootstrap_frame.min.js', CClientScript::POS_END); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/share-panel.js', CClientScript::POS_END); ?>
@@ -17,7 +17,7 @@
 </script>
 <? if ($editable): ?>
     <div class="control-group">
-        <label class="control-label">Код для вставки :</label>
+        <label class="control-label">Код для вставки:</label>
         <div class="controls">
             <span class="label label-info">
                 <?=
@@ -58,7 +58,7 @@
                 <a class="i16x16 twitter" href="javascript: void(0);" title="Рассказать в Twitter"></a>
             </div>
         </div>
-        <div id="map-canvas" data-editable="<?= $editable ?>" data-lost-id="<?= $lost_id ?>"></div>
+        <div id="map-canvas" data-editable="<? if ($editable): ?>true<? else: ?>false<? endif; ?>" data-lost-id="<?= $lost_id ?>"></div>
     </div>
 <? if ($editable): ?>
         <div class="span3">
