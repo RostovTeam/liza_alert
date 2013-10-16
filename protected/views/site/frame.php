@@ -58,7 +58,7 @@
                 <a class="i16x16 twitter" href="javascript: void(0);" title="Рассказать в Twitter"></a>
             </div>
         </div>
-        <div id="map-canvas" data-editable="<?= $editable ?>" data-lost-id="<?= $lost_id ?>"></div>
+        <div id="map-canvas" data-editable="<? if ($editable): ?>true<? else: ?>false<? endif; ?>" data-lost-id="<?= $lost_id ?>"></div>
     </div>
 <? if ($editable): ?>
         <div class="span3">
