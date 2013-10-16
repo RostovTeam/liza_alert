@@ -10,9 +10,9 @@ class SiteController extends Controller
 
     function actionIndex()
     {
-        $this->redirect('http://lizaalert.org');
+        $this->redirect('http://lizaalert-yug.org');
     }
-    
+
     function actionFrame($id)
     {
         $this->render('frame',array('editable'=>false,'lost_id'=>$id));
@@ -22,7 +22,7 @@ class SiteController extends Controller
     {
         echo Yii::app()->user->returnUrl;
         $models = array('Area', 'Balloon', 'City', 'Lost', 'Radius', 'Volunteer');
-        
+
         foreach ($models as $mn)
         {
             $m=new $mn;
@@ -34,7 +34,7 @@ class SiteController extends Controller
 
     function actionInstall()
     {
-        exit();
+        //exit();
         $auth = Yii::app()->authManager;
         $auth->clearAll();
 
