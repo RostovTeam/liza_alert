@@ -12,8 +12,8 @@ var lost_id = $('#map-canvas').data('lost-id');
 var status_lost = '0';
 var ib = null;
 
-var urlDefault = 'http://146.185.145.71';
-//var urlDefault = '';
+//var urlDefault = 'http://146.185.145.71';
+var urlDefault = '';
 
 var aliaseColor = {
     green: ['https://maps.gstatic.com/mapfiles/ms2/micons/green.png', '#00ff00'],
@@ -47,6 +47,19 @@ function stop(e) {
     }
 }
 
+function btnSwitcher(action) {
+    'use strict';
+    if (action) {
+        $('#save-element').html('Добавить');
+        $('#delete-select').attr('disabled', 'disabled');
+        $('#save-map').removeAttr('disabled');
+    } else {
+        $('#save-element').html('Сохранить');
+        $('#delete-select').removeAttr('disabled');
+        $('#save-map').attr('disabled', 'disabled');
+    }
+}
+
 function addCustomControl(control, text, callback, custome) {
     'use strict';
     var controlChild = document.createElement('div');
@@ -66,6 +79,8 @@ function editElement(element, color, info, id) {
     $('[name="color"]').val(color);
     $('[name="title"]').val(info.title);
     $('textarea[name="description"]').val(info.description);
+
+    btnSwitcher(false);
 }
 
 function infoWindow(map, event, contentString) {
@@ -80,7 +95,7 @@ function infoWindow(map, event, contentString) {
     return info;
 }
 
-function infoBlock(map, e, colorName, info, id) {
+function infoBlock(map, e, colorName, info, id, type) {
     'use strict';
     if (ib) {
         ib.close();
@@ -90,7 +105,7 @@ function infoBlock(map, e, colorName, info, id) {
             ib = infoWindow(map, e, '<b>' + info.title + '</b><br>' + info.description);
         }
     }
-    editElement('radius', colorName, info, id);
+    editElement(type, colorName, info, id);
 }
 
 function setSelectElement(element) {
@@ -146,7 +161,16 @@ function resetSelected() {
 
     setSelectElement(null);
     selectedElement = null;
+
+    btnSwitcher(true);
 }
+
+$(document).keyup(function (e) {
+    'use strict';
+    if (e.keyCode === 27) {
+        resetSelected();
+    }
+});
 
 function initialize() {
     'use strict';
@@ -450,7 +474,7 @@ function initialize() {
         google.maps.event.addListener(marker, 'click', function (e) {
             stop(e);
             setSelectElement(this);
-            infoBlock(map, e, colorName, info, id);
+            infoBlock(map, e, colorName, info, id, 'balloon');
         });
     }
 
@@ -493,7 +517,7 @@ function initialize() {
         google.maps.event.addListener(polygon, 'click', function (e) {
             stop(e);
             setSelectElement(this);
-            infoBlock(map, e, colorName, info, id);
+            infoBlock(map, e, colorName, info, id, 'area');
         });
     }
 
@@ -528,7 +552,7 @@ function initialize() {
         google.maps.event.addListener(circle, 'click', function (e) {
             stop(e);
             setSelectElement(this);
-            infoBlock(map, e, colorName, info, id);
+            infoBlock(map, e, colorName, info, id, 'radius');
         });
     }
 
