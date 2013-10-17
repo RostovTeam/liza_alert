@@ -20,4 +20,8 @@ $this->menu = array(
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>
 
 <hr>
-<?php echo $this->renderPartial('application.views.site.frame', array('lost_id' => $model->id, 'editable' => 'true')); ?>
+
+<div id="frame_container" style="width:940px;height:650px;">
+    <?php echo $this->renderPartial('application.views.site.frame', array('lost_id' => $model->id, 'editable' => 'true')); ?>
+</div>
+
