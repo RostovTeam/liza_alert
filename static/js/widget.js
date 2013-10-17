@@ -154,7 +154,7 @@ function setSelectElement(element) {
 function resetSelected() {
     'use strict';
     $('[name="type"]').val('balloon').removeAttr('disabled');
-    $('[name="color"]').val('green');
+    $('[name="color"]').val('purple');
     $('[name="title"]').val('');
     $('textarea[name="description"]').val('');
     $('[name="element_id"]').val('');

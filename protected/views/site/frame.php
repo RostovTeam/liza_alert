@@ -72,11 +72,11 @@
                     </select>
                     <label>Цвет: </label>
                     <select name="color">
+                        <option value="purple">Фиолетовый</option>
                         <option value="green">Зеленый</option>
                         <option value="lightblue">Светло-голубой</option>
                         <option value="blue">Голубой</option>
                         <option value="yellow">Желтый</option>
-                        <option value="purple">Фиолетовый</option>
                         <option value="pink">Розовый</option>
                     </select>
                     <input name="element_id" type="hidden" value="" />
