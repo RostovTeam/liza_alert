@@ -497,8 +497,8 @@ function initialize() {
         }
         var polygon = new google.maps.Polygon({
             paths: coords,
-            strokeColor: color,
-            strokeOpacity: 0.2,
+            strokeColor: '#111',
+            strokeOpacity: 0.5,
             strokeWeight: 1,
             fillColor: color,
             fillOpacity: 0.2,
@@ -530,8 +530,8 @@ function initialize() {
         }
         coords = coords || centerMap;
         var circle = new google.maps.Circle({
-            strokeColor: color,
-            strokeOpacity: 0.2,
+            strokeColor: '#111',
+            strokeOpacity: 0.5,
             strokeWeight: 1,
             fillColor: color,
             fillOpacity: 0.2,

@@ -1,5 +1,5 @@
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/style.css'); ?>
-<? Yii::app()->clientScript->registerScriptFile('/static/js/widget.js?ver2', CClientScript::POS_END); ?>
+<? Yii::app()->clientScript->registerScriptFile('/static/js/widget.js?ver3', CClientScript::POS_END); ?>
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/bootstrap_frame.min.css'); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/bootstrap_frame.min.js', CClientScript::POS_END); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/share-panel.js', CClientScript::POS_END); ?>
@@ -85,7 +85,7 @@
                     <div class="control-group">
                         <div class="controls">
                             <button type="button" class="btn" id="save-element">Добавить</button>
-                            <button type="button" class="btn btn-danger" id="delete-select">Удалить</button>
+                            <button type="button" class="btn btn-danger" id="delete-select" disabled="disabled">Удалить</button>
                         </div>
                     </div>
                     <div class="control-group">
