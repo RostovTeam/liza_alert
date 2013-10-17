@@ -222,7 +222,9 @@ function initialize() {
         request(function (data) {
             if (data.error === 0) {
                 if (editable === false) {
-                    $('#lost_photo img').attr('src', data.content.lost.photo['75x75']);
+                    if (data.content.lost.photo !== null) {
+                        $('#lost_photo img').attr('src', data.content.lost.photo['75x75']);
+                    }
                     $('#lost_name').html(data.content.lost.name);
                     $('#lost_city').html(data.content.lost.city.name);
                     $('#lost_age').html(data.content.lost.age);
