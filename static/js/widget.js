@@ -454,8 +454,9 @@ function initialize() {
     function addMarker(bounds, colorName, info) {
         var color = aliaseColor[colorName][0];
         if (bounds !== null) {
-            bounds = new google.maps.LatLng(bounds[0], bounds[1])
+            bounds = new google.maps.LatLng(bounds[0], bounds[1]);
         }
+        centerMap = map.getCenter();
         bounds = bounds || centerMap;
         info = info || '';
         var marker = new google.maps.Marker({
@@ -481,6 +482,7 @@ function initialize() {
     function addPolygon(bounds, colorName, info) {
         var color = aliaseColor[colorName][1];
         info = info || '';
+        centerMap = map.getCenter();
         var x = centerMap.lat(),
             y = centerMap.lng();
         bounds = bounds || [
@@ -528,6 +530,7 @@ function initialize() {
         if (coords !== null) {
             coords = new google.maps.LatLng(coords[0], coords[1]);
         }
+        centerMap = map.getCenter();
         coords = coords || centerMap;
         var circle = new google.maps.Circle({
             strokeColor: color,
