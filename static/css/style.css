@@ -34,15 +34,9 @@ html, body {
 
 }
 
-#area {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
 #map-canvas {
     height: 100%;
     width: 100%;
-    border: solid 1px;
 }
 
 #map-canvas img {
