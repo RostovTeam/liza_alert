@@ -56,6 +56,7 @@ $('#saveVolunteers').click(function () {
 
 /*translate name system to google maps*/
 String.prototype.tr = function () {
+    'use strict';
     var ret;
     switch (this) {
     case 'balloon':
