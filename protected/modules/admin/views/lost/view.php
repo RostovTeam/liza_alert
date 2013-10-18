@@ -49,4 +49,6 @@ $this->widget('zii.widgets.CDetailView', array(
 ?>
 
 <hr>
+<div style="height:500px;">
 <?php echo $this->renderPartial('application.views.site.frame', array('lost_id' => $model->id, 'editable' => 'false')); ?>
+</div>

@@ -11,6 +11,19 @@
         $('#volunteersPhone').mask('+7 (999) 999 9999');
         $('#close_lost_card').click(function() {
             $('#lost_cart').hide();
+        });//t = t.replace(/{r_id}/g, this.r_id);
+        
+        $('#frame_width').change(function() {
+            var value = parseInt($(this).val());
+            if (!value)
+                return false;
+            $('#iframe_code').text($('#iframe_code').text().replace(/width="[\d]*"/g, 'width="' + value + '"'));
+        });
+        $('#frame_height').change(function() {
+            var value = parseInt($(this).val());
+            if (!value)
+                return false;
+            $('#iframe_code').text($('#iframe_code').text().replace(/height="[\d]*"/g, 'height="' + value + '"'));
         });
     });
 
@@ -18,18 +31,21 @@
 <? if ($editable): ?>
     <div class="control-group">
         <label class="control-label">Код для вставки:</label>
+
         <div class="controls">
-            <span class="label label-info">
+            <input type="text" id="frame_width" placeholder="Ширина фрейма" >
+            <input type="text" id="frame_height" placeholder="Высота фрейма"><br />
+            <span class="label label-info" id="iframe_code">
                 <?=
-                CHtml::encode('<iframe src="' .
+                CHtml::encode('<iframe width="500" height="300" src="' .
                         $this->createAbsoluteUrl('/site/frame', array('id' => $lost_id)) . '"></iframe>');
                 ?>
             </span>
         </div>
     </div>
 <? endif; ?>
-<div class="span12">
-    <div class="span8" style="position:relative;">
+<div class="row-fluid" style="position:relative;height:100%;overflow: hidden">
+    <div class="row-fluid" style="position:relative;height:100%">
         <div id="lost_cart" style="position:absolute;right:25px;bottom:25px;z-index:1;width:260px;heigth:100px;background: rgba(255,255,255,0.7);border-radius: 3px;padding:10px;display:none;">
             <div  id="close_lost_card" style="position:absolute;right:5px;top:3px;cursor:pointer">×</div>
             <div style="width:100%;text-align:center;color:red;text-transform: uppercase;margin-bottom: 3px">Внимание! Пропал человек</div>
@@ -60,27 +76,42 @@
         </div>
         <div id="map-canvas" data-editable="<? if ($editable): ?>true<? else: ?>false<? endif; ?>" data-lost-id="<?= $lost_id ?>"></div>
     </div>
-<? if ($editable): ?>
-        <div class="span3">
-            <form>
+    <? if ($editable): ?>
+        <div class="" style="position:absolute;right:5px;top:55px;z-index:100;
+             background:rgba(255,255,255,0.7);border-radius: 3px;padding:10px;">
+            <form class="form">
                 <fieldset>
-                    <label>Тип: </label>
-                    <select name="type">
-                        <option value="balloon">Метка</option>
-                        <option value="radius">Окружность</option>
-                        <option value="area">Произвольная область</option>
-                    </select>
-                    <label>Цвет: </label>
-                    <select name="color">
-                        <option value="purple">Фиолетовый</option>
-                        <option value="green">Зеленый</option>
-                        <option value="lightblue">Светло-голубой</option>
-                        <option value="blue">Голубой</option>
-                        <option value="yellow">Желтый</option>
-                        <option value="pink">Розовый</option>
-                    </select>
+
+                    <div class="control-group">
+                        <label>Тип: </label>
+                        <div class="controls">
+                            <select name="type">
+                                <option value="balloon">Метка</option>
+                                <option value="radius">Окружность</option>
+                                <option value="area">Произвольная область</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label>Цвет: </label>
+                        <div class="controls">
+                            <select name="color">
+                                <option value="green">Зеленый</option>
+                                <option value="lightblue">Светло-голубой</option>
+                                <option value="blue">Голубой</option>
+                                <option value="yellow">Желтый</option>
+                                <option value="purple">Фиолетовый</option>
+                                <option value="pink">Розовый</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <input name="element_id" type="hidden" value="" />
-                    <input type="text" name="title" placeholder="Заголовок">
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="text" name="title" placeholder="Заголовок">
+                        </div>
+                    </div>
                     <textarea rows="3" name="description" placeholder="Описание"></textarea>
                     <div class="control-group">
                         <div class="controls">
@@ -97,7 +128,7 @@
             </form>
         </div>
 
-<? endif; ?>
+    <? endif; ?>
 
 </div>
 

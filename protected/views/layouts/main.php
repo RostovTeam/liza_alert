@@ -11,23 +11,9 @@
         <link href="/static/css/style.css" rel="stylesheet">
 
     </head>
-    <body>
+    <body >
 
         <?= $content; ?>
-
-        <!-- Start: FOOTER -->
-        <footer>
-            <div class="container">
-
-            </div>
-
-            <div class="container">
-                <p>
-
-                </p>
-            </div>
-        </footer>
-        <!-- End: FOOTER -->
 
         <? Yii::app()->clientScript->registerCoreScript('jquery');?>
         <script type="text/javascript" src="/static/js/vendor/bootstrap.min.js"></script>
