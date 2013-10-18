@@ -40,7 +40,7 @@ $('.search-form form').submit(function(){
 	'id'=>'volunteer-grid',
 	'dataProvider'=>$model->search(),
 	'itemsCssClass' => 'table table-striped table-bordered',
-        'summaryText'=>'',
+        'summaryText'=>' Всего: {count}',
         'pagerCssClass'=>'pagination',
         'pager'=>array(
             'selectedPageCssClass'=>'active',
@@ -59,7 +59,6 @@ $('.search-form form').submit(function(){
         'firstPageLabel'=>'Первая'
     ),
 	'columns'=>array(
-		'id',
 		'name',
 		'phone',
 		'date_created',
