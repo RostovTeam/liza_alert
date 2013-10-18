@@ -222,7 +222,9 @@ function initialize() {
         request(function (data) {
             if (data.error === 0) {
                 if (editable === false) {
-                    $('#lost_photo img').attr('src', data.content.lost.photo['75x75']);
+                    if (data.content.lost.photo !== null) {
+                        $('#lost_photo img').attr('src', data.content.lost.photo['75x75']);
+                    }
                     $('#lost_name').html(data.content.lost.name);
                     $('#lost_city').html(data.content.lost.city.name);
                     $('#lost_age').html(data.content.lost.age);
@@ -499,8 +501,8 @@ function initialize() {
         }
         var polygon = new google.maps.Polygon({
             paths: coords,
-            strokeColor: color,
-            strokeOpacity: 0.2,
+            strokeColor: '#111',
+            strokeOpacity: 0.5,
             strokeWeight: 1,
             fillColor: color,
             fillOpacity: 0.2,
@@ -533,8 +535,8 @@ function initialize() {
         centerMap = map.getCenter();
         coords = coords || centerMap;
         var circle = new google.maps.Circle({
-            strokeColor: color,
-            strokeOpacity: 0.2,
+            strokeColor: '#111',
+            strokeOpacity: 0.5,
             strokeWeight: 1,
             fillColor: color,
             fillOpacity: 0.2,

@@ -60,7 +60,6 @@ $('.search-form form').submit(function(){
         'firstPageLabel'=>'Первая'
     ),
 	'columns'=>array(
-		'id',
 		'name',
 		'phone',
 		'date_created',

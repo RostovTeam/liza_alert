@@ -63,7 +63,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'firstPageLabel' => 'Первая'
     ),
     'columns' => array(
-        'id',
         'name',
        array(
             'name'=>'Активен',
