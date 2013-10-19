@@ -43,9 +43,7 @@ class MapapiController extends ApiController
                     {
                         return $v->attributes;
                     }, $areas),
-
             'lost' => LostapiController::generateContent($lost)
-
         );
 
         $this->_sendResponse(200, array('error' => 0, 'content' => $data));
@@ -53,9 +51,12 @@ class MapapiController extends ApiController
 
     public function actionCreate()
     {
+        if (!isset($_POST['lost_id']))
+        {
+            $this->_sendResponse(400, array('error' => 'No lost_id'));
+        }
 
         if (!isset($_REQUEST['Balloon']) && !isset($_REQUEST['Radar']) && !isset($_REQUEST['Area']))
-
         {
             $this->_sendResponse(400, array('error' => 'Nothing to save'));
         }
@@ -67,21 +68,23 @@ class MapapiController extends ApiController
 
         foreach ($modelnames as $postindex => $modelname)
         {
-            if (isset($_REQUEST[$postindex]) && is_array($_REQUEST[$postindex]) 
-                    && intval($_REQUEST[$postindex][0]['lost_id']))
+            if (isset($_REQUEST[$postindex]))
             {
-                $modelname::model()->deleteAllByAttributes(array('lost_id' => $_REQUEST[$postindex][0]['lost_id']));
+                $modelname::model()->deleteAllByAttributes(array('lost_id' => $_POST['lost_id']));
+            }
+            
+            if (is_array($_REQUEST[$postindex])) //&& intval($_REQUEST[$postindex][0]['lost_id']))
+            {
                 foreach ($_REQUEST[$postindex] as $key => $data)
-
                 {
                     $model = new $modelname;
                     $model->attributes = $data;
+                    $model->lost_id = $_POST['lost_id'];
 
                     if (!$model->save())
                     {
 
                         $content['validation_erros'][$postindex][$key] = $model->errors;
-
                     }
                 }
             }
@@ -94,9 +97,7 @@ class MapapiController extends ApiController
         } else
         {
             $this->_sendResponse(200, array('error' => 0, array('content' => $content)));
-
         }
     }
 
-   
 }
