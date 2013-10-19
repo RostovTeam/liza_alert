@@ -8,7 +8,7 @@ class MapapiController extends ApiController
         return array_merge(
                 array(array('allow',
                 'actions' => array('view', 'create'),
-                'users' => array('*'),
+               'roles'=>array('superuser','admin')
             )
                 ), parent::accessRules()
         );
