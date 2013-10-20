@@ -9,20 +9,21 @@ class AreaapiController extends ApiController
     {
         return array_merge(
                 array(array('allow',
-                'users' => array('*'),
+                'roles' => array('superuser', 'admin'),
+                //'users' => array('*'),
             )
                 ), parent::accessRules()
         );
     }
 
-    public function actionList($lost_id='')
+    public function actionList($lost_id = '')
     {
 
         $modelname = $this->model;
-        
-        $params=array();
-        if(!empty($lost_id))
-            $params=array('lost_id' => $lost_id);
+
+        $params = array();
+        if (!empty($lost_id))
+            $params = array('lost_id' => $lost_id);
 
         $models = $modelname::model()->findAllByAttributes($params);
 

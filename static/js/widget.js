@@ -5,7 +5,8 @@ var mapCanvas = document.getElementById('map-canvas');
 var deleteSelectBtn = document.getElementById('delete-select');
 var saveMapBtn = document.getElementById('save-map');
 var saveElementBtn = document.getElementById('save-element');
-var map = null;
+var map = null,
+    centerMap = null;
 
 var selectedElement = null;
 var editable = mapCanvas.getAttribute('data-editable') === 'true';
@@ -254,14 +255,17 @@ function saveMap() {
         a.description = area.info.description;
         areas.push(a);
     }
-
+    centerMap = map.getCenter();
     $.ajax({
         url: urlDefault + '/api/map/',
         data: {
             Balloon: balloons.length === 0 ? null : balloons,
             Radar: radars.length === 0 ? null : radars,
             Area: areas.length === 0 ? null : areas,
-            lost_id: lost_id
+            lost_id: lost_id,
+            map_lat: centerMap.lb,
+            map_lng: centerMap.mb,
+            map_zoom: map.getZoom()
         },
         type: 'post',
         dataType: 'json'
@@ -515,8 +519,7 @@ function initialize() {
         resetSelected();
     });
 
-    var geocoder = new google.maps.Geocoder(),
-        centerMap;
+    var geocoder = new google.maps.Geocoder();
 
     function drawMap() {
         function request(callback) {
@@ -555,8 +558,15 @@ function initialize() {
                     'address': data.content.lost.city.name
                 }, function (results, status) {
                     if (status === google.maps.GeocoderStatus.OK) {
-                        centerMap = results[0].geometry.location;
-                        map.setCenter(centerMap);
+                        if (data.content.lost.map_lat !== null && data.content.lost.map_lng !== null) {
+                            map.setCenter(new google.maps.LatLng(data.content.lost.map_lat, data.content.lost.map_lng));
+                        } else {
+                            centerMap = results[0].geometry.location;
+                            map.setCenter(centerMap);
+                        }
+                        if (data.content.lost.map_zoom !== null) {
+                            map.setZoom(+data.content.lost.map_zoom);
+                        }
 
                         var i;
                         for (i in data.content.ballons) {

@@ -9,6 +9,7 @@ class LostapiController extends ApiController
     {
         return array_merge(
                 array(array('allow',
+                'actions' => array('list','view'),
                 'users' => array('*'),
             )
                 ), parent::accessRules()
@@ -68,7 +69,7 @@ class LostapiController extends ApiController
 
         if ($model->photo)
         {
-            $content['photo']=array();
+            $content['photo'] = array();
             $content['photo']['original'] = Yii::app()->params['url'] . Yii::app()->params['photosRelative'] .
                     $model->photo;
             $base_filename = explode('.', $model->photo)[0];
