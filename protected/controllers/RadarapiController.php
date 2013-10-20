@@ -9,7 +9,8 @@ class RadarapiController extends ApiController
     {
         return array_merge(
                 array(array('allow',
-                'users' => array('*'),
+                    'roles'=>array('superuser','admin')
+                //'users' => array('*'),
             )
                 ), parent::accessRules()
         );
