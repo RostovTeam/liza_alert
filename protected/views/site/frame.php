@@ -1,5 +1,5 @@
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/style.css'); ?>
-<? Yii::app()->clientScript->registerScriptFile('/static/js/widget.js?ver5', CClientScript::POS_END); ?>
+<? Yii::app()->clientScript->registerScriptFile('/static/js/widget.js?ver6', CClientScript::POS_END); ?>
 <? Yii::app()->getClientScript()->registerCssFile('/static/css/bootstrap_frame.min.css'); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/bootstrap_frame.min.js', CClientScript::POS_END); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/share-panel.js', CClientScript::POS_END); ?>
