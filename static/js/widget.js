@@ -552,8 +552,10 @@ function initialize() {
                     $('#lost_cart').show();
                 }
                 status_lost = data.content.lost.status;
-                $('span[name="name"]').html(data.content.lost.coordinator.name);
-                $('span[name="phone"]').html(data.content.lost.coordinator.phone);
+                if (data.content.lost.coordinator !== null) {
+                    $('span[name="name"]').html(data.content.lost.coordinator.name);
+                    $('span[name="phone"]').html(data.content.lost.coordinator.phone);
+                }
                 geocoder.geocode({
                     'address': data.content.lost.city.name
                 }, function (results, status) {
