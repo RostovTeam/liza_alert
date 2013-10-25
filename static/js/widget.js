@@ -538,6 +538,7 @@ function initialize() {
                 if (editable === false) {
                     if (data.content.lost.photo !== null) {
                         $('#lost_photo img').attr('src', data.content.lost.photo['75x75']);
+                        $('.share-buttons-panel').data('imageurl300x300', data.content.lost.photo['300x300']);
                     }
                     if (data.content.lost.forum_link !== null) {
                         $('#lost_forum_link').html('<a style="text-decoration: underline;" href="' + data.content.lost.forum_link + '">источник</a>');
@@ -547,13 +548,14 @@ function initialize() {
                     $('#lost_age').html(data.content.lost.age);
                     $('.share-buttons-panel').data('url', data.content.lost.forum_link);
                     $('.share-buttons-panel').data('title', 'Важно! Пропал человек: ' + data.content.lost.name + ' #' + data.content.lost.city.name);
-                    $('.share-buttons-panel').data('imageurl300x300', data.content.lost.photo['300x300']);
                     $('.share-buttons-panel').data('description', data.content.lost.description);
                     $('#lost_cart').show();
                 }
                 status_lost = data.content.lost.status;
-                $('span[name="name"]').html(data.content.lost.coordinator.name);
-                $('span[name="phone"]').html(data.content.lost.coordinator.phone);
+                /*if (data.content.lost.coordinator !== null) {
+                    $('span[name="name"]').html(data.content.lost.coordinator.name);
+                    $('span[name="phone"]').html(data.content.lost.coordinator.phone);
+                }*/
                 geocoder.geocode({
                     'address': data.content.lost.city.name
                 }, function (results, status) {
