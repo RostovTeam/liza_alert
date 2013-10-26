@@ -24,6 +24,12 @@ class Lost extends CActiveRecord
 
     private $oldPhoto = null;
     private $oldFlyer = null;
+    public static $statuses = array(
+        'INITIAL' => 0,
+        'SHARING' => 1,
+        'SEARCH' => 2,
+        'FOUND' => 3
+    );
 
     /**
      * Returns the static model of the specified AR class.
@@ -41,6 +47,13 @@ class Lost extends CActiveRecord
     public function tableName()
     {
         return 'lost';
+    }
+    
+    public function defaultScope()
+    {
+        return array(
+            'with'=>array('city')
+        );
     }
 
     /**

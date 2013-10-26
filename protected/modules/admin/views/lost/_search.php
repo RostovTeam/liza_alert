@@ -19,12 +19,6 @@
 <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 200)); ?>
 
 
-
-<?php echo $form->label($model, 'status'); ?>
-<?php echo $form->textField($model, 'status'); ?>
-
-
-
     <?php echo $form->label($model, 'city_id'); ?>
     <?=
     $form->dropDownList($model, 'city_id', CHtml::listData(City::model()->findAll(), 'id', 'name'));

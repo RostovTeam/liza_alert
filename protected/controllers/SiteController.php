@@ -15,6 +15,19 @@ class SiteController extends Controller
 
     function actionFrame($id)
     {
+        $lost=Lost::model()->findByPk($id);
+        if(!$lost)
+        {
+             $this->render('frame_message',array('text'=>'Человек не найден в базе'));
+             Yii::app()->end();
+        }
+        
+        if($lost->status==Lost::$statuses['FOUND'])
+        {
+             $this->render('frame_message',array('text'=>$lost->name.' найден'));
+             Yii::app()->end();
+        }
+        
         $this->render('frame',array('editable'=>false,'lost_id'=>$id));
     }
 
