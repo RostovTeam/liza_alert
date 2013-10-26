@@ -1,6 +1,6 @@
-<? Yii::app()->getClientScript()->registerCssFile('/static/css/style.css'); ?>
+<? Yii::app()->clientScript->registerCssFile('/static/css/style.css'); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/widget.js?ver6', CClientScript::POS_END); ?>
-<? Yii::app()->getClientScript()->registerCssFile('/static/css/bootstrap_frame.min.css'); ?>
+<? Yii::app()->clientScript->registerCssFile('/static/css/bootstrap_frame.min.css'); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/bootstrap_frame.min.js', CClientScript::POS_END); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/share-panel.js', CClientScript::POS_END); ?>
 <? Yii::app()->clientScript->registerScriptFile('/static/js/vendor/jquery.maskedinput.min.js'); ?>
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label>Цвет: </label>
+                        <label>Цвет:</label>
                         <div class="controls">
                             <select name="color" style="margin-bottom: 0px;">
                                 <option value="purple">Фиолетовый</option>
