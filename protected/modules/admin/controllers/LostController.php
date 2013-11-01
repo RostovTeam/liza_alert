@@ -83,13 +83,25 @@ class LostController extends BaseAdminController
     /**
      * Manages all models.
      */
-    public function actionIndex()
+    public function actionIndex($archive=false)
     {
         $model = new Lost('search');
         $model->unsetAttributes();  // clear any default values
+        
         if (isset($_GET['Lost']))
+        {
             $model->attributes = $_GET['Lost'];
-
+        }
+        
+        if($archive)
+        {
+            $model->status=Lost::$statuses['FOUND'];
+        }
+        else
+        {
+            $model->status='<>'.Lost::$statuses['FOUND'];
+        }
+        
         $this->render('admin', array(
             'model' => $model,
         ));

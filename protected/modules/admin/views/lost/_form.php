@@ -42,7 +42,8 @@ $form = $this->beginWidget('CActiveForm', array(
     <?php echo $form->labelEx($model, 'status', array('class' => 'control-label')); ?>
     <div class="controls">
         <?=
-        $form->dropDownList($model, 'status', Yii::app()->params['lost_status']);
+        $form->dropDownList($model, 'status', array_map(function($v){return Yii::t('main',$v);}
+                                    ,array_flip(Lost::$statuses)));
         ?>
         <?php echo $form->error($model, 'status'); ?>
     </div>

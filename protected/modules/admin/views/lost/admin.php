@@ -25,9 +25,15 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h2>Управление потеряшками</h2>
 
 
+<h2>Управление потеряшками
+    <div class="btn-group"   >
+
+        <a href="<?= $this->createAbsoluteUrl('index') ?>" class="btn ">Активные</a>
+        <a id="archive_btn" href="<?= $this->createAbsoluteUrl('index', array('archive' => true)) ?>" class="btn " >Архив</a>
+    </div>
+</h2>
 
 <?php echo CHtml::link('Поиск', '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
@@ -67,19 +73,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'firstPageLabel' => 'Первая'
     ),
     'columns' => array(
-
         'name',
         array(
             'name' => 'status',
             'value' => 'Yii::app()->params["lost_status"][$data->status];'
         ),
-         array(
+        array(
             'name' => 'Город',
             'value' => '$data->city->name'
-        ),
-        array(
-            'name' => 'Координатор',
-            'value' => '$data->coordinator->name'
         ),
         'date_created',
         array(

@@ -21,7 +21,7 @@ class VolunteerapiController extends ApiController
         if (isset($_POST['Volunteer']))
         {
 
-            $model = $model = Volunteer::create($_POST['Volunteer']);
+            $model = Volunteer::create($_POST['Volunteer']);
 
             if ($model->id)
             {
@@ -30,7 +30,8 @@ class VolunteerapiController extends ApiController
             {
                 $this->_sendResponse(500, array('error' => 'validation_errors', 'errors_list' => $model->errors));
             }
-        } else
+        }
+        else
         {
             $this->_sendResponse(400, array('error' => 'POST array should contain model name as key'));
         }
