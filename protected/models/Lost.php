@@ -48,11 +48,23 @@ class Lost extends CActiveRecord
     {
         return 'lost';
     }
-    
+
     public function defaultScope()
     {
         return array(
-            'with'=>array('city')
+            'with' => array('city')
+        );
+    }
+
+    public function scopes()
+    {
+        return array(
+            'active' => array(
+                'condition' => 't.status <>' . Lost::$statuses['FOUND']
+            ),
+            'archive' => array(
+                'condition' => 't.status <>' . Lost::$statuses['FOUND']
+            )
         );
     }
 

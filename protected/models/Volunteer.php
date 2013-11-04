@@ -44,6 +44,14 @@ class Volunteer extends CActiveRecord
         );
     }
 
+    public function behaviors()
+    {
+        return array(
+            'activerecord-relation' => array(
+                'class' => 'ext.activerecord-relation.EActiveRecordRelationBehavior',
+        ));
+    }
+
     /**
      * @return array relational rules.
      */
@@ -52,6 +60,7 @@ class Volunteer extends CActiveRecord
 
         return array(
             'crew' => array(self::MANY_MANY, 'Crew', 'volunteer_crew(volunteer_id,crew_id)'),
+            'lost' => array(self::MANY_MANY, 'Lost', 'volunteer_lost(volunteer_id,lost_id)'),
         );
     }
 
@@ -114,11 +123,12 @@ class Volunteer extends CActiveRecord
     public function AvailableCrew()
     {
         $crit = new CDBCriteria;
-        $crit->addCondition('id not in(select crew_id from volunteer_crew vc
-                    join volunteer v on vc.volunteer_id=v.id where vc.volunteer_id=:volunteer_id )');
-        $crit->params=array(':volunteer_id'=>$this->id);
+        $crit->with = array('volunteer');
 
-        $crit->compare('active',1);
+        $crit->compare('volunteer.id', '<>' . $this->id);
+        $crit->addCondition('volunteer.id IS NULL', 'OR');
+
+        $crit->compare('active', 1);
         return Crew::model()->findAll($crit);
     }
 

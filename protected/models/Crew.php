@@ -28,6 +28,13 @@ class Crew extends CActiveRecord
         return parent::model($className);
     }
 
+    public function behaviors()
+    {
+        return array(
+            'activerecord-relation' => array(
+                'class' => 'ext.activerecord-relation.EActiveRecordRelationBehavior',
+        ));
+    }
     /**
      * @return string the associated database table name
      */
@@ -99,5 +106,14 @@ class Crew extends CActiveRecord
             'criteria' => $criteria,
         ));
     }
-
+    
+    public function getAvailableVolunteers()
+    {
+        $crit = new CDBCriteria;
+        $crit->with=array('lost','crew');
+        $crit->compare('lost.id',$this->lost->id);
+        $crit->addNotInCondition('`t`.`id`',array_map(function($v){return $v->id;},$this->volunteer));
+        
+        return Volunteer::model()->findAll($crit);
+    }
 }
