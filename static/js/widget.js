@@ -46,7 +46,8 @@ $('#saveVolunteers').click(function () {
         data: {
             Volunteer: {
                 name: $('#volunteersName').val(),
-                phone: $('#volunteersPhone').val()
+                phone: $('#volunteersPhone').val(),
+                lost_id: lost_id
             }
         },
         url: urlDefault + '/api/volunteer/'

@@ -54,16 +54,38 @@ class VolunteerController extends BaseAdminController
             $model->attributes = $_POST['Volunteer'];
             if ($model->save())
             {
-                if (isset($_POST['Volunteer']['crew']))
+                if (isset($_POST['Volunteer']['lost']) && is_array($_POST['Volunteer']['lost']))
                 {
-                    foreach($_POST['Volunteer']['crew'] as $crew)
+                    $losts=$model->lost;
+                    
+                    if(is_array($losts))
                     {
-                        $vc= new VolunteerCrew;
-                        
-                        $vc->crew_id=$crew;
-                        $vc->volunteer_id=$model->id;
-                        $vc->save();
+                        $losts=array_merge($losts, $_POST['Volunteer']['lost']);
                     }
+                    else
+                    {
+                        $losts=$_POST['Volunteer']['lost'];
+                    }
+                     
+                    $model->lost=$losts;
+                    $model->save();
+                }
+                
+                if (isset($_POST['Volunteer']['crew']) && is_array($_POST['Volunteer']['crew']))
+                {
+                    $crews=$model->crew;
+                    
+                    if(is_array($crews))
+                    {
+                        $crews=array_merge($crews, $_POST['Volunteer']['crew']);
+                    }
+                    else
+                    {
+                        $crews=$_POST['Volunteer']['crew'];
+                    }
+                    
+                    $model->crew=$crews;
+                    $model->save();
                 }
                 $this->redirect(array('view', 'id' => $model->id));
             }

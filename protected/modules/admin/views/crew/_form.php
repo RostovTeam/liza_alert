@@ -47,7 +47,7 @@
         <?php echo $form->labelEx($model, 'lost_id', array('class' => 'control-label')); ?>
     <div class="controls">
         <?=
-        $form->dropDownList($model, 'lost_id', CHtml::listData(Lost::model()->findAll(), 'id', 'name'));
+        $form->dropDownList($model, 'lost_id', CHtml::listData(Lost::model()->active()->findAll(), 'id', 'name'));
         ?>
         <?php echo $form->error($model, 'lost_id'); ?>
     </div>
@@ -61,7 +61,31 @@
         <?php echo $form->error($model, 'coordinator_id'); ?>
     </div>
 </div>
-
+<? if (!$model->isNewRecord): ?>
+    <div class="control-group">
+        <label  class= 'control-label'>Список волонтеров:</label>
+        <div class="controls">
+            <? if ($model->volunteer): ?>
+                <ul>
+                    <? foreach ($model->volunteer as $v): ?>
+                        <li><?= $v->name ?>  </li>
+                    <? endforeach; ?>
+                </ul>
+            <? endif; ?>
+        </div>
+    </div>
+    <div class="control-group">
+        <label  class= 'control-label'>Добавить к поиску</label>
+        <div class="controls">
+            <?=
+            CHtml::dropDownList('Crew[volunteer][]', '', CHTML::listData($model->getAvailableVolunteers(), 'id', 'name'), array('multiple' => true, 'class' => 'chosen')
+            );
+            ?><br>
+           <small>Волонтеров можно добавлять только из числа тех,
+                  кто учасвует в поиске <?=$model->lost->name?></small>
+        </div>
+    </div>
+<? endif; ?>
  <div class="control-group">
 	<div class="controls">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить',array('class'=>'btn')); ?>

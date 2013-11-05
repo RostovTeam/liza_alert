@@ -69,7 +69,30 @@ $form = $this->beginWidget('CActiveForm', array(
         </div>
     </div>
 <? endif; ?>
-
+<? if (!$model->isNewRecord): ?>
+    <div class="control-group">
+        <label  class= 'control-label'>Участвует в поиске:</label>
+        <div class="controls">
+            <? if ($model->lost): ?>
+                <ul>
+                    <? foreach ($model->lost as $lost): ?>
+                        <li><?= $lost->name ?>  </li>
+                    <? endforeach; ?>
+                </ul>
+            <? endif; ?>
+        </div>
+    </div>
+    <div class="control-group">
+        <label  class= 'control-label'>Добавить к поиску</label>
+        <div class="controls">
+            <?=
+            CHtml::dropDownList('Volunteer[lost][]', '', CHTML::listData(Lost::model()->active()->findAll(), 'id', 'name'), array('multiple' => true, 'class' => 'chosen')
+            );
+            ?><br>
+           
+        </div>
+    </div>
+<? endif; ?>
 <div class="control-group">
     <div class="controls">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', array('class' => 'btn')); ?>
