@@ -264,8 +264,8 @@ function saveMap() {
             Radar: radars.length === 0 ? null : radars,
             Area: areas.length === 0 ? null : areas,
             lost_id: lost_id,
-            map_lat: centerMap.lb,
-            map_lng: centerMap.mb,
+            map_lat: centerMap.lat(),
+            map_lng: centerMap.lng(),
             map_zoom: map.getZoom()
         },
         type: 'post',
