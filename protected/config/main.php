@@ -36,6 +36,10 @@ return array(
             'urlFormat' => 'path',
             'showScriptName' => false,
             'rules' => array(
+                //hard-code
+                '<id:\d+>' => 'site/frame',
+                
+                //general
                 array('<model>api/list', 'pattern' => 'api/<model:\w+>', 'verb' => 'GET'),
                 array('<model>api/view', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'GET'),
                 array('<model>api/update', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'PUT'),
@@ -43,7 +47,8 @@ return array(
                 array('<model>api/create', 'pattern' => 'api/<model:\w+>', 'verb' => 'POST'),
                 array('<model>api/<action>', 'pattern' => 'api/<model:\w+>/<action:\w+>'),
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:[A-Za-z]\w+>' => '<controller>/<action>',
+                //'<action:\w+>' => 'site/<action>',
             ),
         ),
         'user' => array(
@@ -54,10 +59,10 @@ return array(
         ),
         'db' => array(
             'class' => 'system.db.CDbConnection',
-            'connectionString' => 'mysql:host=localhost;port=3306;dbname=zfproj',
+            'connectionString' => 'mysql:host=localhost;port=3306;dbname=liza',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => 'root',
+            'password' => '',
             'charset' => 'utf8',
             // 'enableProfiling' => true,
             'schemaCachingDuration' => 300,

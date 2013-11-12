@@ -97,7 +97,7 @@ $form = $this->beginWidget('CActiveForm', array(
     <div class="controls">
     <?php if(!empty($model->photo)): ?>
         <div>
-            <img src="<?= Yii::app()->params['photosRelative'].$model->photo ?>">
+            <img width="400" src="<?= Yii::app()->params['photosRelative'].$model->photo ?>">
         </div>
     <?php endif; ?>
     <?php echo CHtml::activeFileField($model, 'photo'); ?>
@@ -110,7 +110,7 @@ $form = $this->beginWidget('CActiveForm', array(
     <div class="controls">
         <?php if(!empty($model->flyer)): ?>
             <div>
-                <img src="<?= Yii::app()->params['flyerRelative'].$model->flyer ?>">
+                <img width="400" src="<?= Yii::app()->params['flyerRelative'].$model->flyer ?>">
             </div>
         <?php endif; ?>
         <?php echo CHtml::activeFileField($model, 'flyer'); ?>

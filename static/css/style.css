@@ -1,4 +1,13 @@
 
+.tab-content{
+    overflow: visible;
+}
+
+legend{
+    
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 /*
     Форма входа
 */

@@ -96,6 +96,7 @@ class Lost extends CActiveRecord
             'city' => array(self::BELONGS_TO, 'City', 'city_id'),
             'coordinator' => array(self::BELONGS_TO, 'Coordinator', 'coordinator_id'),
             'radiuses' => array(self::HAS_MANY, 'Radius', 'lost_id'),
+            'volunteer'=>array(self::MANY_MANY, 'Volunteer', 'volunteer_lost(lost_id,volunteer_id)'),
         );
     }
 
